@@ -5,11 +5,25 @@ import { connect } from 'react-redux';
 import { loginRequest } from '../actions/authentication';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin(id, pw) {
+    return this.props.loginRequest(id, pw).then(
+        () => {
+          console.log(this.props.status);
+        }
+    )
+  }
+
   render() {
     return (
       <div>
         <Authentication
           mode={true}
+          handleLogin={this.handleLogin}
         />
       </div>
     );

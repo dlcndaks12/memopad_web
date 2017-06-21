@@ -15,7 +15,7 @@ export default function authentication(state = initialState, action) {
     case types.AUTH_LOGIN:
       return {
         login: {
-          status: 'WARNING'
+          status: 'WAITING'
         },
         ...state,
       };

@@ -1,0 +1,1 @@
+export const __api__ = 'http://localhost:8080';

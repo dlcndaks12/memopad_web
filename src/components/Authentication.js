@@ -11,12 +11,17 @@ class Authentication extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleChange(e) {
     let nextState = {};
     nextState[e.target.name] = e.target.value;
     this.setState(nextState);
+  }
+
+  handleLogin() {
+    this.props.handleLogin(this.state.username, this.state.password);
   }
 
   render() {
@@ -50,7 +55,7 @@ class Authentication extends Component {
         <div className="card-content">
           <div className="row">
             {inputBoxes}
-            <a className="waves-effect waves-light btn">SUBMIT</a>
+            <a onClick={this.handleLogin} className="waves-effect waves-light btn">SUBMIT</a>
           </div>
         </div>
         <div className="footer">
