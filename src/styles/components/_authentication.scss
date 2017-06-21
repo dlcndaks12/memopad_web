@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.auth {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.logo {
+  text-align: center;
+  font-weight: 100;
+  font-size: 80px;
+  user-select: none;
+}
+
+a {
+  &.logo {
+    color: #5B5B5B;
+  }
+  cursor: pointer;
+}
+
+.auth {
+  .card {
+    width: 400px;
+    margin: 0 auto;
+  }
+  .header {
+    font-size: 18px;
+  }
+  .row {
+    margin-bottom: 0;
+  }
+  .username {
+    margin-top: 0;
+  }
+  .btn {
+    width: 90%;
+  }
+  .footer {
+    border-top: 1px solid #E9E9E9;
+    padding-bottom: 21px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .auth .card {
+    width: 100%;
+  }
+  .logo {
+    font-size: 60px;
+  }
+}
