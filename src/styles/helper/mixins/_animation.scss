@@ -1,0 +1,6 @@
+@mixin fadeDown($duration) {
+    animation-name: fadeDown;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-duration: #{$duration}s;
+}
