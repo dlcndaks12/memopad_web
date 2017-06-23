@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/style.scss';
 import { Route } from 'react-router-dom';
 import { Header } from '../components';
+import { Toast } from '../common';
 import { Home, Login, Register } from '../containers';
 
 class App extends Component {
@@ -11,6 +12,10 @@ class App extends Component {
 
     return (
       <div>
+        {/* 공통영역 S */}
+        <Toast/>
+        {/* 공통영역 E */}
+
         {isAuth ? undefined : <Header/>}
         <div>
           <Route exact path="/" component={Home}/>

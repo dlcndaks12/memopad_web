@@ -1,3 +1,7 @@
+/* TOAST */
+export const TOAST_OPEN = "TOAST_OPEN";
+export const TOAST_CLOSE = "TOAST_CLOSE";
+
 /* AUTHENTICATION */
 export const AUTH_LOGIN = "AUTH_LOGIN";
 export const AUTH_LOGIN_SUCCESS = "AUTH_LOGIN_SUCCESS";

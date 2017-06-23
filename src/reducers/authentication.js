@@ -14,10 +14,10 @@ export default function authentication(state = initialState, action) {
   switch (action.type) {
     case types.AUTH_LOGIN:
       return {
+        ...state,
         login: {
           status: 'WAITING'
         },
-        ...state,
       };
     case types.AUTH_LOGIN_SUCCESS:
       return {
@@ -31,10 +31,10 @@ export default function authentication(state = initialState, action) {
       };
     case types.AUTH_LOGIN_FAILURE:
       return {
+        ...state,
         login: {
           status: 'FAILURE'
         },
-        ...state,
       };
     default:
       return state;

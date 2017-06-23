@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { CircleLoader } from '../common';
 
 class Authentication extends Component {
   constructor(props) {
@@ -14,6 +15,10 @@ class Authentication extends Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.status);
+  }
+
   handleChange(e) {
     let nextState = {};
     nextState[e.target.name] = e.target.value;
@@ -25,6 +30,10 @@ class Authentication extends Component {
   }
 
   render() {
+    const waiting = (
+      <CircleLoader/>
+    );
+
     const inputBoxes = (
       <div>
         <div className="input-field col s12 username">
@@ -55,7 +64,7 @@ class Authentication extends Component {
         <div className="card-content">
           <div className="row">
             {inputBoxes}
-            <a onClick={this.handleLogin} className="waves-effect waves-light btn">SUBMIT</a>
+            {this.props.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn">SUBMIT</a>}
           </div>
         </div>
         <div className="footer">
@@ -72,14 +81,14 @@ class Authentication extends Component {
       <div className="card-content">
         <div className="row">
           {inputBoxes}
-          <a className="waves-effect waves-light btn">CREATE</a>
+          {this.props.status === 'WAITING' ? waiting : <a className="waves-effect btn-large waves-light btn">CREATE</a>}
         </div>
       </div>
     );
 
     return (
       <div className="container auth">
-        <Link className="logo" to="/">MEMOPAD</Link>
+        <Link className="logo" to="/">Memo's</Link>
         <div className="card">
           <div className="header blue white-text center">
             <div className="card-content">{this.props.mode ? "LOGIN" : "REGISTER"}</div>
