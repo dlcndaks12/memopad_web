@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const CircleLoader = (props) => {
+const CircleLoader = () => {
   return (
     <div className="preloader-wrapper small active">
       <div className="spinner-layer spinner-blue">
@@ -54,8 +53,5 @@ const CircleLoader = (props) => {
     </div>
   );
 };
-
-CircleLoader.propTypes = {};
-CircleLoader.defaultProps = {};
 
 export default CircleLoader;

@@ -5,9 +5,6 @@ import { toastClose } from '../actions/toast';
 
 
 class Toast extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.show) {

@@ -15,10 +15,6 @@ class Authentication extends Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.status);
-  }
-
   handleChange(e) {
     let nextState = {};
     nextState[e.target.name] = e.target.value;
@@ -26,7 +22,16 @@ class Authentication extends Component {
   }
 
   handleLogin() {
-    this.props.handleLogin(this.state.username, this.state.password);
+
+    this.props.onLogin(this.state.username, this.state.password).then(
+        (success) => {
+            if(!success) {
+                this.setState({
+                    password: ''
+                });
+            }
+        }
+    );
   }
 
   render() {
@@ -88,7 +93,7 @@ class Authentication extends Component {
 
     return (
       <div className="container auth">
-        <Link className="logo" to="/">Memo's</Link>
+        <Link className="logo" to="/">Memo S</Link>
         <div className="card">
           <div className="header blue white-text center">
             <div className="card-content">{this.props.mode ? "LOGIN" : "REGISTER"}</div>

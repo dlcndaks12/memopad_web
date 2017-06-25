@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import { Authentication } from '../components';
 import { connect } from 'react-redux';
 import { loginRequest } from '../actions/authentication';
@@ -14,21 +13,19 @@ class Login extends Component {
   handleLogin(id, pw) {
     return this.props.loginRequest(id, pw).then(
         () => {
-          console.log('handleLogin . then : ' + this.props.status);
-
           if(this.props.status === 'SUCCESS') {
             let loginData = {
               isLoggedIn: true,
               username: id
             };
 
-            document.cookie = 'key=' + btoa(JSON.stringify(loginData));
+            document.cookie = '_key=' + btoa(JSON.stringify(loginData));
 
-            this.props.toastOpen('Success', 1500);
+            this.props.toastOpen('Welcome, ' + id, 2000);
             this.props.history.push('/');
             return true;
           } else {
-            this.props.toastOpen('Fail', 1500);
+            this.props.toastOpen('Incorrect username or password', 1500);
             return false;
           }
         }
@@ -40,7 +37,7 @@ class Login extends Component {
       <div>
         <Authentication
           mode={true}
-          handleLogin={this.handleLogin}
+          onLogin={this.handleLogin}
           status={this.props.status}
         />
       </div>
@@ -57,16 +54,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loginRequest: (id, pw) => {
-      return dispatch(loginRequest(id,pw));
+      return dispatch(loginRequest(id, pw));
     },
     toastOpen: (content, time) => {
       return dispatch(toastOpen(content, time));
     }
   };
 };
-
-Login.propTypes = {};
-Login.defaultProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
