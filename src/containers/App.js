@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import '../styles/style.scss';
+import '../resources/styles/style.scss';
 import { Route } from 'react-router-dom';
 import { Header } from '../components';
-import { Toast } from '../common';
+import { Toast } from '../components';
 import { Home, Login, Register } from '../containers';
 
 class App extends Component {

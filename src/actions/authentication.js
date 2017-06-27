@@ -7,7 +7,7 @@ import {
   AUTH_REGISTER_FAILURE,
 } from './ActionTypes';
 import axios from 'axios';
-import * as path from '../utils/path';
+import * as path from '../config/path';
 
 
 /*============================================================================

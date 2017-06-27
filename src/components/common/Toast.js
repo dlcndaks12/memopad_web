@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toastClose } from '../actions/toast';
+import { toastClose } from '../../actions/toast';
 
 
 class Toast extends Component {

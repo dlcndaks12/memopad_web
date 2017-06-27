@@ -18,7 +18,6 @@ class Login extends Component {
               isLoggedIn: true,
               username: id
             };
-
             document.cookie = '_key=' + btoa(JSON.stringify(loginData));
 
             this.props.toastOpen('Welcome, ' + id, 2000);
@@ -45,22 +44,18 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    status: state.authentication.login.status
-  };
-};
+const mapStateToProps = (state) => ({
+  status: state.authentication.login.status
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginRequest: (id, pw) => {
-      return dispatch(loginRequest(id, pw));
-    },
-    toastOpen: (content, time) => {
-      return dispatch(toastOpen(content, time));
-    }
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  loginRequest: (id, pw) => {
+    return dispatch(loginRequest(id, pw));
+  },
+  toastOpen: (content, time) => {
+    return dispatch(toastOpen(content, time));
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
