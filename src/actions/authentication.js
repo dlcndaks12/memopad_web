@@ -25,9 +25,16 @@ export function registerRequest(username, password) {
       id: username,
       password: password
     }).then((response) => {
-      dispatch(registerSuccess());
+      console.log('then', response);
+      const data = response.data;
+      if (data.result === 'ok') {
+        dispatch(registerSuccess());
+      } else {
+        dispatch(registerFailure(data.message));
+      }
     }).catch((error) => {
-      dispatch(registerFailure(error.response.data.code));
+      console.log('catch', error);
+      dispatch(registerFailure(error.response.data.message));
     });
   };
 }
@@ -44,10 +51,10 @@ export function registerSuccess() {
   };
 }
 
-export function registerFailure(error) {
+export function registerFailure(message) {
   return {
     type: AUTH_REGISTER_FAILURE,
-    error
+    message
   };
 }
 
@@ -71,6 +78,7 @@ export function loginRequest(username, password) {
         dispatch(loginFailure());
       }
     }).catch((error) => {
+      console.log(error);
       dispatch(loginFailure());
     });
   };

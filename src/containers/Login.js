@@ -12,22 +12,22 @@ class Login extends Component {
 
   handleLogin(id, pw) {
     return this.props.loginRequest(id, pw).then(
-        () => {
-          if(this.props.status === 'SUCCESS') {
-            let loginData = {
-              isLoggedIn: true,
-              username: id
-            };
-            document.cookie = '_key=' + btoa(JSON.stringify(loginData));
+      () => {
+        if(this.props.status === 'SUCCESS') {
+          let loginData = {
+            isLoggedIn: true,
+            username: id
+          };
+          document.cookie = '_key=' + btoa(JSON.stringify(loginData));
 
-            this.props.toastOpen('Welcome, ' + id, 2000);
-            this.props.history.push('/');
-            return true;
-          } else {
-            this.props.toastOpen('Incorrect username or password', 1500);
-            return false;
-          }
+          this.props.toastOpen('Welcome, ' + id, 3000);
+          this.props.history.push('/');
+          return true;
+        } else {
+          this.props.toastOpen('Incorrect username or password', 3000);
+          return false;
         }
+      }
     )
   }
 
@@ -49,12 +49,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loginRequest: (id, pw) => {
-    return dispatch(loginRequest(id, pw));
-  },
-  toastOpen: (content, time) => {
-    return dispatch(toastOpen(content, time));
-  }
+  loginRequest: (id, pw) => dispatch(loginRequest(id, pw)),
+  toastOpen: (content, time) => dispatch(toastOpen(content, time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
