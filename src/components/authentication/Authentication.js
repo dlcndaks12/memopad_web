@@ -74,7 +74,6 @@ class Authentication extends Component {
 
     this.props.onRegister(id, pw).then(
       (result) => {
-        console.log(result);
         if(!result) {
           this.setState({
             username: '',

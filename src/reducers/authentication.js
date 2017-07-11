@@ -2,16 +2,15 @@ import * as types from '../actions/ActionTypes';
 
 const initialState = {
   login: {
-    status: 'INIT'
+    status: 'INIT',
+    id: '',
+    key: '',
   },
   register: {
     status: 'INIT',
     message: '',
   },
-  status: {
-    isLoggedIn: false,
-    currentUser: ''
-  }
+  auth: {},
 };
 
 export default function authentication(state = initialState, action) {
@@ -20,6 +19,7 @@ export default function authentication(state = initialState, action) {
       return {
         ...state,
         login: {
+          ...state.login,
           status: 'WAITING'
         },
       };
@@ -27,17 +27,17 @@ export default function authentication(state = initialState, action) {
       return {
         ...state,
         login: {
-          status: 'SUCCESS'
+          ...state.login,
+          status: 'SUCCESS',
+          id: action.id,
+          key: action.key,
         },
-        status: {
-          isLoggedIn: true,
-          currentUser: action.username
-        }
       };
     case types.AUTH_LOGIN_FAILURE:
       return {
         ...state,
         login: {
+          ...state.login,
           status: 'FAILURE'
         },
       };
@@ -45,6 +45,7 @@ export default function authentication(state = initialState, action) {
       return {
         ...state,
         register: {
+          ...state.register,
           status: 'WAITING'
         },
       };
@@ -52,6 +53,7 @@ export default function authentication(state = initialState, action) {
       return {
         ...state,
         register: {
+          ...state.register,
           status: 'SUCCESS'
         },
       };
@@ -59,9 +61,15 @@ export default function authentication(state = initialState, action) {
       return {
         ...state,
         register: {
+          ...state.register,
           status: 'FAILURE',
           message: action.message,
         },
+      };
+    case types.AUTH_INFO:
+      return {
+        ...state,
+        auth: action.auth,
       };
     default:
       return state;

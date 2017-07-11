@@ -5,6 +5,7 @@ import {
   AUTH_REGISTER,
   AUTH_REGISTER_SUCCESS,
   AUTH_REGISTER_FAILURE,
+  AUTH_INFO,
 } from './ActionTypes';
 import axios from 'axios';
 import * as path from '../config/path';
@@ -25,16 +26,14 @@ export function registerRequest(username, password) {
       id: username,
       password: password
     }).then((response) => {
-      console.log('then', response);
-      const data = response.data;
-      if (data.result === 'ok') {
+      if (response.status === 201) {
         dispatch(registerSuccess());
       } else {
-        dispatch(registerFailure(data.message));
+        dispatch(registerFailure(response.status));
       }
     }).catch((error) => {
-      console.log('catch', error);
-      dispatch(registerFailure(error.response.data.message));
+      const response = error.response;
+      dispatch(registerFailure(response.data.message));
     });
   };
 }
@@ -59,20 +58,19 @@ export function registerFailure(message) {
 }
 
 /* LOGIN */
-export function loginRequest(username, password) {
+export function loginRequest(id, password) {
   return (dispatch) => {
     // Inform Login API is starting
     dispatch(login());
 
     // API Request
     return axios.post(`${path.__api__}/api/account/signin`, {
-      id: username,
+      id: id,
       password: password
     }).then((response) => {
-      const data = response.data;
-      if (data.result === 'ok') {
+      if (response.status === 200) {
         // SUCCEED
-        dispatch(loginSuccess(username));
+        dispatch(loginSuccess(id, response.data.key));
       } else {
         // FAILED
         dispatch(loginFailure());
@@ -90,15 +88,37 @@ export function login() {
   };
 }
 
-export function loginSuccess(username) {
+export function loginSuccess(id, key) {
   return {
     type: AUTH_LOGIN_SUCCESS,
-    username
+    id,
+    key,
   };
 }
 
 export function loginFailure() {
   return {
     type: AUTH_LOGIN_FAILURE
+  };
+}
+
+/* AUTH CHECK */
+export function auth() {
+  return (dispatch) => {
+    // API Request
+    return axios.get(`${path.__api__}/api/account/auth`
+    ).then((response) => {
+      console.log(response);
+      dispatch(authInfo(response.data));
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+}
+
+export function authInfo(auth) {
+  return {
+    type: AUTH_INFO,
+    auth: auth,
   };
 }

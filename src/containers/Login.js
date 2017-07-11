@@ -13,12 +13,8 @@ class Login extends Component {
   handleLogin(id, pw) {
     return this.props.loginRequest(id, pw).then(
       () => {
-        if(this.props.status === 'SUCCESS') {
-          let loginData = {
-            isLoggedIn: true,
-            username: id
-          };
-          document.cookie = '_key=' + btoa(JSON.stringify(loginData));
+        if(this.props.login.status === 'SUCCESS') {
+          document.cookie = '_key=' + this.props.login.key;
 
           this.props.toastOpen('Welcome, ' + id, 3000);
           this.props.history.push('/');
@@ -45,7 +41,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  status: state.authentication.login.status
+  login: state.authentication.login
 });
 
 const mapDispatchToProps = (dispatch) => ({
