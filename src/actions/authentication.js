@@ -108,7 +108,7 @@ export function auth() {
     // API Request
     return axios.get(`${path.__api__}/api/account/auth`
     ).then((response) => {
-      console.log(response);
+      sessionStorage.setItem('id', response.data.auth.id);
       dispatch(authInfo(response.data));
     }).catch((error) => {
       console.log(error);

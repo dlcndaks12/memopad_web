@@ -10,7 +10,10 @@ class Root extends Component {
   componentDidMount() {
     return this.props.auth().then(
       () => {
-        console.log('auth then :: ', this.props.auth);
+        console.log(this.props.auth.id);
+        if(this.props.auth.id === undefined) {
+          //로그인성공했을때세션굽고세션이용하기로
+        }
       }
     );
   }

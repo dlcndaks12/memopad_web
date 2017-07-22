@@ -1,11 +1,33 @@
 import React, { Component } from 'react';
-import '../resources/styles/style.scss';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import { auth } from '../actions/authentication';
+
+import '../resources/styles/style.scss';
+
 import { Header } from '../components';
 import { Toast } from '../components';
 import { Root, Home, Login, Register } from '../containers';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoggedIn: true,
+    };
+  }
+
+  componentDidMount() {
+    return this.props.auth().then(
+      () => {
+        if(this.props.auth.id === undefined) {
+        }
+      }
+    );
+  }
+
+
   render() {
     let re = /(login|register)/;
     let isAuth = re.test(window.location.pathname);
@@ -28,4 +50,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  auth: state.authentication.auth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  auth: () => dispatch(auth()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
