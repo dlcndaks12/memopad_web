@@ -16,15 +16,6 @@ class Authentication extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-  }
-
-  handleKeyPress(e) {
-    if(e.charCode === 13) {
-      if(this.props.mode) {
-        this.handleLogin();
-      }
-    }
   }
 
   handleChange(e) {
@@ -38,12 +29,12 @@ class Authentication extends Component {
     const pw = this.state.password;
 
     if(id === '') {
-      this.props.toastOpen('ID를 입력해주세요.', 3000);
+      toastOpen('ID를 입력해주세요.', 3000);
       return false;
     }
 
     if(pw === '') {
-      this.props.toastOpen('비밀번호를 입력해주세요.', 3000);
+      toastOpen('비밀번호를 입력해주세요.', 3000);
       return false;
     }
 
@@ -109,7 +100,6 @@ class Authentication extends Component {
             className="validate"
             value={this.state.password}
             onChange={this.handleChange}
-            onKeyPress={this.handleKeyPress}
           />
         </div>
       </div>
@@ -120,7 +110,7 @@ class Authentication extends Component {
         <div className="card-content">
           <div className="row">
             {inputBoxes}
-            {this.props.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn">SUBMIT</a>}
+            {this.props.login.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn">SUBMIT</a>}
           </div>
         </div>
         <div className="footer">
@@ -137,7 +127,7 @@ class Authentication extends Component {
       <div className="card-content">
         <div className="row">
           {inputBoxes}
-          {this.props.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn">CREATE</a>}
+          {this.props.register.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn">CREATE</a>}
         </div>
       </div>
     );
@@ -156,6 +146,10 @@ class Authentication extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  login: state.authentication.login,
+  register: state.authentication.register,
+});
 const mapDispatchToProps = (dispatch) => ({
   toastOpen: (content, time) => dispatch(toastOpen(content, time))
 });
@@ -171,4 +165,4 @@ Authentication.defaultProps = {
   onRegister: (id, pw) => { console.error("register function not defined"); }
 };
 
-export default connect(null, mapDispatchToProps)(Authentication);
+export default connect(mapStateToProps, mapDispatchToProps)(Authentication);

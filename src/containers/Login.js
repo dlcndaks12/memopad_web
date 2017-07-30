@@ -14,13 +14,17 @@ class Login extends Component {
     return this.props.loginRequest(id, pw).then(
       () => {
         if(this.props.login.status === 'SUCCESS') {
-          document.cookie = '_key=' + this.props.login.key;
+          let loginData = {
+            isLoggedIn: true,
+            username: id
+          };
+          document.cookie = '_key=' + btoa(JSON.stringify(loginData));
 
-          this.props.toastOpen('Welcome, ' + id, 3000);
+          this.props.toastOpen('Welcome, ' + id, 2000);
           this.props.history.push('/');
           return true;
         } else {
-          this.props.toastOpen('Incorrect username or password', 3000);
+          this.props.toastOpen('username 또는 password가 틀렸습니다.', 1500);
           return false;
         }
       }
@@ -33,7 +37,6 @@ class Login extends Component {
         <Authentication
           mode={true}
           onLogin={this.handleLogin}
-          status={this.props.status}
         />
       </div>
     );

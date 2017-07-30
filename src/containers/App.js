@@ -1,36 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
-import { auth } from '../actions/authentication';
-
 import '../resources/styles/style.scss';
-
-import { Header } from '../components';
-import { Toast } from '../components';
-import { Root, Home, Login, Register } from '../containers';
+import { Route } from 'react-router-dom';
+import { Header, Toast, PrivateRoute } from '../components';
+import { Home, Login, Register } from '../containers';
+import { authRequest } from '../actions/authentication';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoggedIn: true,
-    };
-  }
-
-  componentDidMount() {
-    return this.props.auth().then(
-      () => {
-        if(this.props.auth.id === undefined) {
-        }
-      }
-    );
-  }
-
 
   render() {
-    let re = /(login|register)/;
-    let isAuth = re.test(window.location.pathname);
+    /*let re = /(login|register)/;
+    let isAuth = re.test(window.location.pathname);*/
+    let isLoggined = sessionStorage.getItem('_key') !== null;
 
     return (
       <div>
@@ -38,24 +19,19 @@ class App extends Component {
         <Toast/>
         {/* 공통영역 E */}
 
-        {isAuth ? undefined : <Header/>}
+       {/* {isAuth ? '' : <Header/>}*/}
         <div>
-          <Route path="/" component={Root}/>
-          <Route exact path="/" component={Home}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
+          <PrivateRoute exact path="/" component={Home} isLoggined={isLoggined} />
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.authentication.auth,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  auth: () => dispatch(auth()),
+  auth: dispatch(authRequest()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

@@ -5,7 +5,6 @@ import {
   AUTH_REGISTER,
   AUTH_REGISTER_SUCCESS,
   AUTH_REGISTER_FAILURE,
-  AUTH_INFO,
 } from './ActionTypes';
 import axios from 'axios';
 import * as path from '../config/path';
@@ -14,6 +13,27 @@ import * as path from '../config/path';
 /*============================================================================
  authentication
  ==============================================================================*/
+
+/* AUTH */
+export function authRequest() {
+  return (dispatch) => {
+    // API Request
+    return axios.post(`${path.__api__}/api/account/auth`, {
+
+    }).then((response) => {
+      console.log('then', response);
+      const data = response.data;
+      if (data.result === 'ok') {
+        dispatch(registerSuccess());
+      } else {
+        dispatch(registerFailure(data.code));
+      }
+    }).catch((error) => {
+      console.log('catch', error.response);
+      dispatch(registerFailure(error.response));
+    });
+  };
+}
 
 /* REGISTER */
 export function registerRequest(username, password) {
@@ -26,14 +46,16 @@ export function registerRequest(username, password) {
       id: username,
       password: password
     }).then((response) => {
-      if (response.status === 201) {
+      console.log('then', response);
+      const data = response.data;
+      if (data.result === 'ok') {
         dispatch(registerSuccess());
       } else {
-        dispatch(registerFailure(response.status));
+        dispatch(registerFailure(data.code));
       }
     }).catch((error) => {
-      const response = error.response;
-      dispatch(registerFailure(response.data.message));
+      console.log('catch', error.response);
+      dispatch(registerFailure(error.response));
     });
   };
 }
@@ -50,27 +72,30 @@ export function registerSuccess() {
   };
 }
 
-export function registerFailure(message) {
+export function registerFailure(error) {
   return {
     type: AUTH_REGISTER_FAILURE,
-    message
+    error
   };
 }
 
 /* LOGIN */
-export function loginRequest(id, password) {
+export function loginRequest(username, password) {
   return (dispatch) => {
     // Inform Login API is starting
     dispatch(login());
 
     // API Request
     return axios.post(`${path.__api__}/api/account/signin`, {
-      id: id,
+      id: username,
       password: password
     }).then((response) => {
-      if (response.status === 200) {
+      const data = response.data;
+      if (data.result === 'ok') {
         // SUCCEED
-        dispatch(loginSuccess(id, response.data.key));
+        dispatch(loginSuccess(username));
+        localStorage.setItem('_key', data.key);
+        sessionStorage.setItem('_key', data.key);
       } else {
         // FAILED
         dispatch(loginFailure());
@@ -88,37 +113,15 @@ export function login() {
   };
 }
 
-export function loginSuccess(id, key) {
+export function loginSuccess(username) {
   return {
     type: AUTH_LOGIN_SUCCESS,
-    id,
-    key,
+    username
   };
 }
 
 export function loginFailure() {
   return {
     type: AUTH_LOGIN_FAILURE
-  };
-}
-
-/* AUTH CHECK */
-export function auth() {
-  return (dispatch) => {
-    // API Request
-    return axios.get(`${path.__api__}/api/account/auth`
-    ).then((response) => {
-      sessionStorage.setItem('id', response.data.auth.id);
-      dispatch(authInfo(response.data));
-    }).catch((error) => {
-      console.log(error);
-    });
-  };
-}
-
-export function authInfo(auth) {
-  return {
-    type: AUTH_INFO,
-    auth: auth,
   };
 }

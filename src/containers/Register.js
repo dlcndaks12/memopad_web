@@ -13,12 +13,14 @@ class Register extends Component {
   handleRegister(id, pw) {
     return this.props.registerRequest(id, pw).then(
       () => {
-        if(this.props.status === "SUCCESS") {
-          this.props.toastOpen('Success! Please log in.', 3000);
-          this.props.history.push('/');
+        if(this.props.register.status === "SUCCESS") {
+          this.props.toastOpen('가입이 완료되었습니다. 로그인 해주세요.', 2000);
+          this.props.history.push('/login');
           return true;
         } else {
-          this.props.toastOpen(this.props.message, 3000);
+          if(this.props.register.error.status === 409) {
+            this.props.toastOpen("이미 가입된 username입니다.", 2000);
+          }
           return false;
         }
       }
@@ -31,7 +33,6 @@ class Register extends Component {
         <Authentication
           mode={false}
           onRegister={this.handleRegister}
-          status={this.props.status}
         />
       </div>
     );
@@ -39,8 +40,7 @@ class Register extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  status: state.authentication.register.status,
-  message: state.authentication.register.message,
+  register: state.authentication.register,
 });
 
 const mapDispatchToProps = (dispatch) => ({
