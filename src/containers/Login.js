@@ -14,17 +14,11 @@ class Login extends Component {
     return this.props.loginRequest(id, pw).then(
       () => {
         if(this.props.login.status === 'SUCCESS') {
-          let loginData = {
-            isLoggedIn: true,
-            username: id
-          };
-          document.cookie = '_key=' + btoa(JSON.stringify(loginData));
-
-          this.props.toastOpen('Welcome, ' + id, 2000);
+          this.props.toastOpen(`${id}님 환영합니다.`, 3000);
           this.props.history.push('/');
           return true;
         } else {
-          this.props.toastOpen('username 또는 password가 틀렸습니다.', 1500);
+          this.props.toastOpen('username 또는 password가 틀렸습니다.', 2000);
           return false;
         }
       }

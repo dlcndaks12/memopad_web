@@ -1,31 +1,27 @@
-import React, { PropTypes } from 'react';
+import React, {Component} from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ component, exact = false, path, isLoggined }) => (
-  <Route
-    exact={exact}
-    path={path}
-    render={props => (
-      isLoggined ? (
-        React.createElement(component, props)
-      ) : (
-        <Redirect to={{
-          pathname: '/login',
-          state: { from: props.location }
-        }}/>
-      )
-    )}
-  />
-);
+class PrivateRoute extends Component {
 
-const { object, bool, string, func } = PropTypes;
+    render() {
 
-PrivateRoute.propTypes = {
-  component: func.isRequired,
-  exact: bool,
-  path: string.isRequired,
-  isLoggined: bool.isRequired,
-  location: object
-};
+        return (
+            <Route
+                exact={this.props.exact}
+                path={this.props.path}
+                render={props => (
+                    this.props.isLoggedIn ? (
+                        <this.props.component {...props}/>
+                    ) : (
+                        <Redirect to={{
+                            pathname: '/login',
+                            state: { from: props.location }
+                        }}/>
+                    )
+                )}
+            />
+        );
+    }
+}
 
 export default PrivateRoute;
