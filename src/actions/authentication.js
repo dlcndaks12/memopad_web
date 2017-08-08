@@ -35,6 +35,54 @@ export function authRequest() {
     };
 }
 
+/* LOGIN */
+export function loginRequest(username, password) {
+    return (dispatch) => {
+        // Inform Login API is starting
+        dispatch(login());
+
+        // API Request
+        return axios.post(`${path.__api__}/api/account/signin`, {
+            id: username,
+            password: password
+        }).then((response) => {
+            const data = response.data;
+            if (data.result === 'ok') {
+                // SUCCEED
+                localStorage.setItem('_key', data.key);
+                sessionStorage.setItem('_key', data.key);
+                dispatch(loginSuccess(username));
+            } else {
+                // FAILED
+                dispatch(loginFailure());
+            }
+        }).catch((error) => {
+            console.dir('error', error);
+            dispatch(loginFailure(error.message));
+        });
+    };
+}
+
+export function login() {
+    return {
+        type: AUTH_LOGIN
+    };
+}
+
+export function loginSuccess(username) {
+    return {
+        type: AUTH_LOGIN_SUCCESS,
+        username
+    };
+}
+
+export function loginFailure(message) {
+    return {
+        type: AUTH_LOGIN_FAILURE,
+        message: message,
+    };
+}
+
 /* REGISTER */
 export function registerRequest(username, password) {
     return (dispatch) => {
@@ -76,52 +124,5 @@ export function registerFailure(error) {
     return {
         type: AUTH_REGISTER_FAILURE,
         error
-    };
-}
-
-/* LOGIN */
-export function loginRequest(username, password) {
-    return (dispatch) => {
-        // Inform Login API is starting
-        dispatch(login());
-
-        // API Request
-        return axios.post(`${path.__api__}/api/account/signin`, {
-            id: username,
-            password: password
-        }).then((response) => {
-            const data = response.data;
-            if (data.result === 'ok') {
-                // SUCCEED
-                localStorage.setItem('_key', data.key);
-                sessionStorage.setItem('_key', data.key);
-                dispatch(loginSuccess(username));
-            } else {
-                // FAILED
-                dispatch(loginFailure());
-            }
-        }).catch((error) => {
-            console.log(error);
-            dispatch(loginFailure());
-        });
-    };
-}
-
-export function login() {
-    return {
-        type: AUTH_LOGIN
-    };
-}
-
-export function loginSuccess(username) {
-    return {
-        type: AUTH_LOGIN_SUCCESS,
-        username
-    };
-}
-
-export function loginFailure() {
-    return {
-        type: AUTH_LOGIN_FAILURE
     };
 }

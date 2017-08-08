@@ -14,7 +14,6 @@ class App extends Component {
             key: localStorage.getItem('_key')
         };
 
-        console.log(this.state.key);
         if(this.state.key !== null) {
             console.log('자동 로그인 절차');
         }
