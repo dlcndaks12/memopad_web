@@ -30,8 +30,8 @@ create-react-app
 1. [ cd memopad_web ]을 입력하여 프로젝트 경로로 들어옵니다.
 2. [ npm install ]을 입력하여 의존성을 띠고있는 노드 모듈들을 일괄 설치합니다.
 3. [ npm run start ]를 입력하여 실행 스크립트를 호출합니다.
-단, 2번 항목의 경우 최근 npm install 수행 이후 package.json에 추가기술된 의존성이 없는 경우 생략 가능
 ```
+단, 2번 항목의 경우 최근 npm install 수행 이후 package.json에 추가기술된 의존성이 없는 경우 생략 가능
 
 ### 배포환경 ###
 
