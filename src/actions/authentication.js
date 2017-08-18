@@ -9,7 +9,6 @@ import {
 import axios from 'axios';
 import * as path from '../config/path';
 
-
 /*============================================================================
  authentication
  ==============================================================================*/
@@ -18,7 +17,7 @@ import * as path from '../config/path';
 export function authRequest() {
     return (dispatch) => {
         // API Request
-        return axios.post(`${path.__api__}/api/account/auth`, {
+        return axios.post(`${path.__api__}/api/user/auth`, {
 
         }).then((response) => {
             console.log('then', response);
@@ -42,7 +41,7 @@ export function loginRequest(username, password) {
         dispatch(login());
 
         // API Request
-        return axios.post(`${path.__api__}/api/account/signin`, {
+        return axios.post(`${path.__api__}/api/user/signin`, {
             id: username,
             password: password
         }).then((response) => {
@@ -90,20 +89,19 @@ export function registerRequest(username, password) {
         dispatch(register());
 
         // API Request
-        return axios.post(`${path.__api__}/api/account/signup`, {
+        return axios.post(`${path.__api__}/api/user/signup`, {
             id: username,
             password: password
         }).then((response) => {
             console.log('then', response);
             const data = response.data;
-            if (data.result === 'ok') {
-                dispatch(registerSuccess());
+            if (data.result === 'OK') {
+                dispatch(registerSuccess(data));
             } else {
-                dispatch(registerFailure(data.code));
+                dispatch(registerFailure(data));
             }
         }).catch((error) => {
-            console.log('catch', error.response);
-            dispatch(registerFailure(error.response));
+            dispatch(registerFailure(error.response.data));
         });
     };
 }
@@ -114,15 +112,16 @@ export function register() {
     };
 }
 
-export function registerSuccess() {
+export function registerSuccess(response) {
     return {
-        type: AUTH_REGISTER_SUCCESS
+        type: AUTH_REGISTER_SUCCESS,
+        response
     };
 }
 
-export function registerFailure(error) {
+export function registerFailure(response) {
     return {
         type: AUTH_REGISTER_FAILURE,
-        error
+        response
     };
 }

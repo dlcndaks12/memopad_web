@@ -7,7 +7,7 @@ const initialState = {
     },
     register: {
         status: 'INIT',
-        error: '',
+        message: '',
     },
     status: {
         isLoggedIn: false,
@@ -54,7 +54,8 @@ export default function authentication(state = initialState, action) {
             return {
                 ...state,
                 register: {
-                    status: 'SUCCESS'
+                    status: 'SUCCESS',
+                    message: action.response.message,
                 }
             };
         case types.AUTH_REGISTER_FAILURE:
@@ -62,7 +63,7 @@ export default function authentication(state = initialState, action) {
                 ...state,
                 register: {
                     status: 'FAILURE',
-                    error: action.error,
+                    message: action.response.message,
                 },
             };
         default:
