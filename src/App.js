@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../resources/styles/style.scss';
-import { Route, withRouter } from 'react-router-dom';
-import { Header, Toast, PrivateRoute } from '../components';
-import { Home, Login, Register } from '../containers';
-import { authRequest } from '../actions/authentication';
+import 'resources/styles/style.scss';
+import { Route, withRouter, Switch } from 'react-router-dom';
+import { Header, Toast, PrivateRoute } from 'components';
+import { Home, Login, Register, NoMatch } from 'pages';
+import { authRequest } from 'actions/authentication';
 
 class App extends Component {
     constructor(props) {
@@ -36,8 +36,11 @@ class App extends Component {
 
                 <div>
                     <PrivateRoute exact path="/" component={Home} isLoggedIn={isLoggedIn}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
+                    <Switch>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/register" component={Register}/>
+                        <Route path="*" component={NoMatch}/>
+                    </Switch>
                 </div>
             </div>
         );

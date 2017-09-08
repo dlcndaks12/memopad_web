@@ -32,7 +32,19 @@ module.exports = {
   // These are the "entry points" to our application.
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
-  entry: [
+  // 코드스플리팅을 위한 vendor설정
+  entry: {
+    dev: 'react-error-overlay',
+    vendor: [
+      require.resolve('./polyfills'),
+      'react',
+      'react-dom',
+      'react-router-dom',
+    ],
+    app: ['react-dev-utils/webpackHotDevClient', paths.appIndexJs]
+  },
+  // 기존 entry 소스
+  /*entry: [
     // Include an alternative client for WebpackDevServer. A client's job is to
     // connect to WebpackDevServer by a socket and get notified about changes.
     // When you save a file, the client will either apply hot updates (in case
@@ -53,7 +65,7 @@ module.exports = {
     // We include the app code last so that if there is a runtime error during
     // initialization, it doesn't blow up the WebpackDevServer client, and
     // changing JS code would still trigger a refresh.
-  ],
+  ],*/
   output: {
     // Next line is not used in dev but WebpackDevServer crashes without it:
     path: paths.appBuild,
@@ -62,9 +74,15 @@ module.exports = {
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
-    filename: 'static/js/bundle.js',
+    // 기존의 filename
+    // filename: 'static/js/bundle.js',
+    // 코드스플리팅을 위한 설정
+    filename: 'static/js/[name].[hash].js',
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: 'static/js/[name].chunk.js',
+    // 기존의 chunkFilename
+    // chunkFilename: 'static/js/[name].chunk.js',
+    // 코드스플리팅을 위한 설정
+    chunkFilename: 'static/js/[name].[chunkhash].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location
@@ -246,6 +264,11 @@ module.exports = {
     ],
   },
   plugins: [
+    // 코드 스플리팅을 위한 CommonsChunkPlugin 플러그인
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      // filename: 'vendor.js' // 이런식으로 파일이름을 지정해 줄 수도 있습니다. (hash 생략가능)
+    }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
