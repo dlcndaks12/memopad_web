@@ -38,7 +38,7 @@ class Header extends Component {
         return (
             <nav>
               <div className="nav-wrapper blue darken-1">
-                <Link to="/" className="brand-logo center">MEMOPAD</Link>
+                <Link to="/" className="brand-logo center">MEMO' S</Link>
 
                 <ul>
                   <li><a><i className="material-icons">search</i></a></li>

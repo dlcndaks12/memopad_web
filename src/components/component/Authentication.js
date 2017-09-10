@@ -114,7 +114,7 @@ class Authentication extends Component {
               <div className="card-content">
                 <div className="row">
                     {inputBoxes}
-                    {this.props.login.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn">SUBMIT</a>}
+                    {this.props.login.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue lighten-2">SUBMIT</a>}
                 </div>
               </div>
               <div className="footer">
@@ -131,14 +131,14 @@ class Authentication extends Component {
             <div className="card-content">
               <div className="row">
                   {inputBoxes}
-                  {this.props.register.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn">CREATE</a>}
+                  {this.props.register.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue lighten-2">CREATE</a>}
               </div>
             </div>
         );
 
         return (
             <div className="container auth">
-              <Link className="logo" to="/">Memo S</Link>
+              <Link className="logo" to="/">MEMO' S</Link>
               <div className="card">
                 <div className="header blue white-text center">
                   <div className="card-content">{this.props.mode ? "LOGIN" : "REGISTER"}</div>

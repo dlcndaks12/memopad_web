@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 class NoMatch extends Component {
   render() {
     return (
-      <div>
-        No Match
+      <div className="container">
+        <h4 className="center-align">No Match Page</h4>
       </div>
     );
   }

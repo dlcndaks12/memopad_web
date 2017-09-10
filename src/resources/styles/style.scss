@@ -1,11 +1,14 @@
 @charset "UTF-8";
 
-@import "helper/_mixins";
-@import "helper/_variables";
+@import "helper/mixins";
+@import "helper/variables";
 
-@import "groundworks/_font-face";
-@import "groundworks/_groundwork";
+@import "groundworks/font-face";
+@import "groundworks/groundwork";
+
+// layout
+@import "layout/header";
 
 // components
-@import "components/_toast";
-@import "components/_authentication";
+@import "components/toast";
+@import "components/authentication";
