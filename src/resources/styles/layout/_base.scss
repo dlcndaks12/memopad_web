@@ -1,0 +1,33 @@
+#root {
+    /* label color */
+    .input-field label {
+        //color: $point-color1;
+    }
+    /* label focus color */
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=password]:focus + label {
+        color: $point-color1;
+    }
+    /* label underline focus color */
+    .input-field input[type=text]:focus,
+    .input-field input[type=password]:focus {
+        border-bottom: 1px solid $point-color1;
+        box-shadow: 0 1px 0 0 $point-color1;
+    }
+    /* valid color */
+    .input-field input[type=text].valid,
+    .input-field input[type=password].valid {
+        border-bottom: 1px solid $point-color1;
+        box-shadow: 0 1px 0 0 $point-color1;
+    }
+    /* invalid color */
+    .input-field input[type=text].invalid,
+    .input-field input[type=password].invalid {
+        border-bottom: 1px solid $point-color1;
+        box-shadow: 0 1px 0 0 $point-color1;
+    }
+    /* icon prefix focus color */
+    .input-field .prefix.active {
+        color: $point-color1;
+    }
+}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { toastOpen } from '../../actions/toast';
+import SideNavigation from "./SideNavigation";
 
 class Header extends Component {
     constructor(props) {
@@ -37,18 +38,17 @@ class Header extends Component {
 
         return (
             <nav>
-              <div className="nav-wrapper blue darken-1">
-                <Link to="/" className="brand-logo center">MEMO' S</Link>
-
-                <ul>
-                  <li><a><i className="material-icons">search</i></a></li>
+              <div className="nav-wrapper blue-grey darken-3">
+                <Link to="/" className="brand-logo center">Life is OneShot</Link>
+                <ul className="left">
+                  <li>
+                    <SideNavigation/>
+                  </li>
+                  {/*<li><a><i className="material-icons">search</i></a></li>*/}
                 </ul>
-
-                <div className="right">
-                  <ul>
-                      { this.props.isLoggedIn ? logoutButton : loginButton }
-                  </ul>
-                </div>
+                <ul className="right">
+                  { this.props.isLoggedIn ? logoutButton : loginButton }
+                </ul>
               </div>
             </nav>
         );

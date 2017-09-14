@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, withRouter, Switch } from 'react-router-dom';
-import { Header, Toast, PrivateRoute } from 'components';
+import { Header, Toast } from 'components';
 import { Home, Login, Register, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
 
@@ -23,6 +23,8 @@ class App extends Component {
         let re = /(login|register)/;
         let isAuth = re.test(window.location.pathname);
         let isLoggedIn = sessionStorage.getItem('_key') !== null;
+        let pathname = this.props.location.pathname;
+        if(pathname === '/') pathname = '/home';
 
         return (
             <div>
@@ -34,7 +36,7 @@ class App extends Component {
                     <Header isLoggedIn={isLoggedIn}/>
                 }
 
-                <div>
+                <div className={`contents ${pathname.substring(1, pathname.length)}`}>
                     {/*<PrivateRoute exact path="/" component={Home} isLoggedIn={isLoggedIn}/>*/}
                     <Switch>
                         <Route exact path="/" component={Home}/>

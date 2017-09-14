@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { CircleLoader } from '../index';
-import { toastOpen } from '../../actions/toast';
+import { CircleLoader } from '../../index';
+import { toastOpen } from '../../../actions/toast';
+import './Authentication.scss';
 
 class Authentication extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class Authentication extends Component {
         this.state = {
             username: '',
             password: '',
+            passwordConfirm: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -77,7 +79,7 @@ class Authentication extends Component {
 
     render() {
         const waiting = (
-            <a className="waves-effect btn-large waves-light btn">
+            <a className="waves-effect btn-large waves-light btn blue-grey lighten-1">
                 <span className="loader">
                     <CircleLoader/>
                 </span>
@@ -114,13 +116,13 @@ class Authentication extends Component {
               <div className="card-content">
                 <div className="row">
                     {inputBoxes}
-                    {this.props.login.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue lighten-2">SUBMIT</a>}
+                    {this.props.login.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue-grey lighten-1">LOGIN</a>}
                 </div>
               </div>
               <div className="footer">
                 <div className="card-content">
                   <div className="right" >
-                    New Here? <Link to="/register">Create an account</Link>
+                    처음이세요? <Link to="/register"><span className="blue-grey-text text-lighten-1">회원가입</span></Link>
                   </div>
                 </div>
               </div>
@@ -131,17 +133,17 @@ class Authentication extends Component {
             <div className="card-content">
               <div className="row">
                   {inputBoxes}
-                  {this.props.register.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue lighten-2">CREATE</a>}
+                  {this.props.register.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue-grey lighten-1">CREATE</a>}
               </div>
             </div>
         );
 
         return (
             <div className="container auth">
-              <Link className="logo" to="/">MEMO' S</Link>
+              <Link className="logo" to="/">Life is OneShot</Link>
               <div className="card">
-                <div className="header blue white-text center">
-                  <div className="card-content">{this.props.mode ? "LOGIN" : "REGISTER"}</div>
+                <div className="header blue-grey darken-3 white-text center">
+                  <div className="card-content">{this.props.mode ? "로그인" : "회원가입"}</div>
                 </div>
                   {this.props.mode ? loginView : registerView }
               </div>

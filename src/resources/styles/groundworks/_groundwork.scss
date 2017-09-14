@@ -1,6 +1,7 @@
+/*
 @charset "UTF-8";
 
-/* RESET */
+!* RESET *!
 *,
 *:before,
 *:after {
@@ -24,7 +25,7 @@ button {
     cursor: pointer;
 }
 
-/* DEFAULT-STYLE */
+!* DEFAULT-STYLE *!
 body {
     overflow-y: scroll;
     overflow-x: hidden;
@@ -42,7 +43,7 @@ a {
     text-decoration: none;
 }
 
-/* FUNCTIONAL CLASS */
+!* FUNCTIONAL CLASS *!
 .hidden {
     overflow: hidden;
     position: fixed;
@@ -52,7 +53,7 @@ a {
     height: 25px;
 }
 
-/* FORM */
+!* FORM *!
 input[type="text"],
 input[type="password"],
 textarea,
@@ -67,4 +68,13 @@ input[type="radio"] + label{
 
 em {
     font-style: normal;
+}*/
+
+
+body {
+    color: #666;
+    font-size: 15px;
+    font-family: $font-noto;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
 }
