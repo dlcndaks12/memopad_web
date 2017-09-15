@@ -47,8 +47,18 @@ class Header extends Component {
                   {/*<li><a><i className="material-icons">search</i></a></li>*/}
                 </ul>
                 <ul className="right">
+                  <li>
+                    <Link to="/write">
+                      <i className="material-icons">mode_edit</i>
+                    </Link>
+                  </li>
                   { this.props.isLoggedIn ? logoutButton : loginButton }
                 </ul>
+                {this.props.progress.show ?
+                  <div className="progress red lighten-4">
+                    <div className="indeterminate red lighten-1"></div>
+                  </div> : ''
+                }
               </div>
             </nav>
         );
@@ -64,8 +74,12 @@ Header.defaultProps = {
     onLogout: () => { console.error('loogout function not defined'); }
 };
 
+const mapStateToProps = (state) => ({
+  progress: state.progress,
+});
+
 const mapDispatchToProps = (dispatch) => ({
     toastOpen: (content, time) => dispatch(toastOpen(content, time)),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(Header));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

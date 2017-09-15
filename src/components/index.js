@@ -1,20 +1,14 @@
-/* COMMON */
-import CircleLoader from './common/Loader/CircleLoader';
-import Toast from './common/Toast/Toast';
-
 /* COMPONENT */
-import Authentication from './component/Authentication/Authentication';
-import PrivateRoute from './common/Util/PrivateRoute';
+export { default as Authentication } from './component/Authentication/Authentication';
+export { default as CardList } from './component/Card/CardList';
+export { default as Card } from './component/Card/Card';
+export { default as PrivateRoute } from './common/Util/PrivateRoute';
 
 /* LAUOUT */
-import Header from './layout/Header';
-import SideNav from './layout/SideNavigation';
+export { default as Header } from './layout/Header';
+export { default as Footer } from './layout/Footer';
+export { default as SideNav } from './layout/SideNavigation';
 
-export {
-  CircleLoader,
-  Toast,
-  Header,
-  SideNav,
-  Authentication,
-  PrivateRoute,
-};
+/* COMMON */
+export { default as CircleLoader } from './common/Loader/CircleLoader';
+export { default as Toast } from './common/Toast/Toast';

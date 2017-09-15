@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { CircleLoader } from '../../index';
 import { toastOpen } from '../../../actions/toast';
-import './Authentication.scss';
+import '../../../resources/styles/components/_authentication.scss';
 
 class Authentication extends Component {
     constructor(props) {
@@ -88,8 +88,7 @@ class Authentication extends Component {
 
         const inputBoxes = (
             <div>
-              <div className="input-field col s12 username">
-                <label>Username</label>
+              <div className="input-field s12 username">
                 <input
                     name="username"
                     type="text"
@@ -97,9 +96,9 @@ class Authentication extends Component {
                     value={this.state.username}
                     onChange={this.handleChange}
                 />
+                <label>Username</label>
               </div>
-              <div className="input-field col s12">
-                <label>Password</label>
+              <div className="input-field s12">
                 <input
                     name="password"
                     type="password"
@@ -107,6 +106,7 @@ class Authentication extends Component {
                     value={this.state.password}
                     onChange={this.handleChange}
                 />
+                <label>Password</label>
               </div>
             </div>
         );

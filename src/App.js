@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
-import { Route, withRouter, Switch } from 'react-router-dom';
-import { Header, Toast } from 'components';
-import { Home, Login, Register, NoMatch } from 'pages';
+import { Route, Switch } from 'react-router-dom';
+import { Header, Toast, Footer } from 'components';
+import { Home, Login, Register, Write, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
 
 class App extends Component {
@@ -18,6 +18,20 @@ class App extends Component {
             console.log('자동 로그인 절차');
         }
     }
+
+      /*componentWillMount() {
+        const { history } = this.props;
+        this.unsubscribeFromHistory = history.listen(this.handleLocationChange);
+        this.handleLocationChange(history.location);
+      }
+
+      componentWillUnmount() {
+        if (this.unsubscribeFromHistory) this.unsubscribeFromHistory();
+      }
+
+      handleLocationChange = (location) => {
+        console.log(location);
+      };*/
 
     render() {
         let re = /(login|register)/;
@@ -36,15 +50,20 @@ class App extends Component {
                     <Header isLoggedIn={isLoggedIn}/>
                 }
 
-                <div className={`contents ${pathname.substring(1, pathname.length)}`}>
+                <div id="container" className={`contents ${pathname.substring(1, pathname.length)}`}>
                     {/*<PrivateRoute exact path="/" component={Home} isLoggedIn={isLoggedIn}/>*/}
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
+                        <Route path="/write" component={Write}/>
                         <Route path="*" component={NoMatch}/>
                     </Switch>
                 </div>
+
+              {isAuth ? '' :
+                <Footer/>
+              }
             </div>
         );
     }
@@ -54,4 +73,4 @@ const mapDispatchToProps = (dispatch) => ({
     auth: () => dispatch(authRequest()),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default connect(null, mapDispatchToProps)(App);

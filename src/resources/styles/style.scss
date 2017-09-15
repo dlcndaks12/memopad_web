@@ -8,11 +8,14 @@
 
 // layout
 @import "layout/header";
+@import "layout/footer";
 @import "layout/base";
 
 // components
-@import "../../components/common/Toast/Toast";
-@import "../../components/component/Authentication/Authentication";
+@import "components/_toast";
+@import "components/_authentication";
+@import "components/_card";
 
 // pages
 @import "pages/login";
+@import "pages/write";

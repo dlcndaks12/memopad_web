@@ -1,4 +1,5 @@
-export { default as Home } from './Home';
-export { default as Login } from './Login';
-export { default as Register } from './Register';
-export { default as NoMatch } from './NoMatch';
+export { default as Home } from './Home/Home';
+export { default as Login } from './Auth/Login';
+export { default as Register } from './Auth/Register';
+export { default as Write } from './Article/Write';
+export { default as NoMatch } from './Common/NoMatch';

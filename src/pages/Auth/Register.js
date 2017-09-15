@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { Authentication } from '../components';
+import { Authentication } from '../../components/index';
 import { connect } from 'react-redux';
-import { registerRequest } from '../actions/authentication';
-import { toastOpen } from '../actions/toast';
+import { registerRequest } from '../../actions/authentication';
+import { toastOpen } from '../../actions/toast';
 
 class Register extends Component {
     constructor(props) {
