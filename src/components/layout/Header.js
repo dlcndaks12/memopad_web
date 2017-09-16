@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { toastOpen } from '../../actions/toast';
-import SideNavigation from "./SideNavigation";
+import { SideNavigation } from "components";
 
 class Header extends Component {
     constructor(props) {
@@ -23,43 +23,46 @@ class Header extends Component {
     render() {
         const loginButton = (
             <li>
-              <Link to="/login">
-                <i className="material-icons">vpn_key</i>
-              </Link>
+                <Link to="/login">
+                    <i className="material-icons">vpn_key</i>
+                </Link>
             </li>
         );
         const logoutButton = (
             <li>
-              <a onClick={this.handleLogout}>
-                <i className="material-icons">lock_open</i>
-              </a>
+                <a onClick={this.handleLogout}>
+                    <i className="material-icons">lock_open</i>
+                </a>
             </li>
         );
 
         return (
             <nav>
-              <div className="nav-wrapper blue-grey darken-3">
-                <Link to="/" className="brand-logo center">Life is OneShot</Link>
-                <ul className="left">
-                  <li>
+                <div className="side-nav-wrap">
                     <SideNavigation/>
-                  </li>
-                  {/*<li><a><i className="material-icons">search</i></a></li>*/}
-                </ul>
-                <ul className="right">
-                  <li>
-                    <Link to="/write">
-                      <i className="material-icons">mode_edit</i>
-                    </Link>
-                  </li>
-                  { this.props.isLoggedIn ? logoutButton : loginButton }
-                </ul>
-                {this.props.progress.show ?
-                  <div className="progress red lighten-4">
-                    <div className="indeterminate red lighten-1"></div>
-                  </div> : ''
-                }
-              </div>
+                </div>
+                <div className="nav-wrapper blue-grey darken-3">
+                    <Link to="/" className="brand-logo center">Life is OneShot</Link>
+                    <ul className="left">
+                       {/* <li>
+                            <SideNavigation/>
+                        </li>*/}
+                        {/*<li><a><i className="material-icons">search</i></a></li>*/}
+                    </ul>
+                    <ul className="right">
+                        <li>
+                            <Link to="/write">
+                                <i className="material-icons">mode_edit</i>
+                            </Link>
+                        </li>
+                        { this.props.isLoggedIn ? logoutButton : loginButton }
+                    </ul>
+                    {this.props.progress.show ?
+                        <div className="progress red lighten-4">
+                            <div className="indeterminate red lighten-1"></div>
+                        </div> : ''
+                    }
+                </div>
             </nav>
         );
     }
@@ -75,7 +78,7 @@ Header.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  progress: state.progress,
+    progress: state.progress,
 });
 
 const mapDispatchToProps = (dispatch) => ({

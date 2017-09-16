@@ -1,13 +1,18 @@
-#root > div {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+#root {
+    > div {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    .page-footer {
+        padding-top: 0;
+    }
 }
 
 #container {
-  flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 .footer-copyright {
-  font-size: 13px;
+    font-size: 13px;
 }

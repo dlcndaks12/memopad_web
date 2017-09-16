@@ -5,29 +5,40 @@
     }
     /* label focus color */
     .input-field input[type=text]:focus + label,
-    .input-field input[type=password]:focus + label {
+    .input-field input[type=password]:focus + label,
+    .input-field textarea:focus + label {
         color: $point-color1;
     }
     /* label underline focus color */
     .input-field input[type=text]:focus,
-    .input-field input[type=password]:focus {
+    .input-field input[type=password]:focus,
+    .input-field textarea:focus {
         border-bottom: 1px solid $point-color1;
         box-shadow: 0 1px 0 0 $point-color1;
     }
     /* valid color */
     .input-field input[type=text].valid,
-    .input-field input[type=password].valid {
+    .input-field input[type=password].valid,
+    .input-field textarea.valid {
         border-bottom: 1px solid $point-color1;
         box-shadow: 0 1px 0 0 $point-color1;
     }
     /* invalid color */
     .input-field input[type=text].invalid,
-    .input-field input[type=password].invalid {
+    .input-field input[type=password].invalid,
+    .input-field textarea.invalid {
         border-bottom: 1px solid $point-color1;
         box-shadow: 0 1px 0 0 $point-color1;
     }
     /* icon prefix focus color */
     .input-field .prefix.active {
         color: $point-color1;
+    }
+}
+.dropdown-content {
+    li {
+        > span {
+            color: $point-color1;
+        }
     }
 }

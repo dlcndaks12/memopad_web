@@ -1,5 +1,23 @@
 .contents {
-  &.write {
-    padding: 20px;
-  }
+    &.write {
+        padding: 20px;
+        .input-row {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            > div {
+                display: table-cell;
+            }
+            .select-area {
+                width: 130px;
+            }
+            .input-area {
+                padding-left: 20px;
+            }
+        }
+        .circle-loader-wrap {
+            padding: 100px 0;
+            text-align: center;
+        }
+    }
 }

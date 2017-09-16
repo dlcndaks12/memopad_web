@@ -3,11 +3,12 @@ export { default as Authentication } from './component/Authentication/Authentica
 export { default as CardList } from './component/Card/CardList';
 export { default as Card } from './component/Card/Card';
 export { default as PrivateRoute } from './common/Util/PrivateRoute';
+export { default as Preview } from './component/Article/Preview';
 
 /* LAUOUT */
 export { default as Header } from './layout/Header';
 export { default as Footer } from './layout/Footer';
-export { default as SideNav } from './layout/SideNavigation';
+export { default as SideNavigation } from './layout/SideNavigation';
 
 /* COMMON */
 export { default as CircleLoader } from './common/Loader/CircleLoader';

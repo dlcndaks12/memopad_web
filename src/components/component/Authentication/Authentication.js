@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { CircleLoader } from '../../index';
-import { toastOpen } from '../../../actions/toast';
-import '../../../resources/styles/components/_authentication.scss';
+import { CircleLoader } from 'components';
+import { toastOpen } from 'actions/toast';
 
 class Authentication extends Component {
     constructor(props) {

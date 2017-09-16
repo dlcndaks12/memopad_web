@@ -1,39 +1,52 @@
 .card-list {
-  @include clearfix;
-  margin: 10px;
-  .card-wrap {
-    float: left;
-    width: 20%;
-    padding: 10px;
-  }
-  .card {
-    margin: 0;
-    .card-title {
-      right: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    @include clearfix;
+    margin: 10px;
+    .card-wrap {
+        float: left;
+        width: 20%;
+        padding: 10px;
+        @media screen and (max-width: 1300px) {
+            width: 25%;
+        }
+        @media screen and (max-width: 1000px) {
+            width: 33.33333333%;
+        }
+        @media screen and (max-width: 768px) {
+            width: 50%;
+        }
+        @media screen and (max-width: 500px) {
+            width: auto;
+        }
     }
-    .card-image {
-      overflow: hidden;
-      padding-top: 75%;
-      img {
-        @include alignXY;
-        width: 100%;
-      }
+    .card {
+        margin: 0;
+        .card-title {
+            right: 0;
+            font-size: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .card-image {
+            overflow: hidden;
+            padding-top: 75%;
+            img {
+                @include alignXY;
+                width: 100%;
+            }
+        }
+        .card-content {
+            p {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                word-wrap:break-word;
+                height: 66px;
+                word-break: break-all;
+            }
+        }
     }
-    .card-content {
-      p {
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        word-wrap:break-word;
-        height: 66px;
-        word-break: break-all;
-      }
-    }
-  }
 }
