@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Input } from 'react-materialize';
-import * as path from 'config/path';
 import { CircleLoader, Preview } from 'components';
 
 class Write extends Component {
@@ -56,26 +55,25 @@ class Write extends Component {
         this.setState({
             pending: true,
         });
-        return axios.get(`${path.__api__}/api/og`, {
+        return axios.get(`/api/og`, {
             params: {
                 url: url,
             }
         }).then((response) => {
-            const res = response.data;
-            if (res.result === 'OK') {
+            if (response.result === 'OK') {
                 this.setState({
-                    result: res.result,
+                    result: response.result,
                     og: {
                         ...this.state.og,
-                        ogImageUrl: res.data.ogImageUrl,
-                        ogTitle: res.data.ogTitle,
-                        ogDescription: res.data.ogDescription,
+                        ogImageUrl: response.data.ogImageUrl,
+                        ogTitle: response.data.ogTitle,
+                        ogDescription: response.data.ogDescription,
                     }
                 });
             } else {
                 this.setState({
-                    result: res.result,
-                    message: res.message,
+                    result: response.result,
+                    message: response.message,
                 });
             }
         }).catch((error) => {

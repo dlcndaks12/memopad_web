@@ -19,7 +19,6 @@ class Login extends Component {
                     return true;
                 } else {
                     this.props.toastOpen(this.props.login.message, 2000);
-                    //this.props.toastOpen('username 또는 password가 틀렸습니다.', 2000);
                     return false;
                 }
             }

@@ -10,8 +10,7 @@ const initialState = {
         message: '',
     },
     status: {
-        isLoggedIn: false,
-        currentUser: '',
+        id: '',
     }
 };
 
@@ -31,8 +30,7 @@ export default function authentication(state = initialState, action) {
                     status: 'SUCCESS'
                 },
                 status: {
-                    isLoggedIn: true,
-                    currentUser: action.username
+                    id: action.id
                 }
             };
         case types.AUTH_LOGIN_FAILURE:
@@ -55,7 +53,7 @@ export default function authentication(state = initialState, action) {
                 ...state,
                 register: {
                     status: 'SUCCESS',
-                    message: action.response.message,
+                    message: action.message,
                 }
             };
         case types.AUTH_REGISTER_FAILURE:
@@ -63,7 +61,7 @@ export default function authentication(state = initialState, action) {
                 ...state,
                 register: {
                     status: 'FAILURE',
-                    message: action.response.message,
+                    message: action.message,
                 },
             };
         default:

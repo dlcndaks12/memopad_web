@@ -19,6 +19,16 @@ class Authentication extends Component {
         this.handleRegister = this.handleRegister.bind(this);
     }
 
+    handleKeyPress(e) {
+        if(e.charCode === 13) {
+            if(this.props.mode) {
+                this.handleLogin();
+            } else {
+                this.handleRegister();
+            }
+        }
+    }
+
     handleChange(e) {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
@@ -104,6 +114,7 @@ class Authentication extends Component {
                     className="validate"
                     value={this.state.password}
                     onChange={this.handleChange}
+                    onKeyPress={this.handleKeyPress}
                 />
                 <label>Password</label>
               </div>

@@ -19,19 +19,7 @@ class App extends Component {
         }
     }
 
-      /*componentWillMount() {
-        const { history } = this.props;
-        this.unsubscribeFromHistory = history.listen(this.handleLocationChange);
-        this.handleLocationChange(history.location);
-      }
 
-      componentWillUnmount() {
-        if (this.unsubscribeFromHistory) this.unsubscribeFromHistory();
-      }
-
-      handleLocationChange = (location) => {
-        console.log(location);
-      };*/
 
     render() {
         let re = /(login|register)/;
@@ -61,9 +49,9 @@ class App extends Component {
                     </Switch>
                 </div>
 
-              {isAuth ? '' :
-                <Footer/>
-              }
+                {isAuth ? '' :
+                    <Footer/>
+                }
             </div>
         );
     }

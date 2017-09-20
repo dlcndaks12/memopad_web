@@ -22,7 +22,7 @@ export function authRequest() {
         }).then((response) => {
             console.log('then', response);
             const data = response.data;
-            if (data.result === 'ok') {
+            if (data.result === 'OK') {
                 dispatch(registerSuccess());
             } else {
                 dispatch(registerFailure(data.code));
@@ -35,29 +35,27 @@ export function authRequest() {
 }
 
 /* LOGIN */
-export function loginRequest(username, password) {
+export function loginRequest(id, password) {
     return (dispatch) => {
         // Inform Login API is starting
         dispatch(login());
 
         // API Request
-        return axios.post(`${path.__api__}/api/user/signin`, {
-            id: username,
+        return axios.post(`${path.__api__}/api/auth/login`, {
+            id: id,
             password: password
         }).then((response) => {
-            const data = response.data;
-            if (data.result === 'ok') {
+            if (response.result === 'OK') {
                 // SUCCEED
-                localStorage.setItem('_key', data.key);
-                sessionStorage.setItem('_key', data.key);
-                dispatch(loginSuccess(username));
+                localStorage.setItem('token', response.data.token);
+                dispatch(loginSuccess(id));
             } else {
                 // FAILED
                 dispatch(loginFailure());
             }
         }).catch((error) => {
-            console.dir('error', error);
-            dispatch(loginFailure(error.message));
+            console.log('error', error);
+            dispatch(loginFailure(error.error));
         });
     };
 }
@@ -68,10 +66,10 @@ export function login() {
     };
 }
 
-export function loginSuccess(username) {
+export function loginSuccess(id) {
     return {
         type: AUTH_LOGIN_SUCCESS,
-        username
+        id
     };
 }
 
@@ -83,25 +81,25 @@ export function loginFailure(message) {
 }
 
 /* REGISTER */
-export function registerRequest(username, password) {
+export function registerRequest(id, password) {
     return (dispatch) => {
         // Inform Register API is starting
         dispatch(register());
 
         // API Request
-        return axios.post(`${path.__api__}/api/user/signup`, {
-            id: username,
+        return axios.post('/api/user', {
+            id: id,
             password: password
         }).then((response) => {
             console.log('then', response);
-            const data = response.data;
-            if (data.result === 'OK') {
-                dispatch(registerSuccess(data));
+            if (response.result === 'OK') {
+                dispatch(registerSuccess(response.message));
             } else {
-                dispatch(registerFailure(data));
+                dispatch(registerFailure(response.message));
             }
         }).catch((error) => {
-            dispatch(registerFailure(error.response.data));
+            console.log('error', error);
+            dispatch(registerFailure(error.error));
         });
     };
 }
@@ -112,16 +110,16 @@ export function register() {
     };
 }
 
-export function registerSuccess(response) {
+export function registerSuccess(message) {
     return {
         type: AUTH_REGISTER_SUCCESS,
-        response
+        message: message,
     };
 }
 
-export function registerFailure(response) {
+export function registerFailure(message) {
     return {
         type: AUTH_REGISTER_FAILURE,
-        response
+        message: message,
     };
 }
