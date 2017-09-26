@@ -91,15 +91,13 @@ export function registerRequest(id, password) {
             id: id,
             password: password
         }).then((response) => {
-            console.log('then', response);
             if (response.result === 'OK') {
                 dispatch(registerSuccess(response.message));
             } else {
                 dispatch(registerFailure(response.message));
             }
         }).catch((error) => {
-            console.log('error', error);
-            dispatch(registerFailure(error.error));
+            dispatch(registerFailure(error.message));
         });
     };
 }

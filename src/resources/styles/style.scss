@@ -13,13 +13,16 @@
 @import "layout/base";
 
 // components
-@import "components/_toast";
-@import "components/_authentication";
-@import "components/_card";
+@import "components/button";
+@import "components/toast";
+@import "components/authentication";
+@import "components/card";
+@import "components/selection";
 
 // pages
 @import "pages/login";
 @import "pages/write";
+@import "pages/scrap";
 
 // util
 @import "util/common";

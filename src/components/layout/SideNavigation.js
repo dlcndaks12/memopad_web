@@ -18,7 +18,7 @@ class SideNavigation extends Component {
                 />
                 {/*<SideNavItem href='#!icon' icon='cloud'>First Link With Icon</SideNavItem>
                 <SideNavItem href='#!second'>Second Link</SideNavItem>*/}
-                <li><a className="subheader">지역</a></li>
+                {/*<li><a className="subheader">지역</a></li>
                 <li>
                     <NavLink to="/" activeClassName="active">부산</NavLink>
                 </li>
@@ -32,6 +32,9 @@ class SideNavigation extends Component {
                 </li>
                 <li>
                     <NavLink to="/" activeClassName="active">숙소</NavLink>
+                </li>*/}
+                <li>
+                  <NavLink to="/" activeClassName="active">스크랩</NavLink>
                 </li>
             </SideNav>
         );

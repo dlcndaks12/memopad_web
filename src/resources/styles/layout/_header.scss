@@ -50,8 +50,13 @@ nav {
         }
     }
     .brand-logo {
+        padding: 10px;
+        height: 100%;
         &.center {
             font-size: 1.7rem;
+        }
+        img {
+            height: 100%;
         }
     }
     .nav-wrapper {

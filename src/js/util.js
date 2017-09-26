@@ -6,6 +6,10 @@ export function setting() {
     axios.interceptors.response.use((response) => {
         return response.data;
     }, (error) => {
-        return Promise.reject(error.response.data);
+        if (error.response) {
+          return Promise.reject(error.response.data);
+        } else {
+          return Promise.reject(error);
+        }
     });
 };

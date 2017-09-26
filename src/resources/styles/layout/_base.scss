@@ -42,3 +42,30 @@
         }
     }
 }
+[type="checkbox"] {
+    + label {
+        color: inherit;
+        &:before {
+            border: 2px solid #ccc;
+        }
+    }
+    &:not(.filled-in) {
+        + label {
+            &:after {
+                border: 2px solid #ccc;
+            }
+        }
+    }
+    &:checked {
+        + label {
+            color: $point-color1;
+            &:before {
+                border-right: 2px solid $point-color1;
+                border-bottom: 2px solid $point-color1;
+            }
+        }
+    }
+}
+blockquote {
+    border-left: 5px solid $point-color1;
+}

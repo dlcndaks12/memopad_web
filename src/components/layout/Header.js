@@ -42,7 +42,10 @@ class Header extends Component {
                     <SideNavigation/>
                 </div>
                 <div className="nav-wrapper blue-grey darken-3">
-                    <Link to="/" className="brand-logo center">Life is OneShot</Link>
+                    {/*<Link to="/" className="brand-logo center">Life is OneShot</Link>*/}
+                    <Link to="/" className="brand-logo center">
+                        <img src={require('resources/images/common/logo.png')}  alt=""/>
+                    </Link>
                     <ul className="left">
                        {/* <li>
                             <SideNavigation/>
@@ -50,11 +53,11 @@ class Header extends Component {
                         {/*<li><a><i className="material-icons">search</i></a></li>*/}
                     </ul>
                     <ul className="right">
-                        <li>
+                        {/*<li>
                             <Link to="/write">
                                 <i className="material-icons">mode_edit</i>
                             </Link>
-                        </li>
+                        </li>*/}
                         { this.props.isLoggedIn ? logoutButton : loginButton }
                     </ul>
                     {this.props.progress.show ?

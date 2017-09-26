@@ -18,14 +18,16 @@ class Card extends Component {
                         <img src={require('resources/images/sample.jpg')}  alt=""/>
                     </div>
                     <div className="card-content">
-                        <span className="card-title">Card Title</span>
-                        <p>
+                        <span className="card-title" title="Card Title">Card Title</span>
+                        <p title="I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.">
                             I am a very simple card. I am good at containing small bits of information.
                             I am convenient because I require little markup to use effectively.
                         </p>
                     </div>
                     <div className="card-action">
-                        <a href="#!">This is a link</a>
+                        <a href="#!" className="btn-link">
+                            <i className="small orange-text text-darken-3 material-icons">link</i>
+                        </a>
                     </div>
                 </div>
             </div>

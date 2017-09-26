@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
 import { Header, Toast, Footer } from 'components';
-import { Home, Login, Register, Write, NoMatch } from 'pages';
+import { Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
 
 class App extends Component {
@@ -38,12 +38,14 @@ class App extends Component {
                     <Header isLoggedIn={isLoggedIn}/>
                 }
 
-                <div id="container" className={`contents ${pathname.substring(1, pathname.length)}`}>
+                <div id="container" className={`${pathname.substring(1, pathname.length)}`}>
+                {/*<div id="container">*/}
                     {/*<PrivateRoute exact path="/" component={Home} isLoggedIn={isLoggedIn}/>*/}
                     <Switch>
-                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/" component={Scrap}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
+                        <Route path="/scrap" component={Scrap}/>
                         <Route path="/write" component={Write}/>
                         <Route path="*" component={NoMatch}/>
                     </Switch>

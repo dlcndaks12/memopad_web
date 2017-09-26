@@ -1,18 +1,34 @@
-.contents {
+#container {
     &.write {
-        padding: 20px;
         .input-row {
-            display: table;
-            table-layout: fixed;
-            width: 100%;
+            display: flex;
+            flex-direction: row;
+            font-size: 0;
+            @media screen and (max-width: 600px) {
+                display: block;
+            }
             > div {
-                display: table-cell;
+                flex: 1;
+                + div {
+                    margin-left: 20px;
+                    @media screen and (max-width: 600px) {
+                        margin-left: 0;
+                    }
+                }
             }
             .select-area {
+                flex: none;
                 width: 130px;
-            }
-            .input-area {
-                padding-left: 20px;
+                @media screen and (max-width: 600px) {
+                    display: inline-block;
+                    width: 50%;
+                    &:first-child {
+                        padding-right: 10px;
+                        + .select-area {
+                            padding-left: 10px;
+                        }
+                    }
+                }
             }
         }
         .circle-loader-wrap {
