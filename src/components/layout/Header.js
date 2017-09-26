@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { toastOpen } from '../../actions/toast';
 import { SideNavigation } from "components";
+import { deleteCookie } from 'js/util';
 
 class Header extends Component {
     constructor(props) {
@@ -13,8 +14,7 @@ class Header extends Component {
     }
 
     handleLogout() {
-        localStorage.removeItem('_key');
-        sessionStorage.removeItem('_key');
+        deleteCookie('Authentication');
 
         this.props.toastOpen('로그아웃 되었습니다.', 2000);
         this.props.history.push('/login');
@@ -62,7 +62,7 @@ class Header extends Component {
                     </ul>
                     {this.props.progress.show ?
                         <div className="progress red lighten-4">
-                            <div className="indeterminate red lighten-1"></div>
+                            <div className="indeterminate red lighten-1"> </div>
                         </div> : ''
                     }
                 </div>

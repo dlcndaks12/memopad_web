@@ -10,10 +10,10 @@ class SideNavigation extends Component {
                 options={{ closeOnClick: true }}>
                 <SideNavItem userView
                              user={{
-                                 background: 'http://cfile28.uf.tistory.com/image/2137E439521346182E4C25',
-                                 image: 'https://pbs.twimg.com/profile_images/535949276124172288/NcFxiF0v.jpeg',
-                                 name: '개발새발',
-                                 email: 'dlcndaks12@naver.com',
+                                 background: require('resources/images/common/traval2.jpg'),
+                                 // image: 'https://pbs.twimg.com/profile_images/535949276124172288/NcFxiF0v.jpeg',
+                                 name: '여행은 언제나 돈의 문제가 아니고 용기의 문제다.',
+                                 // email: 'dlcndaks12@naver.com',
                              }}
                 />
                 {/*<SideNavItem href='#!icon' icon='cloud'>First Link With Icon</SideNavItem>

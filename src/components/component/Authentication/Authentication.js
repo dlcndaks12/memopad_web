@@ -150,7 +150,7 @@ class Authentication extends Component {
 
         return (
             <div className="container auth">
-              <Link className="logo" to="/">Life is OneShot</Link>
+              <Link className="logo" to="/">Nolja</Link>
               <div className="card">
                 <div className="header blue-grey darken-3 white-text center">
                   <div className="card-content">{this.props.mode ? "로그인" : "회원가입"}</div>

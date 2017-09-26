@@ -28,6 +28,7 @@ class Card extends Component {
                         <a href="#!" className="btn-link">
                             <i className="small orange-text text-darken-3 material-icons">link</i>
                         </a>
+                        <span className="author">bugbug</span>
                     </div>
                 </div>
             </div>

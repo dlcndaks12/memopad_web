@@ -49,12 +49,19 @@
             }
         }
         .card-action {
+            position: relative;
             padding: 10px 20px;
             font-size: 0;
             .btn-link {
                 display: inline-block;
                 height: 30px;
                 margin-right: 0;
+            }
+            .author {
+                position: absolute;
+                top: 13px;
+                right: 20px;
+                font-size: 13px;
             }
         }
     }

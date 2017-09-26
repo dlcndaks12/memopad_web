@@ -10,21 +10,14 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            key: localStorage.getItem('_key')
-        };
-
-        if(this.state.key !== null) {
-            console.log('자동 로그인 절차');
-        }
+        // Auth 체크
+        this.props.authRequest();
     }
-
-
 
     render() {
         let re = /(login|register)/;
         let isAuth = re.test(window.location.pathname);
-        let isLoggedIn = sessionStorage.getItem('_key') !== null;
+        let isLoggedIn = this.props.authentication.status.id !== '';
         let pathname = this.props.location.pathname;
         if(pathname === '/') pathname = '/home';
 
@@ -59,8 +52,12 @@ class App extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    auth: () => dispatch(authRequest()),
+const mapStateToProps = (state) => ({
+    authentication: state.authentication,
 });
 
-export default connect(null, mapDispatchToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+    authRequest: () => dispatch(authRequest()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

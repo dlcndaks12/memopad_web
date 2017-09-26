@@ -13,15 +13,47 @@
     flex: 1 0 auto;
 }
 
-.footer-copyright {
-    font-size: 13px;
-    > span {
-        + span {
-            margin-left: 10px;
+.page-footer {
+    .footer-inner {
+        .footer-copyright {
+            padding: 0 20px;
+            font-size: 13px;
+            .copy-wrap {
+                flex: 1;
+                overflow: hidden;
+                text-align: center;
+                > span {
+                    float: left;
+                    + span {
+                        margin-left: 10px;
+                    }
+                }
+                .link-wrap {
+                    float: right;
+                    font-size: 0;
+                    > * {
+                        font-size: 12px;
+                    }
+                    .github {
+                        position: relative;
+                        margin-left: 10px;
+                        padding-left: 10px;
+                        &:before {
+                            content: ' ';
+                            display: block;
+                            position: absolute;
+                            top: 2px;
+                            left: -2px;
+                            height: 12px;
+                            border-left: 1px solid #888;
+                            border-right: 1px solid #aaa;
+                        }
+                    }
+                }
+                a {
+                    color: rgba(255,255,255,0.8);
+                }
+            }
         }
     }
-}
-
-.footer-inner {
-    padding: 0 20px;
 }

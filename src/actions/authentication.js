@@ -7,29 +7,27 @@ import {
     AUTH_REGISTER_FAILURE,
 } from './ActionTypes';
 import axios from 'axios';
-import * as path from '../config/path';
+import { setCookie } from 'js/util';
 
 /*============================================================================
  authentication
  ==============================================================================*/
 
-/* AUTH */
+/* AUTH CHECK */
 export function authRequest() {
     return (dispatch) => {
         // API Request
-        return axios.post(`${path.__api__}/api/user/auth`, {
+        return axios.get('/api/auth', {
 
         }).then((response) => {
             console.log('then', response);
-            const data = response.data;
-            if (data.result === 'OK') {
+            if (response.result === 'OK') {
                 dispatch(registerSuccess());
             } else {
-                dispatch(registerFailure(data.code));
+                dispatch(registerFailure(response.message));
             }
         }).catch((error) => {
-            console.log('catch', error.response);
-            dispatch(registerFailure(error.response));
+            dispatch(registerFailure(error.message));
         });
     };
 }
@@ -41,21 +39,20 @@ export function loginRequest(id, password) {
         dispatch(login());
 
         // API Request
-        return axios.post(`${path.__api__}/api/auth/login`, {
+        return axios.post('/api/auth/login', {
             id: id,
             password: password
         }).then((response) => {
             if (response.result === 'OK') {
                 // SUCCEED
-                localStorage.setItem('token', response.data.token);
+                setCookie('Authentication', response.data.token, 365);
                 dispatch(loginSuccess(id));
             } else {
                 // FAILED
                 dispatch(loginFailure());
             }
         }).catch((error) => {
-            console.log('error', error);
-            dispatch(loginFailure(error.error));
+            dispatch(loginFailure(error.message));
         });
     };
 }
