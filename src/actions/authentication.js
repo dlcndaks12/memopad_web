@@ -1,7 +1,11 @@
 import {
+    AUTH,
+    AUTH_SUCCESS,
+    AUTH_FAILURE,
     AUTH_LOGIN,
     AUTH_LOGIN_SUCCESS,
     AUTH_LOGIN_FAILURE,
+    AUTH_LOGOUT,
     AUTH_REGISTER,
     AUTH_REGISTER_SUCCESS,
     AUTH_REGISTER_FAILURE,
@@ -16,20 +20,43 @@ import { setCookie } from 'js/util';
 /* AUTH CHECK */
 export function authRequest() {
     return (dispatch) => {
+        // Inform Auth API is starting
+        dispatch(auth());
+
         // API Request
         return axios.get('/api/auth', {
 
         }).then((response) => {
-            console.log('then', response);
             if (response.result === 'OK') {
-                dispatch(registerSuccess());
+                dispatch(authSuccess(response.data.id));
             } else {
-                dispatch(registerFailure(response.message));
+                dispatch(authFailure(response.message));
             }
         }).catch((error) => {
-            dispatch(registerFailure(error.message));
+            console.log('catch', error);
+            dispatch(authFailure(error.message));
         });
     };
+}
+
+export function auth() {
+  return {
+    type: AUTH,
+  };
+}
+
+export function authSuccess(id) {
+  return {
+    type: AUTH_SUCCESS,
+    id: id
+  };
+}
+
+export function authFailure(message) {
+  return {
+    type: AUTH_FAILURE,
+    message: message,
+  };
 }
 
 /* LOGIN */
@@ -75,6 +102,13 @@ export function loginFailure(message) {
         type: AUTH_LOGIN_FAILURE,
         message: message,
     };
+}
+
+/* LOGOUT */
+export function logout() {
+  return {
+    type: AUTH_LOGOUT
+  };
 }
 
 /* REGISTER */

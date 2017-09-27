@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
-import { Header, Toast, Footer } from 'components';
+import { Header, Toast, Footer, PrivateRoute } from 'components';
 import { Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
 
@@ -17,18 +17,17 @@ class App extends Component {
     render() {
         let re = /(login|register)/;
         let isAuth = re.test(window.location.pathname);
-        let isLoggedIn = this.props.authentication.status.id !== '';
         let pathname = this.props.location.pathname;
         if(pathname === '/') pathname = '/home';
 
         return (
             <div>
                 {/* 공통영역 S */}
-                <Toast/>
+                <Toast />
                 {/* 공통영역 E */}
 
                 {isAuth ? '' :
-                    <Header isLoggedIn={isLoggedIn}/>
+                    <Header />
                 }
 
                 <div id="container" className={`${pathname.substring(1, pathname.length)}`}>
@@ -39,7 +38,7 @@ class App extends Component {
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/scrap" component={Scrap}/>
-                        <Route path="/write" component={Write}/>
+                        <PrivateRoute path="/write" component={Write}/>
                         <Route path="*" component={NoMatch}/>
                     </Switch>
                 </div>
@@ -53,7 +52,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    authentication: state.authentication,
+    status: state.authentication.status,
 });
 
 const mapDispatchToProps = (dispatch) => ({

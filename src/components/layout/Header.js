@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
-import { toastOpen } from '../../actions/toast';
+import { logout } from 'actions/authentication';
+import { toastOpen } from 'actions/toast';
 import { SideNavigation } from "components";
 import { deleteCookie } from 'js/util';
 
@@ -16,8 +16,9 @@ class Header extends Component {
     handleLogout() {
         deleteCookie('Authentication');
 
+        this.props.logout();
         this.props.toastOpen('로그아웃 되었습니다.', 2000);
-        this.props.history.push('/login');
+        // this.props.history.push('/login');
     }
 
     render() {
@@ -46,19 +47,13 @@ class Header extends Component {
                     <Link to="/" className="brand-logo center">
                         <img src={require('resources/images/common/logo.png')}  alt=""/>
                     </Link>
-                    <ul className="left">
-                       {/* <li>
-                            <SideNavigation/>
-                        </li>*/}
-                        {/*<li><a><i className="material-icons">search</i></a></li>*/}
-                    </ul>
                     <ul className="right">
                         {/*<li>
                             <Link to="/write">
                                 <i className="material-icons">mode_edit</i>
                             </Link>
                         </li>*/}
-                        { this.props.isLoggedIn ? logoutButton : loginButton }
+                        { this.props.status.isLoggedIn !== null ? this.props.status.isLoggedIn ? logoutButton : loginButton : '' }
                     </ul>
                     {this.props.progress.show ?
                         <div className="progress red lighten-4">
@@ -71,21 +66,13 @@ class Header extends Component {
     }
 }
 
-Header.propTypes = {
-    isLoggedIn: PropTypes.bool,
-    onLogout: PropTypes.func
-};
-Header.defaultProps = {
-    isLoggedIn: false,
-    onLogout: () => { console.error('loogout function not defined'); }
-};
-
 const mapStateToProps = (state) => ({
+    status: state.authentication.status,
     progress: state.progress,
 });
-
 const mapDispatchToProps = (dispatch) => ({
     toastOpen: (content, time) => dispatch(toastOpen(content, time)),
+    logout: () => dispatch(logout()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

@@ -9,11 +9,14 @@ class Authentication extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            validation: false,
+            validationMessage: '',
+            id: '',
             password: '',
             passwordConfirm: '',
         };
 
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
@@ -36,7 +39,7 @@ class Authentication extends Component {
     }
 
     handleLogin() {
-        const id = this.state.username;
+        const id = this.state.id;
         const pw = this.state.password;
 
         if(id === '') {
@@ -61,16 +64,21 @@ class Authentication extends Component {
     }
 
     handleRegister() {
-        const id = this.state.username;
+        const id = this.state.id;
         const pw = this.state.password;
+        const idReg = /^[A-Za-z0-9]{4,12}$/;
+        if (!idReg.test(this.state.id)) {
+            this.props.toastOpen("아이디는 영문자로 시작하는 4~12자 영문자 또는 숫자여야 합니다.", 2000);
+            return false;
+        }
 
         if(id === '') {
-            this.props.toastOpen('ID를 입력해주세요.', 3000);
+            this.props.toastOpen('아이디를 입력해주세요.', 2000);
             return false;
         }
 
         if(pw === '') {
-            this.props.toastOpen('비밀번호를 입력해주세요.', 3000);
+            this.props.toastOpen('비밀번호를 입력해주세요.', 2000);
             return false;
         }
 
@@ -78,7 +86,7 @@ class Authentication extends Component {
             (result) => {
                 if(!result) {
                     this.setState({
-                        username: '',
+                        id: '',
                         password: '',
                     })
                 }
@@ -97,15 +105,16 @@ class Authentication extends Component {
 
         const inputBoxes = (
             <div>
-              <div className="input-field s12 username">
+              <div className="input-field s12 id">
                 <input
-                    name="username"
+                    name="id"
                     type="text"
                     className="validate"
-                    value={this.state.username}
+                    value={this.state.id}
                     onChange={this.handleChange}
                 />
-                <label>Username</label>
+                <label>아이디</label>
+                <div className="guide">영문자로 시작하는 4~12자 영문자 또는 숫자</div>
               </div>
               <div className="input-field s12">
                 <input
@@ -116,7 +125,7 @@ class Authentication extends Component {
                     onChange={this.handleChange}
                     onKeyPress={this.handleKeyPress}
                 />
-                <label>Password</label>
+                <label>비밀번호</label>
               </div>
             </div>
         );
