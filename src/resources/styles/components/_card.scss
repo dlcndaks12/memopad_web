@@ -35,7 +35,14 @@
                 width: 100%;
             }
         }
+        .card-date {
+            margin-top: 11px;
+            color: #aaa;
+            font-size: 12px;
+            text-align: right;
+        }
         .card-content {
+            padding: 15px 20px;
             p {
                 display: block;
                 overflow: hidden;

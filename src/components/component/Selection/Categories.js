@@ -15,7 +15,7 @@ class Locations extends Component {
   render() {
     return (
       <div className="locations">
-        <Input name='group1' type='checkbox' value='0' label='전체' defaultValue='checked' onChange={this.handleChange} />
+        <Input name='group1' type='checkbox' value='all' label='전체' defaultValue='checked' onChange={this.handleChange} />
         <Input name='group1' type='checkbox' value='1' label='여행지' onChange={this.handleChange} />
         <Input name='group1' type='checkbox' value='1' label='맛집' onChange={this.handleChange} />
         <Input name='group1' type='checkbox' value='2' label='숙소' onChange={this.handleChange} />

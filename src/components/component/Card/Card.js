@@ -23,6 +23,7 @@ class Card extends Component {
                             I am a very simple card. I am good at containing small bits of information.
                             I am convenient because I require little markup to use effectively.
                         </p>
+                        <div className="card-date">2017.09.29</div>
                     </div>
                     <div className="card-action">
                         <a href="#!" className="btn-link">
