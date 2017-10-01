@@ -6,6 +6,7 @@ export { default as PrivateRoute } from './common/Util/PrivateRoute';
 export { default as Preview } from './component/Article/Preview';
 export { default as Locations } from './component/Selection/Locations';
 export { default as Categories } from './component/Selection/Categories';
+export { default as Select } from './component/Select/Select';
 
 /* LAUOUT */
 export { default as Header } from './layout/Header';

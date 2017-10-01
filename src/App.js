@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Header, Toast, Footer, PrivateRoute } from 'components';
 import { Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
+import { locationInit } from 'actions/location';
 
 class App extends Component {
     constructor(props) {
@@ -12,6 +13,8 @@ class App extends Component {
 
         // Auth 체크
         this.props.authRequest();
+        // Location 정보 획득
+        this.props.locationInit();
     }
 
     render() {
@@ -57,6 +60,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     authRequest: () => dispatch(authRequest()),
+    locationInit: () => dispatch(locationInit()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
