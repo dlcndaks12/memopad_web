@@ -12,9 +12,9 @@ export function locationInit() {
     return (dispatch) => {
         Promise.all([
             dispatch(nation()),
-            dispatch(location()),
+            dispatch(city()),
         ]).then((values) => {
-            dispatch(locations(values[0], values[1]));
+            dispatch(location(values[0], values[1]));
         });
     }
 }
@@ -32,9 +32,9 @@ export function nation() {
     }
 }
 
-export function location() {
+export function city() {
     return (dispatch) => {
-        return axios.get('/api/location/all')
+        return axios.get('/api/city/all')
             .then((response) => {
                 if (response.result === 'OK') {
                     return response.data;
@@ -45,10 +45,10 @@ export function location() {
     };
 }
 
-export function locations(nation, locations) {
+export function location(nation, city) {
     return {
         type: LOCATION_INIT,
         nation: nation,
-        locations: locations,
+        city: city,
     };
 }

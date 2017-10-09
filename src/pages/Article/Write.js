@@ -20,6 +20,7 @@ class Write extends Component {
                 ogDescription: '',
             },
             pending: false,
+            selectedNation: 'kr',
         };
 
         this.handleLink = this.handleLink.bind(this);
@@ -36,7 +37,12 @@ class Write extends Component {
     }
 
     handleSelect(e) {
-        console.log(e.target.selectedOptions[0].value);
+        console.log(e.target.name, e.target.selectedOptions[0].value);
+        if (e.target.name === 'nation') {
+            this.setState({
+                selectedNation: e.target.selectedOptions[0].value,
+            });
+        }
     }
 
     handleInput(e) {
@@ -93,21 +99,19 @@ class Write extends Component {
     }
 
     render() {
+        const selectedNation = this.state.selectedNation;
         const nation = this.props.location.nation;
+        const city = this.props.location.city !== null ? this.props.location.city[selectedNation] : null;
 
         return (
             <div>
                 <blockquote>공유하고자 하는 link만 입력하시면 간편 스크랩 내용이 채워집니다.</blockquote>
                 <div className="input-row">
                     <div className="select-area nation-sel">
-                        <Select defaultSelected="kr" option={nation} onChange={this.handleSelect} />
+                        <Select defaultSelected={selectedNation} type="nation" option={nation} onChange={this.handleSelect} />
                     </div>
-                    <div className="select-area location-sel">
-                        <Input type="select" defaultValue="-1" onChange={this.handleSelect}>
-                            <option value="-1">지역</option>
-                            <option value="1">서울</option>
-                            <option value="2">기장</option>
-                        </Input>
+                    <div className="select-area city-sel">
+                        <Select defaultSelected="-1" type="city" option={city} onChange={this.handleSelect} />
                     </div>
                     <div className="select-area category-sel">
                         <Input type="select" defaultValue="-1" onChange={this.handleSelect}>

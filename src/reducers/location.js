@@ -2,7 +2,7 @@ import * as types from '../actions/ActionTypes';
 
 const initialState = {
     nation: null,
-    locations: null,
+    city: null,
 };
 
 export default function location(state = initialState, action) {
@@ -11,7 +11,7 @@ export default function location(state = initialState, action) {
             return {
                 ...state,
                 nation: action.nation,
-                locations: action.locations,
+                city: action.city,
             };
         default:
             return state;
