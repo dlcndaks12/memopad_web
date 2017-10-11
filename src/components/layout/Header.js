@@ -42,7 +42,7 @@ class Header extends Component {
                 <div className="side-nav-wrap">
                     <SideNavigation/>
                 </div>
-                <div className="nav-wrapper blue-grey darken-3">
+                <div className="nav-wrapper red lighten-3">
                     {/*<Link to="/" className="brand-logo center">Life is OneShot</Link>*/}
                     <Link to="/" className="brand-logo center">
                         <img src={require('resources/images/common/logo.png')}  alt=""/>

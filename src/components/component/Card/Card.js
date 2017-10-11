@@ -26,10 +26,10 @@ class Card extends Component {
                         <div className="card-date">2017.09.29</div>
                     </div>
                     <div className="card-action">
-                        <a href="#!" className="btn-link">
-                            <i className="small orange-text text-darken-3 material-icons">link</i>
-                        </a>
                         <span className="author">bugbug</span>
+                        <a href="#!" className="btn-link">
+                            <i className="small orange-text text-lighten-2 material-icons">open_in_new</i>
+                        </a>
                     </div>
                 </div>
             </div>

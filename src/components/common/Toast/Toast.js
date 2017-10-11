@@ -46,7 +46,7 @@ Toast.propTypes = {
   show: PropTypes.bool,
 };
 Toast.defaultProps = {
-  content: '내용',
+  content: 'message',
   time: 500,
   show: false,
 };

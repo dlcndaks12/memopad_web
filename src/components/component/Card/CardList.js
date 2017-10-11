@@ -5,9 +5,11 @@ class CardList extends Component {
   render() {
     return (
       <div className="card-list">
-        <Card/>
-        <Card/>
-        <Card/>
+        <div className="card-list-inner">
+          <Card/>
+          <Card/>
+          <Card/>
+        </div>
       </div>
     );
   }

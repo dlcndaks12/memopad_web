@@ -4,12 +4,19 @@ import { connect } from 'react-redux';
 import { toastOpen } from 'actions/toast';
 import { CardList, Locations, Categories } from 'components';
 
+const $ = window.$;
+
 class Scrap extends Component {
   constructor(props) {
     super(props);
 
     this.handleLogin = this.handleLogin.bind(this);
   }
+
+  componentDidMount() {
+    $('ul.tabs').tabs();
+  }
+
 
   handleLogin() {
     this.props.toastOpen('로그인 해주세요.', 2500);
@@ -35,6 +42,13 @@ class Scrap extends Component {
 
     return (
       <div className="contents scrap">
+        <ul className="tabs" ref="tabs">
+          <li className="tab col s3"><a className="active" href="#test1">한국</a></li>
+          <li className="tab col s3"><a href="#test2">일본</a></li>
+          <li className="tab col s3"><a href="#test3">홍콩</a></li>
+          <li className="tab col s3"><a href="#test3">마카오</a></li>
+        </ul>
+
         <div className="option-area">
           <div className="option">
             <h6>지역</h6>

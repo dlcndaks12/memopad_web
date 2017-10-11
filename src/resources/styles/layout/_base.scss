@@ -34,6 +34,13 @@
     .input-field .prefix.active {
         color: $point-color1;
     }
+    .tabs {
+        .tab {
+            a {
+                //color: #333;
+            }
+        }
+    }
 }
 .dropdown-content {
     li {
@@ -44,15 +51,16 @@
 }
 [type="checkbox"] {
     + label {
-        color: inherit;
+        color: #999;
+        font-weight: 300;
         &:before {
-            border: 2px solid #ccc;
+            border: 1px solid #ccc;
         }
     }
     &:not(.filled-in) {
         + label {
             &:after {
-                border: 2px solid #ccc;
+                border: 1px solid #ccc;
             }
         }
     }

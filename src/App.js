@@ -12,9 +12,9 @@ class App extends Component {
         super(props);
 
         // Auth 체크
-        this.props.authRequest();
+        // this.props.authRequest();
         // Location 정보 획득
-        this.props.locationInit();
+        // this.props.locationInit();
     }
 
     render() {

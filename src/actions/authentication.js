@@ -79,6 +79,7 @@ export function loginRequest(id, password) {
                 dispatch(loginFailure());
             }
         }).catch((error) => {
+            console.dir(error);
             dispatch(loginFailure(error.error));
         });
     };

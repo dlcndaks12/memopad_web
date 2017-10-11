@@ -96,7 +96,7 @@ class Authentication extends Component {
 
     render() {
         const waiting = (
-            <a className="waves-effect btn-large waves-light btn blue-grey lighten-1">
+            <a className="waves-effect btn-large waves-light btn blue lighten-2">
                 <span className="loader">
                     <CircleLoader/>
                 </span>
@@ -135,7 +135,7 @@ class Authentication extends Component {
               <div className="card-content">
                 <div className="row">
                     {inputBoxes}
-                    {this.props.login.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue-grey lighten-1">LOGIN</a>}
+                    {this.props.login.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue lighten-2">LOGIN</a>}
                 </div>
               </div>
               <div className="footer">
@@ -152,16 +152,16 @@ class Authentication extends Component {
             <div className="card-content">
               <div className="row">
                   {inputBoxes}
-                  {this.props.register.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue-grey lighten-1">CREATE</a>}
+                  {this.props.register.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue lighten-2">CREATE</a>}
               </div>
             </div>
         );
 
         return (
             <div className="container auth">
-              <Link className="logo" to="/">Nolja</Link>
+              <Link className="logo blue-text text-lighten-2" to="/">Nolja</Link>
               <div className="card">
-                <div className="header blue-grey darken-3 white-text center">
+                <div className="header blue accent-1 white-text center">
                   <div className="card-content">{this.props.mode ? "로그인" : "회원가입"}</div>
                 </div>
                   {this.props.mode ? loginView : registerView }
