@@ -12,10 +12,31 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+          simpleHeader: false,
+        };
+
         // Auth 체크
         this.props.authRequest();
         // Location 정보 획득
         this.props.locationInit();
+
+        this.handleScrollFrame = this.handleScrollFrame.bind(this);
+    }
+
+    // Scroll Handler
+    handleScrollFrame(values) {
+        const scrollTop = values.scrollTop;
+
+        if (scrollTop > 50) {
+          this.setState({
+            simpleHeader: true,
+          });
+        } else {
+          this.setState({
+            simpleHeader: false,
+          });
+        }
     }
 
     render() {
@@ -25,11 +46,12 @@ class App extends Component {
         if(pathname === '/') pathname = '/home';
 
         return (
-            <div id="app">
+            <div id="app" className={this.state.simpleHeader ? 'simple-header' : ''}>
                 <Scrollbars
                   className="scroll-wrap"
                   style={{ height: '100vh' }}
-                  autoHide >
+                  autoHide
+                  onScrollFrame={this.handleScrollFrame} >
                 {/* 공통영역 S */}
                     <Toast />
                     {/* 공통영역 E */}
