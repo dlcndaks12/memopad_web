@@ -34,7 +34,7 @@ class Scrap extends Component {
 
     const writeButton = (
       <div className="btn-write">
-        <Link to="/write">
+        <Link to="/scrap/write">
           <i className="material-icons">mode_edit</i>
         </Link>
       </div>
@@ -49,7 +49,7 @@ class Scrap extends Component {
           <li className="tab col s3"><a href="#test3">마카오</a></li>
         </ul>
 
-        <div className="option-area">
+        <div className="option-area z-depth-1 fade-animation">
           <div className="option">
             <h6>지역</h6>
             <Locations/>
@@ -59,7 +59,9 @@ class Scrap extends Component {
             <Categories/>
           </div>
         </div>
-        <CardList/>
+        <div className="card-wrap fade-animation">
+          <CardList/>
+        </div>
         { this.props.status.isLoggedIn ? writeButton : loginButton }
       </div>
     );

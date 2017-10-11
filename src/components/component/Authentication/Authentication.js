@@ -68,7 +68,7 @@ class Authentication extends Component {
         const pw = this.state.password;
         const idReg = /^[A-Za-z0-9]{4,12}$/;
         if (!idReg.test(this.state.id)) {
-            this.props.toastOpen("아이디는 영문자로 시작하는 4~12자 영문자 또는 숫자여야 합니다.", 2000);
+            this.props.toastOpen("아이디는 4~12자 영문자 또는 숫자여야 합니다.", 2000);
             return false;
         }
 
@@ -114,7 +114,7 @@ class Authentication extends Component {
                     onChange={this.handleChange}
                 />
                 <label>아이디</label>
-                <div className="guide">영문자로 시작하는 4~12자 영문자 또는 숫자</div>
+                <div className="guide">4~12자 영문자 또는 숫자</div>
               </div>
               <div className="input-field s12">
                 <input
@@ -161,7 +161,7 @@ class Authentication extends Component {
             <div className="container auth">
               <Link className="logo blue-text text-lighten-2" to="/">Nolja</Link>
               <div className="card">
-                <div className="header blue accent-1 white-text center">
+                <div className="header light-blue darken-1 white-text center">
                   <div className="card-content">{this.props.mode ? "로그인" : "회원가입"}</div>
                 </div>
                   {this.props.mode ? loginView : registerView }

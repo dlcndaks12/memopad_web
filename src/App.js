@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { Header, Toast, Footer, PrivateRoute } from 'components';
 import { Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
@@ -12,9 +13,9 @@ class App extends Component {
         super(props);
 
         // Auth 체크
-        // this.props.authRequest();
+        this.props.authRequest();
         // Location 정보 획득
-        // this.props.locationInit();
+        this.props.locationInit();
     }
 
     render() {
@@ -24,31 +25,36 @@ class App extends Component {
         if(pathname === '/') pathname = '/home';
 
         return (
-            <div>
+            <div id="app">
+                <Scrollbars
+                  className="scroll-wrap"
+                  style={{ height: '100vh' }}
+                  autoHide >
                 {/* 공통영역 S */}
-                <Toast />
-                {/* 공통영역 E */}
+                    <Toast />
+                    {/* 공통영역 E */}
 
-                {isAuth ? '' :
-                    <Header />
-                }
+                    {isAuth ? '' :
+                        <Header />
+                    }
 
-                <div id="container" className={`${pathname.substring(1, pathname.length)}`}>
-                {/*<div id="container">*/}
-                    {/*<PrivateRoute exact path="/" component={Home} isLoggedIn={isLoggedIn}/>*/}
-                    <Switch>
-                        <Route exact path="/" component={Scrap}/>
-                        <Route path="/login" component={Login}/>
-                        <Route path="/register" component={Register}/>
-                        <Route path="/scrap" component={Scrap}/>
-                        <PrivateRoute path="/write" component={Write}/>
-                        <Route path="*" component={NoMatch}/>
-                    </Switch>
-                </div>
+                    <div id="container" className={`${pathname.substring(1, pathname.length)}`}>
+                    {/*<div id="container">*/}
+                        {/*<PrivateRoute exact path="/" component={Home} isLoggedIn={isLoggedIn}/>*/}
+                        <Switch>
+                            <Route exact path="/" component={Scrap}/>
+                            <Route path="/login" component={Login}/>
+                            <Route path="/register" component={Register}/>
+                            <Route path="/scrap" component={Scrap}/>
+                            <PrivateRoute path="/scrap/write" component={Write}/>
+                            <Route path="*" component={NoMatch}/>
+                        </Switch>
+                    </div>
 
-                {isAuth ? '' :
-                    <Footer/>
-                }
+                    {isAuth ? '' :
+                        <Footer/>
+                    }
+                </Scrollbars>
             </div>
         );
     }

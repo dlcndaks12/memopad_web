@@ -38,14 +38,14 @@ class Header extends Component {
         );
 
         return (
-            <nav>
+            <header>
                 <div className="side-nav-wrap">
                     <SideNavigation/>
                 </div>
-                <div className="nav-wrapper red lighten-3">
+                <div className="nav-wrapper red lighten-3 z-depth-2">
                     {/*<Link to="/" className="brand-logo center">Life is OneShot</Link>*/}
                     <Link to="/" className="brand-logo center">
-                        <img src={require('resources/images/common/logo.png')}  alt=""/>
+                        <img src={require('resources/images/common/logo.svg')}  alt=""/>
                     </Link>
                     <ul className="right">
                         {/*<li>
@@ -61,7 +61,7 @@ class Header extends Component {
                         </div> : ''
                     }
                 </div>
-            </nav>
+            </header>
         );
     }
 }

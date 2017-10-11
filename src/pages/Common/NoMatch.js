@@ -4,7 +4,7 @@ class NoMatch extends Component {
   render() {
     return (
       <div className="container">
-        <h4 className="center-align">No Match Page</h4>
+        <h4 className="center-align">준비중 입니다...</h4>
       </div>
     );
   }

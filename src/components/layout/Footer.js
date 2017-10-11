@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Footer extends Component {
     render() {
         return (
-            <footer className="page-footer grey">
+            <footer className="page-footer blue-grey lighten-3">
                 {/*<div className="container">
           <h5 className="white-text">Frui vita tua</h5>
           <p className="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
@@ -11,12 +11,14 @@ class Footer extends Component {
                 <div className="footer-inner">
                     <div className="footer-copyright">
                         <div className="copy-wrap">
-                            <span>© 2017 Copyright</span>
-                            <span>Almond Bong Bong</span>
-                            <sapn className="link-wrap">
+                            <div className="info">
+                                <span>© 2017 Copyright</span>
+                                <span>Almond Bong Bong</span>
+                            </div>
+                            <div className="link-wrap">
                                 <span className="mail">dlcndaks12@naver.com</span>
                                 <a href="https://github.com/dlcndaks12" target="_blank" rel="noopener noreferrer" className="github">https://github.com/dlcndaks12</a>
-                            </sapn>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,16 @@
-nav {
+header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    color: #fff;
+    width: 100%;
+    height: 57px;
+    line-height: 57px;
+    @media only screen and (min-width: 601px) {
+        height: 64px;
+        line-height: 64px;
+    }
     .side-nav-wrap {
         position: fixed;
         top: 0;
@@ -10,9 +22,12 @@ nav {
                 display: block;
                 padding: 0 15px;
                 cursor: pointer;
+                color: #999;
             }
             i {
+                display: block;
                 height:57px;
+                color: #fff;
                 line-height:57px;
                 @media only screen and (min-width: 601px) {
                     height: 64px;
@@ -20,50 +35,69 @@ nav {
                 }
             }
         }
-        .userView {
-            position: relative;
-            padding: 60px 20px;
-            margin-bottom: 0;
-            > a {
-                display: block;
-                + a {
-                    margin-top: 10px;
-                }
+        .my-area {
+            padding: 30px 0;
+            color: #fff;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+            a {
+                color: #fff;
             }
             .name {
-                margin-top: 0;
+                font-size: 24px;
             }
-            .email {
-                padding-bottom: 0;
-            }
-            .background {
-                overflow: hidden;
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                z-index: -1;
-                //background: url(http://cfile28.uf.tistory.com/image/2137E439521346182E4C25) no-repeat 50% 50%;
-                background-color: #333;
-                background-size: cover;
-                img {
-                    height: 100%;
+            .info-list {
+                margin-top: 15px;
+                font-size: 0;
+                text-align: center;
+                > li {
+                    display: inline-block;
+                    width: 50px;
+                    font-size: 15px;
+                    line-height: 1.5;
+                    i {
+                        height: 30px;
+                        line-height: 30px;
+                    }
                 }
             }
-            .circle {
-                display: block;
-                height: 64px;
-                width: 64px;
+        }
+        .side-nav {
+            li {
+                a {
+                    &.active {
+                        position: relative;
+                        background-color: #f9f9f9;
+                        /*&:before {
+                            content: ' ';
+                            display: block;
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 0;
+                            width: 4px;
+                            background-color: #e57373;
+                        }*/
+                        .material-icons {
+                            color: #e57373;
+                        }
+                        span {
+                            color: #e57373;
+                        }
+                    }
+                }
+                .material-icons {
+                    color: #aaa;
+                }
             }
         }
     }
     .brand-logo {
+        display: inline-block;
+        font-size: 0;
         padding: 10px;
         height: 100%;
-        &.center {
-            font-size: 1.7rem;
-        }
         img {
             height: 100%;
         }
@@ -75,6 +109,7 @@ nav {
         left: 0;
         z-index: 10;
         height: 57px;
+        text-align: center;
         @media only screen and (min-width: 601px) {
             height: 64px;
         }
@@ -84,6 +119,24 @@ nav {
             }
             a {
                 display: block;
+            }
+        }
+    }
+    .right {
+        margin: 0;
+        a {
+            display: block;
+            padding: 0 15px;
+            cursor: pointer;
+        }
+        i {
+            display: block;
+            height:57px;
+            color: #fff;
+            line-height:57px;
+            @media only screen and (min-width: 601px) {
+                height: 64px;
+                line-height: 64px;
             }
         }
     }

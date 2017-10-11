@@ -1,0 +1,26 @@
+.scale-animation {
+  animation: scaleUp .3s cubic-bezier(0.71, 1.1, 0.78, 1.05);
+}
+.fade-animation {
+  animation: fadeIn .7s;
+}
+
+@keyframes scaleUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

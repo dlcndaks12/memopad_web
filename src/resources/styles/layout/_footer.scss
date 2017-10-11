@@ -16,30 +16,34 @@
 .page-footer {
     .footer-inner {
         .footer-copyright {
+            display: block;
             padding: 0 20px;
             font-size: 13px;
             @media screen and (max-width: 768px) {
                 padding: 15px 0;
             }
             .copy-wrap {
-                flex: 1;
-                overflow: hidden;
-                text-align: center;
-                > span {
-                    float: left;
+                display: table;
+                table-layout: fixed;
+                width: 100%;
+                height: 50px;
+                @media screen and (max-width: 768px) {
+                    display: block;
+                    height: auto;
+                }
+                > div {
+                    display: table-cell;
+                    vertical-align: middle;
                     @media screen and (max-width: 768px) {
-                        float: none;
-                    }
-                    + span {
-                        margin-left: 10px;
+                        display: block;
+                        text-align: center;
                     }
                 }
                 .link-wrap {
-                    float: right;
+                    text-align: right;
                     font-size: 0;
                     @media screen and (max-width: 768px) {
-                        display: block;
-                        float: none;
+                        text-align: center;
                         margin-top: 8px;
                     }
                     > * {
@@ -56,13 +60,13 @@
                             top: 2px;
                             left: -2px;
                             height: 12px;
-                            border-left: 1px solid #888;
-                            border-right: 1px solid #aaa;
+                            border-left: 1px solid #aaa;
+                            border-right: 1px solid #ddd;
                         }
                     }
                 }
                 a {
-                    color: rgba(255,255,255,0.8);
+                    color: rgba(255,255,255,0.9);
                 }
             }
         }

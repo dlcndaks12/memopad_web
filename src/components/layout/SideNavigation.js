@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom';
-import { SideNav, SideNavItem } from 'react-materialize';
+import { SideNav } from 'react-materialize';
 
 class SideNavigation extends Component {
     render() {
@@ -8,33 +8,25 @@ class SideNavigation extends Component {
             <SideNav
                 trigger={<a><i className="material-icons">menu</i></a>}
                 options={{ closeOnClick: true }}>
-                <SideNavItem userView
-                             user={{
-                                 background: require('resources/images/common/traval2.jpg'),
-                                 // image: 'https://pbs.twimg.com/profile_images/535949276124172288/NcFxiF0v.jpeg',
-                                 name: '여행은 언제나 돈의 문제가 아니고 용기의 문제다.',
-                                 // email: 'dlcndaks12@naver.com',
-                             }}
-                />
-                {/*<SideNavItem href='#!icon' icon='cloud'>First Link With Icon</SideNavItem>
-                <SideNavItem href='#!second'>Second Link</SideNavItem>*/}
-                {/*<li><a className="subheader">지역</a></li>
+
+                <div className="my-area blue lighten-2">
+                    <NavLink to="/mypage" className="name">bugbug</NavLink>
+                    <ul className="info-list">
+                      <li title="내가 쓴 글 갯수">
+                        <i className="tiny white-text material-icons">border_color</i><span>10</span>
+                      </li>
+                      <li title="내가 쓴 댓글 갯수">
+                        <i className="tiny white-text material-icons">mode_comment</i><span>0</span>
+                      </li>
+                    </ul>
+                </div>
                 <li>
-                    <NavLink to="/" activeClassName="active">부산</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/" activeClassName="active">강원도</NavLink>
-                </li>
-                <li><div className="divider">&nbsp;</div></li>
-                <li><a className="subheader">테마</a></li>
-                <li>
-                    <NavLink to="/" activeClassName="active">맛집</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/" activeClassName="active">숙소</NavLink>
-                </li>*/}
-                <li>
-                  <NavLink to="/" activeClassName="active">스크랩</NavLink>
+                  <NavLink to="/" exact activeClassName="active">
+                    <i className="small material-icons">folder_special</i><span>스크랩</span>
+                  </NavLink>
+                  <NavLink to="/recommend" activeClassName="active">
+                    <i className="small material-icons">rate_review</i><span>후기</span>
+                  </NavLink>
                 </li>
             </SideNav>
         );

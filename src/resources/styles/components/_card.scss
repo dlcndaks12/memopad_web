@@ -45,11 +45,10 @@
         }
         .card-content {
             padding: 15px 20px;
-            p {
+            .desc {
                 display: block;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                display: -webkit-box;
                 -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
                 word-wrap:break-word;
