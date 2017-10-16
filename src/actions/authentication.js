@@ -33,8 +33,7 @@ export function authRequest() {
                 dispatch(authFailure(response.message));
             }
         }).catch((error) => {
-            console.log('catch', error);
-            dispatch(authFailure(error.error));
+            dispatch(authFailure(error.message));
         });
     };
 }
@@ -80,7 +79,7 @@ export function loginRequest(id, password) {
             }
         }).catch((error) => {
             console.dir(error);
-            dispatch(loginFailure(error.error));
+            dispatch(loginFailure(error.message));
         });
     };
 }
@@ -129,7 +128,7 @@ export function registerRequest(id, password) {
                 dispatch(registerFailure(response.message));
             }
         }).catch((error) => {
-            dispatch(registerFailure(error.error));
+            dispatch(registerFailure(error.message));
         });
     };
 }

@@ -2,12 +2,15 @@
     position: fixed;
     right: 20px;
     bottom: 70px;
+    button,
     a {
         display: block;
         overflow: hidden;
         border-radius: 50%;
         width: 56px;
         height: 56px;
+        border: 0;
+        outline: 0;
         background-color: $point-color1;
         box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
         color: #fff;

@@ -6,7 +6,7 @@ class Preview extends Component {
         return (
             <div className="preview-area">
                 <div className="thumb">
-                    <img src={this.props.og.ogImageUrl} alt="" />
+                    <img src={`data:image/jpg;base64, ${this.props.og.ogImageData}`} alt="" />
                 </div>
                 <div className="title">
                     <div className="input-field title">

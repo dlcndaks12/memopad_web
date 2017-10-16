@@ -2,78 +2,84 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toastOpen } from 'actions/toast';
-import { CardList, Locations, Categories } from 'components';
+import { NationTab, CardList, Option } from 'components';
 
-const $ = window.$;
+// const $ = window.$;
 
 class Scrap extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.handleLogin = this.handleLogin.bind(this);
-  }
+        const nation = this.props.match.params.nation ? this.props.match.params.nation : 'kr';
 
-  componentDidMount() {
-    $('ul.tabs').tabs();
-  }
+        this.state = {
+            defaultNationCode: nation,
+            selectedNationCode: nation,
+        };
 
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleNation = this.handleNation.bind(this);
+        this.handleCity = this.handleCity.bind(this);
+    }
 
-  handleLogin() {
-    this.props.toastOpen('로그인 해주세요.', 2500);
-    this.props.history.push('/login');
-  }
+    handleLogin() {
+        this.props.toastOpen('로그인 해주세요.', 2500);
+        this.props.history.push('/login');
+    }
 
-  render() {
-    const loginButton = (
-      <div className="btn-write">
-        <a href="#!" onClick={this.handleLogin}>
-          <i className="material-icons">mode_edit</i>
-        </a>
-      </div>
-    );
+    handleNation(nationCode) {
+        this.props.history.push(`/scrap/${nationCode}`);
+        this.setState({
+            selectedNationCode: nationCode,
+        });
+    }
 
-    const writeButton = (
-      <div className="btn-write">
-        <Link to="/scrap/write">
-          <i className="material-icons">mode_edit</i>
-        </Link>
-      </div>
-    );
+    handleCity(selectedCities) {
+        console.log('scrap , ', selectedCities);
+        this.props.history.push(`${this.props.match.url}?city=${selectedCities}`);
+    }
 
-    return (
-      <div className="contents scrap">
-        <ul className="tabs" ref="tabs">
-          <li className="tab col s3"><a className="active" href="#test1">한국</a></li>
-          <li className="tab col s3"><a href="#test2">일본</a></li>
-          <li className="tab col s3"><a href="#test3">홍콩</a></li>
-          <li className="tab col s3"><a href="#test3">마카오</a></li>
-        </ul>
+    render() {
+        const loginButton = (
+            <div className="btn-write">
+                <button onClick={this.handleLogin}>
+                    <i className="material-icons">mode_edit</i>
+                </button>
+            </div>
+        );
 
-        <div className="option-area z-depth-1 fade-animation">
-          <div className="option">
-            <h6>지역</h6>
-            <Locations/>
-          </div>
-          <div className="option">
-            <h6>카테고리</h6>
-            <Categories/>
-          </div>
-        </div>
-        <div className="card-wrap fade-animation">
-          <CardList/>
-        </div>
-        { this.props.status.isLoggedIn ? writeButton : loginButton }
-      </div>
-    );
-  }
+        const writeButton = (
+            <div className="btn-write">
+                <Link to="/scrap/write">
+                    <i className="material-icons">mode_edit</i>
+                </Link>
+            </div>
+        );
+
+        return (
+            <div className="contents scrap">
+                <NationTab
+                    defaultValue={this.state.defaultNationCode}
+                    onChange={this.handleNation} />
+                <Option
+                    nation={this.state.selectedNationCode}
+                    onChangeCity={this.handleCity} />
+                <div className="card-wrap">
+                    <CardList/>
+                </div>
+                { this.props.status.isLoggedIn ? writeButton : loginButton }
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state) => ({
-  status: state.authentication.status,
+    status: state.authentication.status,
+    nation: state.location.nation,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toastOpen: (content, time) => dispatch(toastOpen(content, time)),
+    toastOpen: (content, time) => dispatch(toastOpen(content, time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrap);

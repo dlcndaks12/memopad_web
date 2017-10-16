@@ -16,6 +16,7 @@ class Write extends Component {
             og: {
                 ogUrl: '',
                 ogImageUrl: '',
+                ogImageData: '',
                 ogTitle: '',
                 ogDescription: '',
             },
@@ -79,6 +80,7 @@ class Write extends Component {
                     og: {
                         ...this.state.og,
                         ogImageUrl: response.data.ogImageUrl,
+                        ogImageData: response.data.ogImageData,
                         ogTitle: response.data.ogTitle,
                         ogDescription: response.data.ogDescription,
                     }
@@ -102,11 +104,14 @@ class Write extends Component {
         const selectedNation = this.state.selectedNation;
         const nation = this.props.location.nation;
         const city = this.props.location.city !== null ? this.props.location.city[selectedNation] : null;
+        const cityLength = city !== null ? city.length : null;
+
+        console.log('c l', cityLength);
 
         return (
-            <div>
+            <div className="scrap-write">
                 <blockquote>공유하고자 하는 link만 입력하시면 간편 스크랩 내용이 채워집니다.</blockquote>
-                <div className="input-row">
+                <div className={`input-row ${cityLength !== null && cityLength < 1 ? 'no-city' : ''}`}>
                     <div className="select-area nation-sel">
                         <Select defaultSelected={selectedNation} type="nation" option={nation} onChange={this.handleSelect} />
                     </div>
@@ -138,12 +143,6 @@ class Write extends Component {
                 {this.state.pending ? <CircleLoader /> :
                     this.state.result === 'OK' ?
                         <Preview og={this.state.og} onChange={this.handleInput}/> : ''}
-
-                {/*<div className="fixed-action-btn horizontal">
-         <a className="btn-floating btn-large red">
-         <i className="large material-icons">mode_edit</i>
-         </a>
-         </div>*/}
             </div>
         );
     }

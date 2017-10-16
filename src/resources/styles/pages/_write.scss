@@ -1,43 +1,73 @@
-#container {
-    &.write {
-        .input-row {
-            display: flex;
-            flex-direction: row;
-            font-size: 0;
-            @media screen and (max-width: 900px) {
-                display: block;
-            }
-            > div {
-                flex: 1;
-                + div {
-                    margin-left: 20px;
+.scrap-write {
+    .input-row {
+        display: flex;
+        flex-direction: row;
+        font-size: 0;
+        @media screen and (max-width: 900px) {
+            display: block;
+        }
+        &.no-city {
+            .select-area {
+                &.nation-sel {
+                    width: 180px;
                     @media screen and (max-width: 900px) {
-                        margin-left: 0;
+                        width: 100%;
+                        padding-right: 0;
                     }
                 }
-            }
-            .select-area {
-                flex: none;
-                width: 120px;
-                @media screen and (max-width: 900px) {
-                    display: inline-block;
-                    width: 50%;
-                    &.nation-sel {
-                        padding-right: 10px;
-
-                    }
-                    &.city-sel {
-                         padding-left: 10px;
-                    }
-                    &.category-sel {
+                &.city-sel {
+                    display: none;
+                }
+                &.category-sel {
+                    width: 180px;
+                    @media screen and (max-width: 900px) {
                         width: 100%;
                     }
                 }
             }
         }
-        .circle-loader-wrap {
-            padding: 100px 0;
-            text-align: center;
+        > div {
+            flex: 1;
+            + div {
+                margin-left: 20px;
+                @media screen and (max-width: 900px) {
+                    margin-left: 0;
+                }
+            }
         }
+        .select-area {
+            flex: none;
+            width: 120px;
+            @media screen and (max-width: 900px) {
+                display: inline-block;
+                width: 50%;
+            }
+            &.nation-sel {
+                @media screen and (max-width: 900px) {
+                    padding-right: 10px;
+                }
+            }
+            &.city-sel {
+                @media screen and (max-width: 900px) {
+                    padding-left: 10px;
+                }
+            }
+            &.category-sel {
+                @media screen and (max-width: 900px) {
+                    width: 100%;
+                }
+            }
+            .prefix {
+                display: none;
+                ~ .select-wrapper {
+                    margin-left: 0;
+                    width: auto;
+                }
+            }
+        }
+    }
+    .circle-loader-wrap {
+        padding: 100px 0;
+        text-align: center;
     }
 }

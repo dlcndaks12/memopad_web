@@ -1,14 +1,17 @@
-import React, {Component} from 'react';
-import {CardList} from 'components/index';
+import React, { Component } from 'react';
 
 class Home extends Component {
-  render() {
-    return (
-      <div>
-        <CardList/>
-      </div>
-    );
-  }
+    componentDidMount() {
+        this.props.history.replace('/scrap');
+    }
+
+    render() {
+        return (
+            <div>
+              Home Page
+            </div>
+        );
+    }
 }
 
 export default Home;

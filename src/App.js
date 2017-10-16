@@ -4,7 +4,7 @@ import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Header, Toast, Footer, PrivateRoute } from 'components';
-import { Scrap, Login, Register, Write, NoMatch } from 'pages';
+import { Home, Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
 import { locationInit } from 'actions/location';
 
@@ -60,15 +60,16 @@ class App extends Component {
                         <Header />
                     }
 
-                    <div id="container" className={`${pathname.substring(1, pathname.length)}`}>
+                    <div id="container">
                     {/*<div id="container">*/}
                         {/*<PrivateRoute exact path="/" component={Home} isLoggedIn={isLoggedIn}/>*/}
                         <Switch>
-                            <Route exact path="/" component={Scrap}/>
+                            <Route exact path="/" component={Home}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/register" component={Register}/>
-                            <Route path="/scrap" component={Scrap}/>
                             <PrivateRoute path="/scrap/write" component={Write}/>
+                            <Route path="/scrap/:nation" component={Scrap}/>
+                            <Route path="/scrap" component={Scrap}/>
                             <Route path="*" component={NoMatch}/>
                         </Switch>
                     </div>
