@@ -24,6 +24,8 @@ create-react-app
 
 개발 서버는 WebpackDevServer를 사용
 
+Live 웹서버 : Nginx
+
 개발 서버를 실행시키기 위한 일련의 과정은 아래와 같음
 
 ```
