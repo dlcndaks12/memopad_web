@@ -18,7 +18,7 @@ class NationTab extends Component {
     render() {
         return (
             <div className="nation-tab-area">
-                {this.props.nation !== null ?
+                {this.props.nation ?
                     <Tabs ref="nationTab" className="nation-tab" onChange={this.handleNation} >
                         {this.props.nation.map((nation, i) => {
                             let active = nation.code === this.props.defaultValue;

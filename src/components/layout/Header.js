@@ -40,7 +40,7 @@ class Header extends Component {
         return (
             <header>
                 <div className="side-nav-wrap">
-                    <SideNavigation/>
+                    <SideNavigation location={this.props.location.pathname} />
                 </div>
                 <div className="nav-wrapper red lighten-3 z-depth-2">
                     {/*<Link to="/" className="brand-logo center">Life is OneShot</Link>*/}

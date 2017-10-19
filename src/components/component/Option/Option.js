@@ -21,14 +21,14 @@ class Option extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            city: nextProps.city[nextProps.nation],
+            city: nextProps.city ? nextProps.city[nextProps.nation] : null,
         });
     }
 
     render() {
         return (
             <div className="option-area z-depth-1">
-                {this.state.city !== null && this.state.city.length > 0 ?
+                {this.state.city && this.state.city.length > 0 ?
                     <div className="option">
                         <h6>지역</h6>
                         <City

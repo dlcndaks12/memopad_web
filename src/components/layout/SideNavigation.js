@@ -27,7 +27,7 @@ class SideNavigation extends Component {
                   <NavLink to="/scrap" activeClassName="active">
                     <i className="small material-icons">folder_special</i><span>스크랩</span>
                   </NavLink>
-                  <NavLink to="/recommend" activeClassName="active">
+                  <NavLink to="/review" activeClassName="active">
                     <i className="small material-icons">rate_review</i><span>후기</span>
                   </NavLink>
                 </li>

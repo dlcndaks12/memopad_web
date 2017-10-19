@@ -42,17 +42,15 @@ class App extends Component {
     render() {
         let re = /(login|register)/;
         let isAuth = re.test(window.location.pathname);
-        let pathname = this.props.location.pathname;
-        if(pathname === '/') pathname = '/home';
 
         return (
             <div id="app" className={this.state.simpleHeader ? 'simple-header' : ''}>
                 <Scrollbars
-                  className="scroll-wrap"
-                  style={{ height: '100vh' }}
-                  autoHide
-                  onScrollFrame={this.handleScrollFrame} >
-                {/* 공통영역 S */}
+                    className="scroll-wrap"
+                    style={{ height: '100vh' }}
+                    autoHide
+                    onScrollFrame={this.handleScrollFrame} >
+                    {/* 공통영역 S */}
                     <Toast />
                     {/* 공통영역 E */}
 
@@ -61,8 +59,6 @@ class App extends Component {
                     }
 
                     <div id="container">
-                    {/*<div id="container">*/}
-                        {/*<PrivateRoute exact path="/" component={Home} isLoggedIn={isLoggedIn}/>*/}
                         <Switch>
                             <Route exact path="/" component={Home}/>
                             <Route path="/login" component={Login}/>
@@ -70,7 +66,7 @@ class App extends Component {
                             <PrivateRoute path="/scrap/write" component={Write}/>
                             <Route path="/scrap/:nation" component={Scrap}/>
                             <Route path="/scrap" component={Scrap}/>
-                            <Route path="*" component={NoMatch}/>
+                            <Route path="/*" component={NoMatch}/>
                         </Switch>
                     </div>
 
