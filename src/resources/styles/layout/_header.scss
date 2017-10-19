@@ -2,7 +2,7 @@
     header {
         line-height: 40px;
         .nav-wrapper {
-            background-color: rgba(239,154,154,0.7) !important;
+            background-color: rgba(239,154,154,0.8) !important;
             height: 40px;
         }
         .side-nav-wrap {
@@ -59,31 +59,38 @@ header {
             }
         }
         .my-area {
-            padding: 30px 0;
+            padding: 30px 20px 40px;
             color: #fff;
             font-size: 14px;
             line-height: 1.5;
-            text-align: center;
+            text-align: left;
             a {
                 color: #fff;
             }
             .name {
-                font-size: 24px;
+                padding: 0;
+                font-size: 20px;
             }
             .info-list {
                 margin-top: 15px;
                 font-size: 0;
-                text-align: center;
+                text-align: left;
                 > li {
-                    display: inline-block;
-                    width: 50px;
                     font-size: 15px;
                     line-height: 1.5;
+                    + li {
+                        margin-top: 5px;
+                    }
                     i {
                         height: 30px;
                         line-height: 30px;
                     }
                 }
+            }
+        }
+        .welcome-area {
+            a {
+                color: #fff;
             }
         }
         .side-nav {
