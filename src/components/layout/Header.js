@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { logout } from 'actions/authentication';
 import { toastOpen } from 'actions/toast';
+import { confirmOpen } from 'actions/confirm';
 import { SideNavigation } from "components";
 import { deleteCookie } from 'js/util';
 
@@ -14,11 +15,16 @@ class Header extends Component {
     }
 
     handleLogout() {
-        deleteCookie('Authentication');
+        this.props.confirmOpen('정말 로그아웃 하시게요?', (result) => {
+          console.log('result ,', result);
+          if (result) {
+            deleteCookie('Authentication');
 
-        this.props.logout();
-        this.props.toastOpen('로그아웃 되었습니다.', 2000);
-        // this.props.history.push('/login');
+            this.props.logout();
+            this.props.toastOpen('로그아웃 되었습니다.', 2000);
+            // this.props.history.push('/login');
+          }
+        });
     }
 
     render() {
@@ -72,6 +78,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
     toastOpen: (content, time) => dispatch(toastOpen(content, time)),
+    confirmOpen: (content, callback) => dispatch((confirmOpen(content, callback))),
     logout: () => dispatch(logout()),
 });
 

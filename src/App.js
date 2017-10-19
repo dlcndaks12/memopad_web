@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { Header, Toast, Footer, PrivateRoute } from 'components';
+import { Header, Toast, Confirm, Footer, PrivateRoute } from 'components';
 import { Home, Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
 import { locationInit } from 'actions/location';
@@ -23,6 +23,7 @@ class App extends Component {
 
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
     }
+
 
     // Scroll Handler
     handleScrollFrame(values) {
@@ -52,6 +53,7 @@ class App extends Component {
                     onScrollFrame={this.handleScrollFrame} >
                     {/* 공통영역 S */}
                     <Toast />
+                    <Confirm />
                     {/* 공통영역 E */}
 
                     {isAuth ? '' :

@@ -2,6 +2,10 @@
 export const TOAST_OPEN = "TOAST_OPEN";
 export const TOAST_CLOSE = "TOAST_CLOSE";
 
+/* CONFIRM */
+export const CONFIRM_OPEN = "CONFIRM_OPEN";
+export const CONFIRM_CLOSE = "CONFIRM_CLOSE";
+
 /* AUTHENTICATION */
 export const AUTH = "AUTH";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";

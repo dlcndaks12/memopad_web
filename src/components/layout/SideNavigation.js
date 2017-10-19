@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { SideNav } from 'react-materialize';
 
 class SideNavigation extends Component {
@@ -13,7 +13,7 @@ class SideNavigation extends Component {
                 options={{ closeOnClick: true }}>
 
                 <div className="my-area blue lighten-2">
-                    <NavLink to="/mypage" className="name">{id}</NavLink>
+                    <Link to="/mypage" className="name">{id}</Link>
                     <ul className="info-list">
                       <li title="내가 쓴 글 갯수">
                         <i className="tiny white-text material-icons">border_color</i><span>10</span>
