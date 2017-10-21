@@ -15,11 +15,13 @@ class Scrap extends Component {
         this.state = {
             defaultNationCode: nation,
             selectedNationCode: nation,
+            citySelected: 'all',
+            categorySelected: 'all',
         };
 
         this.handleLogin = this.handleLogin.bind(this);
         this.handleNation = this.handleNation.bind(this);
-        this.handleCity = this.handleCity.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleLogin() {
@@ -34,9 +36,12 @@ class Scrap extends Component {
         });
     }
 
-    handleCity(selectedCities) {
-        console.log('scrap , ', selectedCities);
-        this.props.history.push(`${this.props.match.url}?city=${selectedCities}`);
+    handleChange(selectedItems, type) {
+        this.setState({
+            [`${type}Selected`]: selectedItems,
+        }, () => {
+            this.props.history.push(`${this.props.match.url}?city=${this.state.citySelected}&category=${this.state.categorySelected}`);
+        });
     }
 
     render() {
@@ -63,7 +68,7 @@ class Scrap extends Component {
                     onChange={this.handleNation} />
                 <Option
                     nation={this.state.selectedNationCode}
-                    onChangeCity={this.handleCity} />
+                    onChange={this.handleChange} />
                 <div className="card-wrap">
                     <CardList/>
                 </div>

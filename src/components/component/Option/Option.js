@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { City, Category } from 'components';
+import { Selection } from 'components';
 
 class Option extends Component {
     constructor(props) {
@@ -31,13 +31,17 @@ class Option extends Component {
                 {this.state.city && this.state.city.length > 0 ?
                     <div className="option">
                         <h6>지역</h6>
-                        <City
-                            city={this.state.city}
-                            onChangeCity={this.props.onChangeCity} />
+                        <Selection
+                            type="city"
+                            item={this.state.city}
+                            onChange={this.props.onChange} />
                     </div> : ''}
                 <div className="option">
                     <h6>카테고리</h6>
-                    <Category />
+                    <Selection
+                        type="category"
+                        item={this.props.category}
+                        onChange={this.props.onChange} />
                 </div>
             </div>
         );
@@ -46,6 +50,7 @@ class Option extends Component {
 
 const mapStateToProps = (state) => ({
     city: state.location.city,
+    category: state.category.category,
 });
 
 export default connect(mapStateToProps, null)(Option);

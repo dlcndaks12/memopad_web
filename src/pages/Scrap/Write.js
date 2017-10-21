@@ -21,13 +21,15 @@ class Write extends Component {
                 ogDescription: '',
             },
             pending: false,
-            selectedNation: 'kr',
+            nationSelected: 'kr',
+            citySelected: '6', // 서울
         };
 
         this.handleLink = this.handleLink.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.listenOGTag = this.listenOGTag.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleLink(e) {
@@ -41,7 +43,7 @@ class Write extends Component {
         console.log(e.target.name, e.target.selectedOptions[0].value);
         if (e.target.name === 'nation') {
             this.setState({
-                selectedNation: e.target.selectedOptions[0].value,
+                [`${e.target.name}Selected`]: e.target.selectedOptions[0].value,
             });
         }
     }
@@ -100,23 +102,27 @@ class Write extends Component {
         });
     }
 
-    render() {
-        const selectedNation = this.state.selectedNation;
-        const nation = this.props.location.nation;
-        const city = this.props.location.city !== null ? this.props.location.city[selectedNation] : null;
-        const cityLength = city !== null ? city.length : null;
+    handleSubmit() {
+        console.log('nation_code', this.state.nationSelected);
+        console.log('city_idx', this.state.citySelected);
+    }
 
-        console.log('c l', cityLength);
+    render() {
+        const nationSelected = this.state.nationSelected;
+        const citySelected = this.state.citySelected;
+        const nation = this.props.location.nation;
+        const city = this.props.location.city !== null ? this.props.location.city[nationSelected] : null;
+        const cityLength = city !== null ? city.length : null;
 
         return (
             <div className="scrap-write">
                 <blockquote>공유하고자 하는 link만 입력하시면 간편 스크랩 내용이 채워집니다.</blockquote>
                 <div className={`input-row ${cityLength !== null && cityLength < 1 ? 'no-city' : ''}`}>
                     <div className="select-area nation-sel">
-                        <Select defaultSelected={selectedNation} type="nation" option={nation} onChange={this.handleSelect} />
+                        <Select defaultSelected={nationSelected} type="nation" option={nation} onChange={this.handleSelect} />
                     </div>
                     <div className="select-area city-sel">
-                        <Select defaultSelected="-1" type="city" option={city} onChange={this.handleSelect} />
+                        <Select defaultSelected={citySelected} type="city" option={city} onChange={this.handleSelect} />
                     </div>
                     <div className="select-area category-sel">
                         <Input type="select" defaultValue="-1" onChange={this.handleSelect}>
@@ -142,7 +148,7 @@ class Write extends Component {
                 </div>
                 {this.state.pending ? <CircleLoader /> :
                     this.state.result === 'OK' ?
-                        <Preview og={this.state.og} onChange={this.handleInput}/> : ''}
+                        <Preview og={this.state.og} onChange={this.handleInput} onSubmit={this.handleSubmit}/> : ''}
             </div>
         );
     }

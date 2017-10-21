@@ -7,6 +7,7 @@ import { Header, Toast, Confirm, Footer, PrivateRoute } from 'components';
 import { Home, Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { authRequest } from 'actions/authentication';
 import { locationInit } from 'actions/location';
+import { categoryInit } from "actions/category";
 
 class App extends Component {
     constructor(props) {
@@ -20,23 +21,36 @@ class App extends Component {
         this.props.authRequest();
         // Location 정보 획득
         this.props.locationInit();
+        // Category 정보 획득
+        this.props.categoryInit();
 
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
     }
 
+    // 스크롤로 인한 불필요한 렌더링 방지
+    shouldComponentUpdate(nextProps, nextState){
+        // return JSON.stringify(this.state) !== JSON.stringify(nextState);
+        console.log(this.state);
+        console.log(nextState);
+        return true;
+    }
 
     // Scroll Handler
     handleScrollFrame(values) {
         const scrollTop = values.scrollTop;
 
         if (scrollTop > 50) {
-          this.setState({
-            simpleHeader: true,
-          });
+            if (!this.state.simpleHeader) {
+                this.setState({
+                    simpleHeader: true,
+                });
+            }
         } else {
-          this.setState({
-            simpleHeader: false,
-          });
+            if (this.state.simpleHeader) {
+                this.setState({
+                    simpleHeader: false,
+                });
+            }
         }
     }
 
@@ -88,6 +102,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     authRequest: () => dispatch(authRequest()),
     locationInit: () => dispatch(locationInit()),
+    categoryInit: () => dispatch(categoryInit()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

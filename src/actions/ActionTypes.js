@@ -24,3 +24,6 @@ export const PROGRESS_HIDE = "PROGRESS_HIDE";
 
 /* LOCATION */
 export const LOCATION_INIT = "LOCATION_INIT";
+
+/* CATEGORY */
+export const CATEGORY_INIT = "CATEGORY_INIT";

@@ -6,7 +6,7 @@ class Preview extends Component {
         return (
             <div className="preview-area">
                 <div className="thumb">
-                    <img src={`data:image/jpg;base64, ${this.props.og.ogImageData}`} alt="" />
+                    <img src={`data:image/jpg;base64, ${this.props.og.ogImageData}`} alt="" className="z-depth-1" />
                 </div>
                 <div className="title">
                     <div className="input-field title">
@@ -27,6 +27,12 @@ class Preview extends Component {
                                   onChange={this.props.onChange} />
                         <label htmlFor="og-description" className="active">Description</label>
                     </div>
+                </div>
+                <div className="submit-area">
+                    <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action" onClick={this.props.onSubmit}>
+                        등록
+                        <i className="material-icons right">send</i>
+                    </button>
                 </div>
             </div>
         );

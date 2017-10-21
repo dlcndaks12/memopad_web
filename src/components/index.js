@@ -9,10 +9,9 @@ export { default as CardList } from './component/Card/CardList';
 export { default as Card } from './component/Card/Card';
 export { default as PrivateRoute } from './common/Util/PrivateRoute';
 export { default as Preview } from './component/Article/Preview';
-export { default as City } from './component/Selection/City';
-export { default as Category } from './component/Selection/Category';
 export { default as Select } from './component/Select/Select';
 export { default as Option } from './component/Option/Option';
+export { default as Selection } from './component/Option/Selection';
 export { default as NationTab } from './component/Tab/NationTab';
 
 /* LAUOUT */

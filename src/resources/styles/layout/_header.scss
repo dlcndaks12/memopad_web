@@ -66,6 +66,9 @@ header {
             text-align: left;
             a {
                 color: #fff;
+                &:hover {
+                    background-color: transparent;
+                }
             }
             .name {
                 padding: 0;

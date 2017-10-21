@@ -7,20 +7,26 @@ class Select extends Component {
         const option = this.props.option;
         let selectReady = -1;
         let optionEl = [];
+        let keyValue = 'idx';
 
+        if (this.props.type === 'nation') {
+            keyValue = 'code'
+        }
         if (option && option.length > 0) {
             selectReady = 1;
             if (option.length > 1) {
                 for(let i = 0 ; i < option.length; i++) {
-                    optionEl.push(<option value={option[i].code} key={i}>{option[i].name}</option>);
+                    optionEl.push(<option value={option[i][keyValue]} key={i}>{option[i].name}</option>);
                 }
             } else {
-                optionEl = <option value={option[0].code}>{option[0].name}</option>;
+                optionEl = <option value={option[0][keyValue]}>{option[0].name}</option>;
             }
         } else {
             selectReady = 0;
             optionEl = <option key="-2">...</option>;
         }
+
+        console.log('re');
 
         return (
             <div>
