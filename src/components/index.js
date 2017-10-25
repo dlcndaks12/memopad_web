@@ -1,6 +1,7 @@
 /* COMMON */
 export { default as CircleLoader } from './common/Loader/CircleLoader';
 export { default as Toast } from './common/Toast/Toast';
+export { default as Message } from './common/Toast/Message';
 export { default as Confirm } from './common/Confirm/Confirm';
 
 /* COMPONENT */

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { toastOpen } from 'actions/toast';
+import { toast } from 'actions/toast';
 import { NationTab, CardList, Option } from 'components';
 
 // const $ = window.$;
@@ -25,7 +25,7 @@ class Scrap extends Component {
     }
 
     handleLogin() {
-        this.props.toastOpen('로그인 해주세요.', 2500);
+        this.props.toast('로그인 해주세요.');
         this.props.history.push('/login');
     }
 
@@ -84,7 +84,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toastOpen: (content, time) => dispatch(toastOpen(content, time)),
+    toast: (content, time) => dispatch(toast(content, time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrap);

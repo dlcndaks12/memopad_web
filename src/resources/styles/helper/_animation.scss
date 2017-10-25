@@ -1,26 +1,68 @@
 .scale-animation {
-  animation: scaleUp .3s cubic-bezier(0.71, 1.1, 0.78, 1.05);
+    animation: scaleUp .3s cubic-bezier(0.71, 1.1, 0.78, 1.05);
 }
-.fade-animation {
-  animation: fadeIn .7s;
+.fade-in-animation {
+    animation: fadeIn .5s;
+}
+.fade-out-animation {
+    animation: fadeOut .5s;
+}
+.toast-in-animation {
+    animation: toastIn .4s forwards;
+}
+.toast-out-animation {
+    animation: toastIn .4s forwards;
 }
 
 @keyframes scaleUp {
-  0% {
-    opacity: 0;
-    transform: scale(0.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes toastIn {
+    0% {
+        opacity: 0;
+        padding: 0 20px;
+        height: 0;
+    }
+    100% {
+        opacity: 1;
+        padding: 10px 20px;
+        height: 42px;
+    }
+}
+
+@keyframes toastOut {
+    0% {
+        visibility: visible;
+        opacity: 1;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
+    }
 }

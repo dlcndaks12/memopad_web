@@ -1,6 +1,5 @@
 import {
-  TOAST_OPEN,
-  TOAST_CLOSE,
+    TOAST,
 } from './ActionTypes';
 
 
@@ -9,18 +8,11 @@ import {
  ==============================================================================*/
 
 /* OPEN */
-export function toastOpen(content, time) {
-  return {
-    type: TOAST_OPEN,
-    content,
-    time,
-  };
-}
-
-/* CLOSE */
-export function toastClose() {
-  return {
-    type: TOAST_CLOSE,
-  }
+export function toast(message, time) {
+    return {
+        type: TOAST,
+        message,
+        time,
+    };
 }
 

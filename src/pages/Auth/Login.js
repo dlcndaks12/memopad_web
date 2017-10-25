@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { loginRequest } from 'actions/authentication';
-import { toastOpen } from 'actions/toast';
+import { toast } from 'actions/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader } from 'components';
 
@@ -42,22 +42,22 @@ class Login extends Component {
         const pw = this.state.password;
 
         if(id === '') {
-            this.props.toastOpen('ID를 입력해주세요.', 3000);
+            this.props.toast('ID를 입력해주세요.');
             return false;
         }
 
         if(pw === '') {
-            this.props.toastOpen('비밀번호를 입력해주세요.', 3000);
+            this.props.toast('비밀번호를 입력해주세요.');
             return false;
         }
 
         this.props.loginRequest(id, pw).then(
             () => {
                 if(this.props.login.status === 'SUCCESS') {
-                    this.props.toastOpen(`${id}님 환영합니다.`, 3000);
+                    this.props.toast(`${id}님 환영합니다.`);
                     this.props.history.push('/');
                 } else {
-                    this.props.toastOpen(this.props.login.message, 2000);
+                    this.props.toast(this.props.login.message);
                     this.setState({
                         password: ''
                     });
@@ -136,7 +136,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     loginRequest: (id, pw) => dispatch(loginRequest(id, pw)),
-    toastOpen: (content, time) => dispatch(toastOpen(content, time)),
+    toast: (content, time) => dispatch(toast(content, time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

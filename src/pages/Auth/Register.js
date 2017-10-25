@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { registerRequest } from '../../actions/authentication';
-import { toastOpen } from '../../actions/toast';
+import { toast } from '../../actions/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader } from 'components';
 
@@ -25,21 +25,44 @@ class Register extends Component {
     }
 
     handleChange(e) {
+        const name = e.target.name;
+        const value = e.target.value;
         let nextState = {};
-        nextState[e.target.name] = e.target.value;
+        nextState[name] = value;
         this.setState(nextState, () => {
             const idReg=/([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
             const nicknameReg = /^[A-Za-z0-9]{4,12}$/;
-            if (!(this.state.id !== '' && this.state.id !== 'undefined' && idReg.test(this.state.id))) {
-                this.setState({
-                    idValidation: false,
-                });
-            } else {
-                this.setState({
-                    idValidation: true,
-                });
-            }
-            if (!idReg.test(this.state.id)) {
+
+            switch (name) {
+                case 'id' :
+                    if (this.state.id && idReg.test(this.state.id)) {
+                        this.setState({idValidation: true});
+                    } else {
+                        this.setState({idValidation: false});
+                    }
+                    break;
+                case 'nickname' :
+                    if (this.state.nickname && nicknameReg.test(this.state.nickname)) {
+                        this.setState({nicknameValidation: true});
+                    } else {
+                        this.setState({nicknameValidation: false});
+                    }
+                    break;
+                case 'password' :
+                    if (this.state.password && this.state.password.length > 7 && this.state.password.length < 21) {
+                        this.setState({passwordValidation: true});
+                    } else {
+                        this.setState({passwordValidation: false});
+                    }
+                    break;
+                case 'passwordConfirm' :
+                    if (this.state.passwordConfirm === this.state.password) {
+                        this.setState({passwordConfirmValidation: true});
+                    } else {
+                        this.setState({passwordConfirmValidation: false});
+                    }
+                    break;
+                default : break;
             }
         });
     }
@@ -48,22 +71,34 @@ class Register extends Component {
         const id = this.state.id;
         const pw = this.state.password;
 
-        if(id === '') {
-            this.props.toastOpen('아이디를 입력해주세요.', 2000);
+        if (!this.state.idValidation) {
+            this.props.toast('아이디(이메일)를 확인해주세요.');
+            this.setState({idValidation: false});
             return false;
         }
-        if(pw === '') {
-            this.props.toastOpen('비밀번호를 입력해주세요.', 2000);
+        if (!this.state.nicknameValidation) {
+            this.props.toast('닉네임을 확인해주세요.');
+            this.setState({nicknameValidation: false});
+            return false;
+        }
+        if (!this.state.passwordValidation) {
+            this.props.toast('비밀번호를 확인해주세요.');
+            this.setState({passwordValidation: false});
+            return false;
+        }
+        if (!this.state.passwordConfirmValidation) {
+            this.props.toast('비밀번호를 다시한번 입력해주세요.');
+            this.setState({passwordConfirmValidation: false});
             return false;
         }
 
         this.props.registerRequest(id, pw).then(
             () => {
                 if(this.props.register.status === "SUCCESS") {
-                    this.props.toastOpen(this.props.register.message, 2000);
+                    this.props.toast(this.props.register.message);
                     this.props.history.push('/login');
                 } else {
-                    this.props.toastOpen(this.props.register.message, 2000);
+                    this.props.toast(this.props.register.message);
                     this.setState({
                         id: '',
                         password: '',
@@ -160,7 +195,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     registerRequest: (id, pw) => dispatch(registerRequest(id, pw)),
-    toastOpen: (content, time) => dispatch(toastOpen(content, time))
+    toast: (content, time) => dispatch(toast(content, time))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -1,54 +1,79 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toastClose } from '../../../actions/toast';
-
+import { Message } from 'components';
 
 class Toast extends Component {
+    constructor(props) {
+        super(props);
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.show) {
-      setTimeout(() => {
-        this.props.toastClose();
-      }, nextProps.time);
+        this.state = {
+            messageQueue: [],
+        };
+
+        this.handleRemove = this.handleRemove.bind(this);
     }
-  }
 
-  render() {
-    let show = this.props.show ? 'active' : '';
-    return (
-      <div className={"toast-alarm " + show} >
-        {this.props.content}
-      </div>
-    );
-  }
+    componentWillReceiveProps(nextProps) {
+        const message = nextProps.message;
+        const messageQueue = this.state.messageQueue;
+        const time = nextProps.time;
+        messageQueue.push({
+            message: message,
+            time: time,
+            regDate: nextProps.regDate,
+        });
+        this.setState({
+            messageQueue: messageQueue,
+        });
+    }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log(this.refs.toast.removeChild(document.querySelectorAll('.toast-alarm')));
+    //     return JSON.stringify(this.props) !== JSON.stringify(nextProps);
+    // }
+
+    handleRemove(regDate, time) {
+        setTimeout(() => {
+            const messageQueue = this.state.messageQueue;
+            const newMessageQueue = messageQueue.filter((item) => {
+                return regDate !== item.regDate;
+            });
+
+            this.setState({
+                messageQueue: newMessageQueue,
+            }, () => {
+                console.log(this.state.messageQueue);
+            });
+        }, time);
+    }
+
+    render() {
+        return (
+            <div className="toast-wrap" ref="toast">
+                {this.state.messageQueue.map((item) => {
+                    return (
+                        <Message key={item.regDate} regDate={item.regDate} message={item.message} time={item.time} handleRemove={this.handleRemove}/>
+                    );
+                })}
+            </div>
+        );
+    }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    content: state.toast.content,
+const mapStateToProps = (state) => ({
+    message: state.toast.message,
     time: state.toast.time,
-    show: state.toast.show,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toastClose: () => {
-      return dispatch(toastClose());
-    }
-  }
-};
+    regDate: state.toast.regDate,
+});
 
 Toast.propTypes = {
-  content: PropTypes.string,
-  time: PropTypes.number,
-  show: PropTypes.bool,
+    message: PropTypes.string,
+    time: PropTypes.number,
 };
 Toast.defaultProps = {
-  content: 'message',
-  time: 500,
-  show: false,
+    content: 'message',
+    time: 2500,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toast);
+export default connect(mapStateToProps, null)(Toast);

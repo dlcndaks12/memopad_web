@@ -1,26 +1,21 @@
 import * as types from '../actions/ActionTypes';
 
 const initialState = {
-  content: '',
-  time: 500,
-  show: false,
+    message: '',
+    time: 0,
+    regDate: null,
 };
 
 export default function toast(state = initialState, action) {
-  switch (action.type) {
-    case types.TOAST_OPEN:
-      return {
-        ...state,
-        content: action.content,
-        time: action.time,
-        show: true,
-      };
-    case types.TOAST_CLOSE:
-      return {
-        ...state,
-        show: false,
-      };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case types.TOAST:
+            return {
+                ...state,
+                message: action.message,
+                time: action.time,
+                regDate: Date.now(),
+            };
+        default:
+            return state;
+    }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { logout } from 'actions/authentication';
-import { toastOpen } from 'actions/toast';
+import { toast } from 'actions/toast';
 import { confirmOpen } from 'actions/confirm';
 import { SideNavigation } from "components";
 import { deleteCookie } from 'js/util';
@@ -21,7 +21,7 @@ class Header extends Component {
             deleteCookie('Authentication');
 
             this.props.logout();
-            this.props.toastOpen('로그아웃 되었습니다.', 2000);
+            this.props.toast('로그아웃 되었습니다.');
             // this.props.history.push('/login');
           }
         });
@@ -77,7 +77,7 @@ const mapStateToProps = (state) => ({
     progress: state.progress,
 });
 const mapDispatchToProps = (dispatch) => ({
-    toastOpen: (content, time) => dispatch(toastOpen(content, time)),
+    toast: (content, time) => dispatch(toast(content, time)),
     confirmOpen: (content, callback) => dispatch((confirmOpen(content, callback))),
     logout: () => dispatch(logout()),
 });

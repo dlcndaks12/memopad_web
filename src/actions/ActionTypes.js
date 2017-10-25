@@ -1,6 +1,5 @@
 /* TOAST */
-export const TOAST_OPEN = "TOAST_OPEN";
-export const TOAST_CLOSE = "TOAST_CLOSE";
+export const TOAST = "TOAST";
 
 /* CONFIRM */
 export const CONFIRM_OPEN = "CONFIRM_OPEN";

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toastOpen } from 'actions/toast';
+import { toast } from 'actions/toast';
 import axios from 'axios';
 import { Input } from 'react-materialize';
 import { CircleLoader, Preview, Select } from 'components';
@@ -93,7 +93,7 @@ class Write extends Component {
                 });
             }
         }).catch((error) => {
-            this.props.toastOpen(error.message, 2000);
+            this.props.toast(error.message);
         }).then(() => {
             this.setState({
                 pending: false,
@@ -159,7 +159,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toastOpen: (content, time) => dispatch(toastOpen(content, time)),
+    toast: (content, time) => dispatch(toast(content, time)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Write);
