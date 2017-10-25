@@ -4,7 +4,6 @@ export { default as Toast } from './common/Toast/Toast';
 export { default as Confirm } from './common/Confirm/Confirm';
 
 /* COMPONENT */
-export { default as Authentication } from './component/Authentication/Authentication';
 export { default as CardList } from './component/Card/CardList';
 export { default as Card } from './component/Card/Card';
 export { default as PrivateRoute } from './common/Util/PrivateRoute';

@@ -27,14 +27,6 @@ class App extends Component {
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
     }
 
-    // 스크롤로 인한 불필요한 렌더링 방지
-    shouldComponentUpdate(nextProps, nextState){
-        // return JSON.stringify(this.state) !== JSON.stringify(nextState);
-        console.log(this.state);
-        console.log(nextState);
-        return true;
-    }
-
     // Scroll Handler
     handleScrollFrame(values) {
         const scrollTop = values.scrollTop;

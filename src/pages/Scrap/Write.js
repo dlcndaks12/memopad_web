@@ -82,7 +82,6 @@ class Write extends Component {
                     og: {
                         ...this.state.og,
                         ogImageUrl: response.data.ogImageUrl,
-                        ogImageData: response.data.ogImageData,
                         ogTitle: response.data.ogTitle,
                         ogDescription: response.data.ogDescription,
                     }

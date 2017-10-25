@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import * as path from 'config/path';
 
 class Preview extends Component {
 
@@ -6,7 +7,7 @@ class Preview extends Component {
         return (
             <div className="preview-area">
                 <div className="thumb">
-                    <img src={`data:image/jpg;base64, ${this.props.og.ogImageData}`} alt="" className="z-depth-1" />
+                    <img src={`${path.__api__}/api/image?url=${this.props.og.ogImageUrl}`} alt="" className="z-depth-1" />
                 </div>
                 <div className="title">
                     <div className="input-field title">

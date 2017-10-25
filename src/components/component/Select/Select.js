@@ -26,8 +26,6 @@ class Select extends Component {
             optionEl = <option key="-2">...</option>;
         }
 
-        console.log('re');
-
         return (
             <div>
                 <Input key={selectReady} name={this.props.type} type="select" defaultValue={this.props.defaultSelected} onChange={this.props.onChange}>

@@ -31,7 +31,7 @@
         margin-top: 0;
     }
     .btn {
-        width: 90%;
+        width: 100%;
         .loader {
             display: block;
             margin-top: 8px;
@@ -41,6 +41,9 @@
         border-top: 1px solid #E9E9E9;
         padding-bottom: 21px;
     }
+}
+.reg-input-wrap {
+    margin-bottom: 30px;
 }
 
 @media screen and (max-width: 480px) {

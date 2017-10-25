@@ -33,7 +33,7 @@ export function authRequest() {
                 dispatch(authFailure(response.message));
             }
         }).catch((error) => {
-            dispatch(authFailure(error.message));
+            dispatch(authFailure(error.error));
         });
     };
 }
@@ -78,7 +78,6 @@ export function loginRequest(id, password) {
                 dispatch(loginFailure());
             }
         }).catch((error) => {
-            console.dir(error);
             dispatch(loginFailure(error.message));
         });
     };
