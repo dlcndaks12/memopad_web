@@ -49,9 +49,12 @@ class App extends Component {
     render() {
         let re = /(login|register)/;
         let isAuth = re.test(window.location.pathname);
-
+        let appClassName = [];
+        if (this.state.simpleHeader) appClassName.push('simple-header');
+        if (this.props.sideNav.isOpen) appClassName.push('side-nav-open');
+        appClassName = appClassName.toString().replace(',', ' ');
         return (
-            <div id="app" className={this.state.simpleHeader ? 'simple-header' : ''}>
+            <div id="app" className={appClassName}>
                 <Scrollbars
                     className="scroll-wrap"
                     style={{ height: '100vh' }}
@@ -89,6 +92,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
     status: state.authentication.status,
+    sideNav: state.sideNav,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -14,6 +14,7 @@
 }
 
 .page-footer {
+    transition: filter 1s;
     .footer-inner {
         .footer-copyright {
             display: block;

@@ -1,6 +1,10 @@
 /* TOAST */
 export const TOAST = "TOAST";
 
+/* SIDE_NAV */
+export const SIDE_NAV_OPEN = "SIDE_NAV_OPEN";
+export const SIDE_NAV_CLOSE = "SIDE_NAV_CLOSE";
+
 /* CONFIRM */
 export const CONFIRM_OPEN = "CONFIRM_OPEN";
 export const CONFIRM_CLOSE = "CONFIRM_CLOSE";

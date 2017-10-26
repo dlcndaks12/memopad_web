@@ -4,6 +4,7 @@ import authentication from './authentication';
 import progress from './progress';
 import location from './location';
 import category from './category';
+import sideNav from './sideNav';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -13,4 +14,5 @@ export default combineReducers({
     progress,
     location,
     category,
+    sideNav,
 });

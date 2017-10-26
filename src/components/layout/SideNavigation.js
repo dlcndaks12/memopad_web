@@ -2,15 +2,35 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { SideNav } from 'react-materialize';
+import { sideNavOpen, sideNavClose } from 'actions/sideNav';
 
 class SideNavigation extends Component {
+    constructor(props) {
+        super(props);
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleOpen() {
+        console.log('open');
+        this.props.sideNavOpen();
+    }
+
+    handleClose() {
+        console.log('close');
+        this.props.sideNavClose();
+    }
+
     render() {
         // const id = this.props.status.id !== '' ? this.props.status.id : '안녕하세요.';
-
         return (
             <SideNav
                 trigger={<a><i className="material-icons">menu</i></a>}
-                options={{ closeOnClick: true }}>
+                options={{
+                  closeOnClick: true,
+                  onOpen: this.handleOpen,
+                  onClose: this.handleClose,
+                }}>
                 {this.props.status.isLoggedIn ?
                   <li className="my-area blue lighten-2">
                     {/*<Link to="/mypage" className="name">{this.props.status.id}</Link>*/}
@@ -48,4 +68,9 @@ const mapStateToProps = (state) => ({
     status: state.authentication.status,
 });
 
-export default connect(mapStateToProps, null)(SideNavigation);
+const mapDispatchToProps = (dispatch) => ({
+    sideNavOpen: () => dispatch(sideNavOpen()),
+    sideNavClose: () => dispatch(sideNavClose()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideNavigation);

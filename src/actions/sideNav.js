@@ -1,17 +1,23 @@
 import {
-    TOAST,
+  SIDE_NAV_OPEN,
+  SIDE_NAV_CLOSE,
 } from './ActionTypes';
 
 /*============================================================================
- TOAST
+ SIDE NAV
  ==============================================================================*/
 
 /* OPEN */
-export function toast(message, time) {
-    return {
-        type: TOAST,
-        message,
-        time,
-    };
+export function sideNavOpen() {
+  return {
+    type: SIDE_NAV_OPEN,
+  };
+}
+
+/* CLOSE */
+export function sideNavClose() {
+  return {
+    type: SIDE_NAV_CLOSE,
+  };
 }
 
