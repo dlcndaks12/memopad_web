@@ -1,17 +1,31 @@
 export function sakura() {
   let SakuraCanvas;
 
+  window.requestAnimationFrame = function() {
+    return window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback) {
+        window.setTimeout(callback, 1000);
+      }
+  }();
+
   initSakura();
 
   /* canvas object */
   function initSakura(){
     SakuraCanvas = new CanvasController('sakura');
-    setInterval(anim, 50);
+    // setInterval(anim, 50);
+    window.cancelAnimationFrame(anim);
+    anim();
   }
   function anim() {
-    if (Math.random() > 0.8 && SakuraCanvas.children.length < 100)addSakura(1, 1, 1, SakuraCanvas.width, 1);
+    if (Math.random() > 0.92 && SakuraCanvas.children.length < 100)addSakura(1, 1, 1, SakuraCanvas.width, 1);
 
     SakuraCanvas.rendering();
+    window.requestAnimationFrame(anim);
   }
   function CanvasController(id) {
     let canvas = document.getElementById(id);
@@ -31,7 +45,6 @@ export function sakura() {
         this.canvasCtx.save();
         let child = this.children[i];
         if(child.draw(this.canvasCtx)){
-          child.callback();
           this.removeChild(i);
         }
         this.canvasCtx.restore();
@@ -107,16 +120,16 @@ export function sakura() {
         if(this.gr > -3 ) this.gr += this.gr/10;
       }
 
-      this.y_pos = this.y_pos + (this.gr*this.scale);
-      this.x_pos = this.x_pos + this.wind;
-      this.direction.x += this.rotate.x;
-      this.direction.y += this.rotate.y;
-      this.direction.z += this.rotate.z;
+      this.y_pos = this.y_pos + ((this.gr*this.scale) / 4);
+      this.x_pos = this.x_pos + (this.wind / 4);
+      this.direction.x += (this.rotate.x / 2);
+      this.direction.y += (this.rotate.y / 2);
+      this.direction.z += (this.rotate.z / 2);
 
       if(this.x_pos > SakuraCanvas.width) return true;
       return this.y_pos > SakuraCanvas.height;
     };
-    this.callback = function() {
-    };
   }
+
+  return this;
 }

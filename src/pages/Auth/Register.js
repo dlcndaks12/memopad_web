@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { registerRequest } from '../../actions/authentication';
 import { toast } from '../../actions/toast';
 import { Link } from 'react-router-dom';
-import { CircleLoader } from 'components';
+import { CircleLoader, Sakura } from 'components';
 
 class Register extends Component {
     constructor(props) {
@@ -119,6 +119,7 @@ class Register extends Component {
 
         return (
             <div>
+                <Sakura />
                 <div className="container auth">
                     <Link className="logo blue-text text-lighten-2" to="/">Trip Book</Link>
                     <div className="card">

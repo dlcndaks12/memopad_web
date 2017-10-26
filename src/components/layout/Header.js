@@ -16,7 +16,6 @@ class Header extends Component {
 
     handleLogout() {
         this.props.confirmOpen('정말 로그아웃 하시게요?', (result) => {
-          console.log('result ,', result);
           if (result) {
             deleteCookie('Authentication');
 
@@ -49,7 +48,6 @@ class Header extends Component {
                     <SideNavigation location={this.props.location.pathname} />
                 </div>
                 <div className="nav-wrapper red lighten-3 z-depth-2">
-                    {/*<Link to="/" className="brand-logo center">Life is OneShot</Link>*/}
                     <Link to="/" className="brand-logo center">
                         <img src={require('resources/images/common/logo.svg')}  alt=""/>
                     </Link>

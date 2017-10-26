@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { loginRequest } from 'actions/authentication';
 import { toast } from 'actions/toast';
 import { Link } from 'react-router-dom';
-import { CircleLoader } from 'components';
+import { CircleLoader, Sakura } from 'components';
 
 class Login extends Component {
     constructor(props) {
@@ -81,7 +81,7 @@ class Login extends Component {
                     {/*mode={true}*/}
                     {/*onLogin={this.handleLogin}*/}
                 {/*/>*/}
-
+                <Sakura />
                 <div className="container auth">
                     <Link className="logo blue-text text-lighten-2" to="/">Trip Book</Link>
                     <div className="card">

@@ -2,17 +2,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { confirmClose } from 'actions/confirm';
-import { sakura } from 'js/sakura';
+// import { Sakura } from 'components';
 
 class Confirm extends Component {
   constructor(props) {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidMount() {
-    sakura();
   }
 
   handleClick(result) {
@@ -24,7 +20,7 @@ class Confirm extends Component {
     let show = this.props.show ? 'active' : '';
     return (
       <div className={"confirm-alarm " + show} onClick={() => this.handleClick(false)}>
-        <canvas id="sakura" />
+        {/*<Sakura />*/}
         <div className="confirm-cont z-depth-2" onClick={(e) => {e.stopPropagation();}}>
           <div className="message">
             {this.props.content}

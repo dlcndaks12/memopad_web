@@ -6,11 +6,9 @@ import { Message } from 'components';
 class Toast extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             messageQueue: [],
         };
-
         this.handleRemove = this.handleRemove.bind(this);
     }
 
@@ -28,11 +26,6 @@ class Toast extends Component {
         });
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log(this.refs.toast.removeChild(document.querySelectorAll('.toast-alarm')));
-    //     return JSON.stringify(this.props) !== JSON.stringify(nextProps);
-    // }
-
     handleRemove(regDate, time) {
         setTimeout(() => {
             const messageQueue = this.state.messageQueue;
@@ -42,8 +35,6 @@ class Toast extends Component {
 
             this.setState({
                 messageQueue: newMessageQueue,
-            }, () => {
-                console.log(this.state.messageQueue);
             });
         }, time);
     }
