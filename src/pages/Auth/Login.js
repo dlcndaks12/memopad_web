@@ -83,7 +83,7 @@ class Login extends Component {
                 {/*/>*/}
 
                 <div className="container auth">
-                    <Link className="logo blue-text text-lighten-2" to="/">Nolja</Link>
+                    <Link className="logo blue-text text-lighten-2" to="/">Trip Book</Link>
                     <div className="card">
                         <div className="header light-blue darken-1 white-text center">
                             <div className="card-content">로그인</div>
