@@ -9,7 +9,7 @@ class Sakura extends Component {
 
   render() {
     return (
-      <div className="sakura-">
+      <div className="sakura-wrap">
         <canvas id="sakura" />
       </div>
     );

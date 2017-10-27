@@ -1,64 +1,59 @@
 export function sakura() {
-  let SakuraCanvas;
+  let canvas = document.getElementById('sakura');
+  let canvasCtx;
+  let width;
+  let height;
+  let children;
 
-  window.requestAnimationFrame = function() {
-    return window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.oRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function (callback) {
-        window.setTimeout(callback, 1000);
-      }
-  }();
+  let requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  let cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 
   initSakura();
 
-  /* canvas object */
   function initSakura(){
-    SakuraCanvas = new CanvasController('sakura');
-    // setInterval(anim, 50);
-    window.cancelAnimationFrame(anim);
-    anim();
-  }
-  function anim() {
-    if (Math.random() > 0.92 && SakuraCanvas.children.length < 100)addSakura(1, 1, 1, SakuraCanvas.width, 1);
-
-    SakuraCanvas.rendering();
-    window.requestAnimationFrame(anim);
-  }
-  function CanvasController(id) {
-    let canvas = document.getElementById(id);
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
+    canvasCtx = canvas.getContext('2d');
+    width = canvas.width;
+    height = canvas.height;
+    children = [];
+    cancelAnimationFrame(window.sakuraReq);
+    anim();
+  }
 
-    this.canvasCtx = canvas.getContext('2d');
-    this.width = canvas.width;
-    this.height = canvas.height;
-    this.children = [];
+  function rendering() {
+    clear();
 
-    this.rendering = function(){
-      this.clear();
-
-      let limit = this.children.length;
-      for(let i = limit-1 ; i >= 0 ; i--){
-        this.canvasCtx.save();
-        let child = this.children[i];
-        if(child.draw(this.canvasCtx)){
-          this.removeChild(i);
-        }
-        this.canvasCtx.restore();
+    let limit = children.length;
+    for(let i = limit-1 ; i >= 0 ; i--){
+      canvasCtx.save();
+      let child = children[i];
+      if(child.draw(canvasCtx)){
+        removeChild(i);
       }
-    };
-    this.clear = function(){
-      this.canvasCtx.clearRect(0,0,this.width,this.height);
-    };
-    this.addChild = function(child){
-      this.children.push(child);
-    };
-    this.removeChild = function(num){
-      this.children.splice(num, 1);
-    };
+      canvasCtx.restore();
+    }
+
+    console.log(children.length);
+  }
+
+  function clear() {
+    canvasCtx.clearRect(0,0,width,height);
+  }
+
+  function addChild(child) {
+    children.push(child);
+  }
+
+  function removeChild(num) {
+    children.splice(num, 1);
+  }
+
+  function anim() {
+    if (Math.random() > 0.92 && children.length < 100)addSakura(1, 1, 1, width, 1);
+
+    rendering();
+    window.sakuraReq = requestAnimationFrame(anim);
   }
 
   function random(n) {
@@ -69,7 +64,7 @@ export function sakura() {
     for(let i = 0 ; i < num ; i++){
       let x_pos = Math.floor(Math.random()*(x2-x1)) + x1;
       let y_pos = Math.floor(Math.random()*(y2-y1)) + y1;
-      SakuraCanvas.addChild(new Sakura(
+      addChild(new Sakura(
         x_pos,
         y_pos,
         Math.random() + 0.1,
@@ -126,10 +121,8 @@ export function sakura() {
       this.direction.y += (this.rotate.y / 2);
       this.direction.z += (this.rotate.z / 2);
 
-      if(this.x_pos > SakuraCanvas.width) return true;
-      return this.y_pos > SakuraCanvas.height;
+      if(this.x_pos > width) return true;
+      return this.y_pos > height;
     };
   }
-
-  return this;
 }
