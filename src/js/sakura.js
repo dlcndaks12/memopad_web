@@ -33,8 +33,6 @@ export function sakura() {
       }
       canvasCtx.restore();
     }
-
-    console.log(children.length);
   }
 
   function clear() {
