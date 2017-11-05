@@ -14,6 +14,7 @@ export { default as Select } from './component/Select/Select';
 export { default as Option } from './component/Option/Option';
 export { default as Selection } from './component/Option/Selection';
 export { default as NationTab } from './component/Tab/NationTab';
+export { default as Write } from './component/Scrap/Write';
 
 /* LAUOUT */
 export { default as Header } from './layout/Header';

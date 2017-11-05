@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import * as path from 'config/path';
+import { CircleLoader } from 'components';
 
 class Preview extends Component {
 
@@ -30,10 +31,16 @@ class Preview extends Component {
                     </div>
                 </div>
                 <div className="submit-area">
-                    <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action" onClick={this.props.onSubmit}>
-                        등록
-                        <i className="material-icons right">send</i>
-                    </button>
+                    {this.props.submitPending ?
+                        <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action">
+                            <CircleLoader/>
+                        </button>
+                        :
+                        <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action" onClick={this.props.onSubmit}>
+                            등록
+                            <i className="material-icons right">send</i>
+                        </button>
+                    }
                 </div>
             </div>
         );

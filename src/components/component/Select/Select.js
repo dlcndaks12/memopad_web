@@ -15,6 +15,10 @@ class Select extends Component {
         if (option && option.length > 0) {
             selectReady = 1;
             if (option.length > 1) {
+                // category 의 경우 default 값을 넣는다
+                if (this.props.type === 'category') {
+                    optionEl.push(<option value="-1" key={-1}>분류</option>);
+                }
                 for(let i = 0 ; i < option.length; i++) {
                     optionEl.push(<option value={option[i][keyValue]} key={i}>{option[i].name}</option>);
                 }
@@ -37,7 +41,6 @@ class Select extends Component {
 }
 
 Select.propTypes = {
-    defaultSelected: PropTypes.string,
     option: PropTypes.array,
 };
 

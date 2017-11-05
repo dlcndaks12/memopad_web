@@ -24,6 +24,11 @@ class Register extends Component {
         this.handleRegister = this.handleRegister.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.props.history.replace('/');
+        console.log(nextProps.status.isLoggedIn);
+    }
+
     handleChange(e) {
         const name = e.target.name;
         const value = e.target.value;
@@ -69,7 +74,8 @@ class Register extends Component {
 
     handleRegister() {
         const id = this.state.id;
-        const pw = this.state.password;
+        const nickname = this.state.nickname;
+        const password = this.state.password;
 
         if (!this.state.idValidation) {
             this.props.toast('아이디(이메일)를 확인해주세요.');
@@ -92,17 +98,17 @@ class Register extends Component {
             return false;
         }
 
-        this.props.registerRequest(id, pw).then(
+        this.props.registerRequest(id, nickname, password).then(
             () => {
                 if(this.props.register.status === "SUCCESS") {
                     this.props.toast(this.props.register.message);
                     this.props.history.push('/login');
                 } else {
                     this.props.toast(this.props.register.message);
-                    this.setState({
+                    /*this.setState({
                         id: '',
                         password: '',
-                    })
+                    });*/
                 }
             }
         );
@@ -192,10 +198,11 @@ class Register extends Component {
 
 const mapStateToProps = (state) => ({
     register: state.authentication.register,
+    status: state.authentication.status,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    registerRequest: (id, pw) => dispatch(registerRequest(id, pw)),
+    registerRequest: (id, nickname, password) => dispatch(registerRequest(id, nickname, password)),
     toast: (content, time) => dispatch(toast(content, time))
 });
 

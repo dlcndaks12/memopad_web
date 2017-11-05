@@ -23,3 +23,10 @@
     height: 100%;
     vertical-align: middle;
 }
+.preloader-wrapper {
+    display: block;
+    margin: 0 auto;
+    .spinner-layer {
+        border-color: #e3f2fd;
+    }
+}

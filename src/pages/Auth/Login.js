@@ -21,13 +21,15 @@ class Login extends Component {
         this.handleLogin = this.handleLogin.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.props.history.replace('/');
+        console.log(nextProps.status.isLoggedIn);
+    }
+
+
     handleKeyPress(e) {
         if(e.charCode === 13) {
-            if(this.props.mode) {
-                this.handleLogin();
-            } else {
-                this.handleRegister();
-            }
+            this.handleLogin();
         }
     }
 
@@ -131,7 +133,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    login: state.authentication.login
+    login: state.authentication.login,
+    status: state.authentication.status,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -28,7 +28,7 @@ export function authRequest() {
 
         }).then((response) => {
             if (response.result === 'OK') {
-                dispatch(authSuccess(response.data.id));
+                dispatch(authSuccess(response.data.id, response.data.nickname));
             } else {
                 dispatch(authFailure(response.message));
             }
@@ -39,23 +39,24 @@ export function authRequest() {
 }
 
 export function auth() {
-  return {
-    type: AUTH,
-  };
+    return {
+        type: AUTH,
+    };
 }
 
-export function authSuccess(id) {
-  return {
-    type: AUTH_SUCCESS,
-    id: id
-  };
+export function authSuccess(id, nickname) {
+    return {
+        type: AUTH_SUCCESS,
+        id: id,
+        nickname: nickname,
+    };
 }
 
 export function authFailure(message) {
-  return {
-    type: AUTH_FAILURE,
-    message: message,
-  };
+    return {
+        type: AUTH_FAILURE,
+        message: message,
+    };
 }
 
 /* LOGIN */
@@ -105,13 +106,13 @@ export function loginFailure(message) {
 
 /* LOGOUT */
 export function logout() {
-  return {
-    type: AUTH_LOGOUT
-  };
+    return {
+        type: AUTH_LOGOUT
+    };
 }
 
 /* REGISTER */
-export function registerRequest(id, password) {
+export function registerRequest(id, nickname, password) {
     return (dispatch) => {
         // Inform Register API is starting
         dispatch(register());
@@ -119,7 +120,8 @@ export function registerRequest(id, password) {
         // API Request
         return axios.post('/api/user', {
             id: id,
-            password: password
+            nickname: nickname,
+            password: password,
         }).then((response) => {
             if (response.result === 'OK') {
                 dispatch(registerSuccess(response.message));

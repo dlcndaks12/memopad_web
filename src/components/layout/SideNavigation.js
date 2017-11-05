@@ -35,7 +35,7 @@ class SideNavigation extends Component {
                   <li className="my-area blue lighten-2">
                     {/*<Link to="/mypage" className="name">{this.props.status.id}</Link>*/}
 
-                    <Link to="/mypage" className="name">Admin</Link>
+                    <Link to="/mypage" className="name">{this.props.status.nickname}</Link>
                     <ul className="info-list">
                       <li>
                         <span>3241</span>개의 스크랩을 하셨어요!
