@@ -110,10 +110,6 @@ class Write extends Component {
     }
 
     handleSubmit() {
-        console.log('nation_code', this.state.nationSelected);
-        console.log('city_idx', this.state.citySelected);
-        console.log('category_idx', this.state.categorySelected);
-        console.log('og', this.state.og);
         const nationCode = this.state.nationSelected;
         const cityIdx = this.state.citySelected;
         const categoryIdx = this.state.categorySelected;
@@ -135,7 +131,6 @@ class Write extends Component {
             imageUrl: og.ogImageUrl,
             title: og.ogTitle,
             description: og.ogDescription,
-            writer: this.props.nickname,
             url: og.ogUrl,
         }).then((response) => {
             console.log(response);
@@ -190,7 +185,7 @@ class Write extends Component {
                         {this.state.result !== 'OK' ? <div className="guide red-text text-accent-2">{this.state.message}</div> : ''}
                     </div>
                 </div>
-                {this.state.ogPending ? <CircleLoader /> :
+                {this.state.ogPending ? <CircleLoader color="blue" /> :
                     this.state.result === 'OK' ?
                         <Preview
                             og={this.state.og}

@@ -22,8 +22,9 @@ class Login extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.props.history.replace('/');
-        console.log(nextProps.status.isLoggedIn);
+        if (nextProps.status.isLoggedIn) {
+            this.props.history.replace('/');
+        }
     }
 
 
@@ -56,7 +57,7 @@ class Login extends Component {
         this.props.loginRequest(id, pw).then(
             () => {
                 if(this.props.login.status === 'SUCCESS') {
-                    this.props.toast(`${id}님 환영합니다.`);
+                    this.props.toast(`${this.props.status.nickname}님 환영합니다.`);
                     this.props.history.push('/');
                 } else {
                     this.props.toast(this.props.login.message);

@@ -58,6 +58,7 @@ export default function authentication(state = initialState, action) {
             return {
                 ...state,
                 login: {
+                    ...state.login,
                     status: 'WAITING'
                 },
             };
@@ -65,6 +66,7 @@ export default function authentication(state = initialState, action) {
             return {
                 ...state,
                 login: {
+                    ...state.login,
                     status: 'SUCCESS'
                 },
                 status: {
@@ -77,6 +79,7 @@ export default function authentication(state = initialState, action) {
             return {
                 ...state,
                 login: {
+                    ...state.login,
                     status: 'FAILURE',
                     message: action.message,
                 },

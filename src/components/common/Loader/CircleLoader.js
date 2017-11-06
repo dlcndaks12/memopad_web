@@ -1,8 +1,9 @@
 import React from 'react';
 
-const CircleLoader = () => {
+const CircleLoader = (props) => {
+    const color = props.color ? props.color + '-loader' : '';
     return (
-        <div className="circle-loader-wrap">
+        <div className={`circle-loader-wrap ${color}`}>
             <div className="preloader-wrapper small active">
                 <div className="spinner-layer spinner-blue-only">
                     <div className="circle-clipper left">
