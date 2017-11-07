@@ -1,6 +1,6 @@
 import {
     LOCATION_INIT,
-} from './ActionTypes';
+} from '../ActionTypes';
 import axios from 'axios';
 
 /*============================================================================

@@ -9,7 +9,7 @@ import {
     AUTH_REGISTER,
     AUTH_REGISTER_SUCCESS,
     AUTH_REGISTER_FAILURE,
-} from './ActionTypes';
+} from '../ActionTypes';
 import axios from 'axios';
 import { setCookie } from 'js/util';
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { registerRequest } from '../../actions/authentication';
-import { toast } from '../../actions/toast';
+import { registerRequest } from '../../actions/component/authentication';
+import { toast } from '../../actions/component/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Sakura } from 'components';
 

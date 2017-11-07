@@ -1,7 +1,7 @@
 import {
   SIDE_NAV_OPEN,
   SIDE_NAV_CLOSE,
-} from './ActionTypes';
+} from '../ActionTypes';
 
 /*============================================================================
  SIDE NAV

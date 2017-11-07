@@ -1,7 +1,7 @@
 import {
   PROGRESS_SHOW,
   PROGRESS_HIDE,
-} from './ActionTypes';
+} from '../ActionTypes';
 
 
 /*============================================================================

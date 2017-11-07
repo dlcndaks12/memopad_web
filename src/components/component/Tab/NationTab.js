@@ -21,7 +21,7 @@ class NationTab extends Component {
                 {this.props.nation ?
                     <Tabs ref="nationTab" className="nation-tab" onChange={this.handleNation} >
                         {this.props.nation.map((nation, i) => {
-                            let active = nation.code === this.props.defaultValue;
+                            let active = nation.code === this.props.scrapListCondition.nationCode;
                             return (
                                 <Tab className={`${nation.code}`} key={i} title={nation.name} active={active} />
                             )
@@ -35,6 +35,7 @@ class NationTab extends Component {
 
 const mapStateToProps = (state) => ({
     nation: state.location.nation,
+    scrapListCondition: state.scrap.scrapListCondition,
 });
 
 export default connect(mapStateToProps, null)(NationTab);

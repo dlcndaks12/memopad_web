@@ -1,10 +1,11 @@
-import toast from './toast';
-import confirm from './confirm';
-import authentication from './authentication';
-import progress from './progress';
-import location from './location';
-import category from './category';
-import sideNav from './sideNav';
+import toast from './component/toast';
+import confirm from './component/confirm';
+import authentication from './component/authentication';
+import progress from './component/progress';
+import location from './component/location';
+import category from './component/category';
+import sideNav from './component/sideNav';
+import scrap from './page/scrap';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
     location,
     category,
     sideNav,
+    scrap,
 });

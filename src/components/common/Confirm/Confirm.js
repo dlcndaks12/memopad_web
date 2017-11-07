@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { confirmClose } from 'actions/confirm';
+import { confirmClose } from 'actions/component/confirm';
 // import { Sakura } from 'components';
 
 class Confirm extends Component {

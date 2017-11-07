@@ -14,14 +14,14 @@ class Option extends Component {
     componentWillMount() {
         if(this.props.city) {
             this.setState({
-                city: this.props.city[this.props.nation],
+                city: this.props.city[this.props.scrapListCondition.nationCode],
             });
         }
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            city: nextProps.city ? nextProps.city[nextProps.nation] : null,
+            city: nextProps.city ? nextProps.city[nextProps.scrapListCondition.nationCode] : null,
         });
     }
 
@@ -51,6 +51,7 @@ class Option extends Component {
 const mapStateToProps = (state) => ({
     city: state.location.city,
     category: state.category.category,
+    scrapListCondition: state.scrap.scrapListCondition,
 });
 
 export default connect(mapStateToProps, null)(Option);

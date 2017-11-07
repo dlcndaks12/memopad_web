@@ -5,9 +5,9 @@ import { Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Header, Toast, Confirm, Footer, PrivateRoute } from 'components';
 import { Home, Scrap, Login, Register, Write, NoMatch } from 'pages';
-import { authRequest } from 'actions/authentication';
-import { locationInit } from 'actions/location';
-import { categoryInit } from "actions/category";
+import { authRequest } from 'actions/component/authentication';
+import { locationInit } from 'actions/component/location';
+import { categoryInit } from "actions/component/category";
 
 class App extends Component {
     constructor(props) {

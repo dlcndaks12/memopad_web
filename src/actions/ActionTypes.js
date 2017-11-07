@@ -1,3 +1,5 @@
+/** COMPONENT **/
+
 /* TOAST */
 export const TOAST = "TOAST";
 
@@ -30,3 +32,12 @@ export const LOCATION_INIT = "LOCATION_INIT";
 
 /* CATEGORY */
 export const CATEGORY_INIT = "CATEGORY_INIT";
+
+
+/** PAGE **/
+
+/* SCRAP */
+export const SCRAP_LIST = "SCRAP_LIST";
+export const SCRAP_LIST_SUCCESS = "SCRAP_LIST_SUCCESS";
+export const SCRAP_LIST_FAILURE = "SCRAP_LIST_FAILURE";
+export const SCRAP_SET_LIST_CONDITION = "SCRAP_SET_LIST_CONDITION";

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { toast } from 'actions/toast';
+import { toast } from 'actions/component/toast';
 import axios from 'axios';
 import { CircleLoader, Preview, Select } from 'components';
 

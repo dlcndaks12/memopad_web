@@ -1,7 +1,7 @@
 import {
   CONFIRM_OPEN,
   CONFIRM_CLOSE,
-} from './ActionTypes';
+} from '../ActionTypes';
 
 
 /*============================================================================

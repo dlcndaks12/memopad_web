@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { logout } from 'actions/authentication';
-import { toast } from 'actions/toast';
-import { confirmOpen } from 'actions/confirm';
+import { logout } from 'actions/component/authentication';
+import { toast } from 'actions/component/toast';
+import { confirmOpen } from 'actions/component/confirm';
 import { SideNavigation } from "components";
 import { deleteCookie } from 'js/util';
 

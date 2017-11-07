@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { SideNav } from 'react-materialize';
-import { sideNavOpen, sideNavClose } from 'actions/sideNav';
+import { sideNavOpen, sideNavClose } from 'actions/component/sideNav';
 
 class SideNavigation extends Component {
     constructor(props) {
@@ -12,12 +12,10 @@ class SideNavigation extends Component {
     }
 
     handleOpen() {
-        console.log('open');
         this.props.sideNavOpen();
     }
 
     handleClose() {
-        console.log('close');
         this.props.sideNavClose();
     }
 
