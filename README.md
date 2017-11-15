@@ -43,6 +43,25 @@ Live 웹서버 : Nginx
 npm run build
 ```
 
+### 테스트 ###
+jest, enzyme
+
+테스트 스트립트는 아래와 같음.
+
+```
+npm run test
+```
+```
+npm run test -- --coverage
+```
+
+### UI 가이드 ###
+storybook
+
+```
+npm run storybook
+```
+
 각각의 스크립트가 수행하는 동작을 간략히 표현하면 아래와 같습니다.
 
 ```
