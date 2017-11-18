@@ -6,7 +6,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { Header, Toast, Confirm, Footer, PrivateRoute } from 'components';
 import { Home, Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { getCookie } from 'util/cookie';
-import { authRequest } from 'actions/component/authentication';
+import { authRequest, authFailure } from 'actions/component/authentication';
 import { locationInit } from 'actions/component/location';
 import { categoryInit } from "actions/component/category";
 
@@ -21,6 +21,8 @@ class App extends Component {
         // Auth 체크
         if (getCookie('Authentication')) {
             this.props.authRequest();
+        } else {
+            this.props.authFailure();
         }
         // Location 정보 획득
         this.props.locationInit();
@@ -100,6 +102,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     authRequest: () => dispatch(authRequest()),
+    authFailure: () => dispatch(authFailure()),
     locationInit: () => dispatch(locationInit()),
     categoryInit: () => dispatch(categoryInit()),
 });
