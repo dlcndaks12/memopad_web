@@ -5,7 +5,7 @@ import { logout } from 'actions/component/authentication';
 import { toast } from 'actions/component/toast';
 import { confirmOpen } from 'actions/component/confirm';
 import { SideNavigation } from "components";
-import { deleteCookie } from 'js/util';
+import { deleteCookie } from 'util/cookie';
 
 class Header extends Component {
     constructor(props) {

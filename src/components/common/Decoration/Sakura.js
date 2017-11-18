@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { sakura } from 'js/sakura';
+import { sakura } from 'lib/sakura';
 
 class Sakura extends Component {
 

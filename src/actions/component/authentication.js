@@ -11,7 +11,7 @@ import {
     AUTH_REGISTER_FAILURE,
 } from '../ActionTypes';
 import axios from 'axios';
-import { setCookie } from 'js/util';
+import { setCookie } from 'util/cookie';
 
 /*============================================================================
  authentication

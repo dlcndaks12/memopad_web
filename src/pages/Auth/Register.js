@@ -25,7 +25,7 @@ class Register extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.props.history.replace('/');
+        // this.props.history.replace('/');
         console.log(nextProps.status.isLoggedIn);
     }
 

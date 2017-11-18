@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import App from 'App';
-import { setting } from 'js/util';
+import { init } from 'config/axios';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -11,7 +11,7 @@ import reducers from './reducers';
 import thunk from 'redux-thunk';
 
 // Default Setting
-setting();
+init();
 
 const store = createStore(
     reducers,

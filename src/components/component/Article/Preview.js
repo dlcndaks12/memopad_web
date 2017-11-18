@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import * as path from 'config/path';
 import { CircleLoader } from 'components';
 
