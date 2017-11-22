@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as path from 'config/path';
+import * as path from './path';
 import { getCookie } from 'util/cookie';
 
 export function init() {
