@@ -8,7 +8,7 @@ class Preview extends Component {
         return (
             <div className="preview-area">
                 <div className="thumb">
-                    <img src={`${path.__api__}/api/image?url=${this.props.og.ogImageUrl}`} alt="" className="z-depth-1" />
+                    <img src={`${path.apiUrl}/api/image?url=${this.props.og.ogImageUrl}`} alt="" className="z-depth-1" />
                 </div>
                 <div className="title">
                     <div className="input-field title">
