@@ -4,6 +4,7 @@ import { loginRequest } from 'actions/component/authentication';
 import { toast } from 'actions/component/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Sakura } from 'components';
+import './Auth.scss';
 
 class Login extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class Login extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.status.isLoggedIn) {
-            this.props.history.replace('/');
+            // this.props.history.replace('/');
         }
     }
 

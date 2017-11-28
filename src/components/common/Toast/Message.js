@@ -15,7 +15,9 @@ class Message extends Component {
         const delay = this.props.time / 1000;
         return (
             <div className="toast-alarm" style={{animation: `toastIn .4s, toastOut .4s ${delay}s forwards`}}>
-                {this.props.message}
+                <div className="toast-inner">
+                    {this.props.message}
+                </div>
             </div>
         );
     }

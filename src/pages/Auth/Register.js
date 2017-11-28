@@ -4,6 +4,7 @@ import { registerRequest } from '../../actions/component/authentication';
 import { toast } from '../../actions/component/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Sakura } from 'components';
+import './Auth.scss';
 
 class Register extends Component {
     constructor(props) {

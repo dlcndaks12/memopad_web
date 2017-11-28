@@ -1,4 +1,10 @@
-@charset "UTF-8";
+.container {
+    &.auth {
+        .pwd-confirm {
+            margin-top: 0;
+        }
+    }
+}
 
 .auth {
     margin-top: 100px;
@@ -20,6 +26,14 @@
     .card {
         width: 400px;
         margin: 0 auto;
+        @media screen and (max-width: 480px) {
+            width: 100%;
+        }
+    }
+    .logo {
+        @media screen and (max-width: 480px) {
+            font-size: 60px;
+        }
     }
     .header {
         font-size: 18px;
@@ -44,13 +58,4 @@
 }
 .reg-input-wrap {
     margin-bottom: 30px;
-}
-
-@media screen and (max-width: 480px) {
-    .auth .card {
-        width: 100%;
-    }
-    .logo {
-        font-size: 60px;
-    }
 }

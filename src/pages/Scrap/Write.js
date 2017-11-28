@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'actions/component/toast';
 import { Write as ScrapWrite } from 'components';
+import './Scrap.scss';
 
 class Write extends Component {
     constructor(props) {
