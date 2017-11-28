@@ -6,8 +6,8 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { Header, Toast, Confirm, Footer, PrivateRoute } from 'components';
 import { Home, Scrap, Login, Register, Write, NoMatch } from 'pages';
 import { getCookie } from 'util/cookie';
-import { authRequest, authFailure } from 'actions/component/authentication';
-import { locationInit } from 'actions/component/location';
+import { authRequest, authFailure } from 'modules/authentication';
+import { locationRequest } from 'modules/location';
 import { categoryInit } from "actions/component/category";
 
 class App extends Component {
@@ -25,7 +25,7 @@ class App extends Component {
             this.props.authFailure();
         }
         // Location 정보 획득
-        this.props.locationInit();
+        this.props.locationRequest();
         // Category 정보 획득
         this.props.categoryInit();
 
@@ -103,7 +103,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     authRequest: () => dispatch(authRequest()),
     authFailure: () => dispatch(authFailure()),
-    locationInit: () => dispatch(locationInit()),
+    locationRequest: () => dispatch(locationRequest()),
     categoryInit: () => dispatch(categoryInit()),
 });
 

@@ -7,7 +7,7 @@ import { init } from 'config/axios';
 // Redux
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reducers from './reducers';
+import reducers from 'modules';
 import thunk from 'redux-thunk';
 
 // Default Setting

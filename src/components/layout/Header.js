@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { logout } from 'actions/component/authentication';
 import { toast } from 'actions/component/toast';
-import { confirmOpen } from 'actions/component/confirm';
+import { confirmOpen } from 'modules/confirm';
 import { SideNavigation } from "components";
 import { deleteCookie } from 'util/cookie';
 

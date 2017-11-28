@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { registerRequest } from '../../actions/component/authentication';
-import { toast } from '../../actions/component/toast';
+import { toast } from 'modules/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Sakura } from 'components';
 import './Auth.scss';

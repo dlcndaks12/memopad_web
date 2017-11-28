@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { SideNav } from 'react-materialize';
-import { sideNavOpen, sideNavClose } from 'actions/component/sideNav';
+import { sideNavOpen, sideNavClose } from 'modules/sideNav';
 
 class SideNavigation extends Component {
     constructor(props) {
