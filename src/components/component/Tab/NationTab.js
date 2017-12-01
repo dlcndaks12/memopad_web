@@ -3,12 +3,6 @@ import { connect } from 'react-redux';
 import './NationTab.scss';
 
 class NationTab extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleNation = this.handleNation.bind(this);
-    }
-
     render() {
         return (
             <div className="nation-tab-area">
