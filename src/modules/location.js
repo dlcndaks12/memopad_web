@@ -1,53 +1,29 @@
 import { createAction, handleActions } from 'redux-actions';
+import { pender } from 'redux-pender';
 import * as locationService from 'service/location';
 
-const LOCATION_INIT = "location/LOCATION_INIT";
+const NATION = "location/NATION";
+const CITY = "location/CITY";
 
 /*============================================================================
  Action
  ===========================================================================*/
-export function locationRequest() {
+export function locationInit() {
     return (dispatch) => {
-        Promise.all([
-            dispatch(nationRequest()),
-            dispatch(cityRequest()),
-        ]).then((values) => {
-            dispatch(locationInit(values[0], values[1]));
-        });
+        dispatch(nation());
+        dispatch(city());
     }
-}
-
-export function nationRequest() {
-    return () => {
-        return locationService.getNationList()
-            .then((response) => {
-                if (response.result === 'OK') {
-                    return response.data;
-                }
-            }).catch((error) => {
-                console.log('catch', error);
-            });
-    }
-}
-
-export function cityRequest() {
-    return () => {
-        return locationService.getCityList()
-            .then((response) => {
-                if (response.result === 'OK') {
-                    return response.data;
-                }
-            }).catch((error) => {
-                console.log('catch', error);
-            });
-    };
 }
 
 /**
- * @param nation:Object
- * @param city:Object
+ * @param void
  */
-export const locationInit = createAction(LOCATION_INIT);
+export const nation = createAction(NATION, locationService.getNationList);
+
+/**
+ * @param void
+ */
+export const city = createAction(CITY, locationService.getCityList);
 
 /*============================================================================
  Default State
@@ -55,17 +31,45 @@ export const locationInit = createAction(LOCATION_INIT);
 const initialState = {
     nation: null,
     city: null,
+    message: '',
 };
 
 /*============================================================================
  Reducer
  ===========================================================================*/
 export default handleActions({
-    [LOCATION_INIT]: (state, action) => {
-        return {
-            ...state,
-            nation: action.payload.nation,
-            city: action.payload.city,
-        }
-    },
+    ...pender({
+        type: NATION,
+        onSuccess: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                nation: res.data,
+            }
+        },
+        onFailure: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                message: res.message,
+            }
+        },
+    }),
+    ...pender({
+        type: CITY,
+        onSuccess: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                city: res.data,
+            }
+        },
+        onFailure: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                message: res.message,
+            }
+        },
+    }),
 }, initialState);

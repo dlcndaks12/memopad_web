@@ -5,7 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 class PrivateRoute extends Component {
 
     render() {
-        let isLoggedIn = this.props.status.isLoggedIn;
+        let isLoggedIn = this.props.auth.isLoggedIn;
         return (
             <Route
                 exact={this.props.exact}
@@ -26,7 +26,7 @@ class PrivateRoute extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  status: state.authentication.status,
+  auth: state.authentication.auth,
 });
 
 export default connect(mapStateToProps, null)(PrivateRoute);

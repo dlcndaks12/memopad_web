@@ -7,14 +7,16 @@ import authentication from './authentication';
 import location from './location';
 import category from './category';
 import scrap from './scrap';
+import { penderReducer } from 'redux-pender';
 
 export default combineReducers({
-  toast,
-  confirm,
-  sideNav,
-  progress,
-  authentication,
-  location,
-  category,
-  scrap,
+    toast,
+    confirm,
+    sideNav,
+    progress,
+    authentication,
+    location,
+    category,
+    scrap,
+    pender: penderReducer,
 });

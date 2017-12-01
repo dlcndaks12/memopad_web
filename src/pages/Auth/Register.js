@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { registerRequest } from '../../actions/component/authentication';
+import { signUp } from 'modules/authentication';
 import { toast } from 'modules/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Sakura } from 'components';
@@ -23,11 +23,6 @@ class Register extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // this.props.history.replace('/');
-        console.log(nextProps.status.isLoggedIn);
     }
 
     handleChange(e) {
@@ -99,17 +94,13 @@ class Register extends Component {
             return false;
         }
 
-        this.props.registerRequest(id, nickname, password).then(
+        this.props.signUp(id, nickname, password).then(
             () => {
-                if(this.props.register.status === "SUCCESS") {
-                    this.props.toast(this.props.register.message);
+                if(this.props.success['authentication/SIGN_UP']) {
+                    this.props.toast(this.props.message);
                     this.props.history.push('/login');
                 } else {
-                    this.props.toast(this.props.register.message);
-                    /*this.setState({
-                        id: '',
-                        password: '',
-                    });*/
+                    this.props.toast(this.props.message);
                 }
             }
         );
@@ -188,7 +179,7 @@ class Register extends Component {
                                     </div>
                                 </div>
                             </div>
-                            {this.props.register.status === 'WAITING' ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue lighten-2">CREATE</a>}
+                            {this.props.pending['authentication/SIGN_UP'] ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue lighten-2">CREATE</a>}
                         </div>
                     </div>
                 </div>
@@ -198,12 +189,14 @@ class Register extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    register: state.authentication.register,
-    status: state.authentication.status,
+    auth: state.authentication.auth,
+    message: state.authentication.message,
+    pending: state.pender.pending,
+    success: state.pender.success,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    registerRequest: (id, nickname, password) => dispatch(registerRequest(id, nickname, password)),
+    signUp: (id, nickname, password) => dispatch(signUp(id, nickname, password)),
     toast: (content, time) => dispatch(toast(content, time))
 });
 

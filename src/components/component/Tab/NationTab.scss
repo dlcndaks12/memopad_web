@@ -1,0 +1,23 @@
+.nation-tab {
+    .active {
+        a {
+            &:after {
+                height: 2px;
+            }
+        }
+    }
+    a {
+        position: relative;
+        cursor: pointer;
+        &:after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 0;
+            background-color: rgba(238,110,115,0.7);
+        }
+    }
+}

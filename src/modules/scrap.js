@@ -54,21 +54,20 @@ export const scrapListSuccess = createAction(SCRAP_LIST_SUCCESS);
  */
 export const scrapListFailure = createAction(SCRAP_LIST_FAILURE);
 
+
 /*============================================================================
  Default State
  ===========================================================================*/
 const initialState = {
+    nationCode: 'kr',
+    city: 'all',
+    category: 'all',
+    limit: 10,
+    page: 1,
     scrapList: {
         status: 'INIT',
         message: '',
         list: [],
-    },
-    scrapListCondition: {
-        nationCode: 'kr',
-        city: 'all',
-        category: 'all',
-        limit: 10,
-        page: 1,
     },
 };
 
@@ -79,10 +78,7 @@ export default handleActions({
     [SCRAP_SET_LIST_CONDITION]: (state, action) => {
         return {
             ...state,
-            scrapListCondition: {
-                ...state.scrapListCondition,
-                ...action.payload,
-            },
+            ...action.payload,
         }
     },
     [SCRAP_LIST]: (state) => {

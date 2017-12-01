@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Tabs, Tab } from 'react-materialize';
+import './NationTab.scss';
 
 class NationTab extends Component {
     constructor(props) {
@@ -9,24 +9,20 @@ class NationTab extends Component {
         this.handleNation = this.handleNation.bind(this);
     }
 
-    handleNation() {
-        const selectedNode = this.refs.nationTab._tabsEl.querySelector('.active').parentNode;
-        const lastClassIdx = selectedNode.classList.length - 1;
-        this.props.onChange(selectedNode.classList[lastClassIdx]);
-    }
-
     render() {
         return (
             <div className="nation-tab-area">
                 {this.props.nation ?
-                    <Tabs ref="nationTab" className="nation-tab" onChange={this.handleNation} >
-                        {this.props.nation.map((nation, i) => {
-                            let active = nation.code === this.props.scrapListCondition.nationCode;
+                    <ul ref="nationTab" className="tabs nation-tab">
+                        {this.props.nation.map((nation) => {
+                            const active = nation.code === this.props.selectedNationCode;
                             return (
-                                <Tab className={`${nation.code}`} key={i} title={nation.name} active={active} />
+                                <li key={nation.code} className={`tab col ${active ? 'active' : ''}`}>
+                                    <a onClick={() => this.props.onChange(nation.code)}>{nation.name}</a>
+                                </li>
                             )
                         })}
-                    </Tabs> : '' }
+                    </ul> : '' }
             </div>
         );
     }
@@ -35,7 +31,6 @@ class NationTab extends Component {
 
 const mapStateToProps = (state) => ({
     nation: state.location.nation,
-    scrapListCondition: state.scrap.scrapListCondition,
 });
 
 export default connect(mapStateToProps, null)(NationTab);

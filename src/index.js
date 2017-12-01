@@ -2,22 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import App from 'App';
-import { init } from 'config/axios';
+import { axiosInit } from 'config/axios';
 
 // Redux
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reducers from 'modules';
-import thunk from 'redux-thunk';
+import store from 'store';
 
 // Default Setting
-init();
-
-const store = createStore(
-    reducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(thunk),
-);
+axiosInit();
 
 ReactDOM.render(
     <Provider store={store}>

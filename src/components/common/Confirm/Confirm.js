@@ -23,7 +23,7 @@ class Confirm extends Component {
                 {/*<Sakura />*/}
               <div className="confirm-cont z-depth-2" onClick={(e) => {e.stopPropagation();}}>
                 <div className="message">
-                    {this.props.content}
+                    {this.props.message}
                 </div>
                 <div className="btn-area">
                   <a className="waves-effect waves-light red lighten-3 btn" onClick={() => this.handleClick(true)}>예</a>
@@ -36,7 +36,7 @@ class Confirm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    content: state.confirm.content,
+    message: state.confirm.message,
     callback: state.confirm.callback,
     show: state.confirm.show,
 });
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Confirm.propTypes = {
-    content: PropTypes.string,
+    message: PropTypes.string,
     callback: PropTypes.func,
     show: PropTypes.bool,
 };

@@ -12,7 +12,7 @@ class Footer extends Component {
                     <div className="footer-copyright">
                         <div className="copy-wrap">
                             <div className="info">
-                                <span>© 2017 Copyright</span>
+                                <span>© 2017 Copyright </span>
                                 <span>Almond Bong Bong</span>
                             </div>
                             <div className="link-wrap">

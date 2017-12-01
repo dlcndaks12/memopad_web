@@ -5,10 +5,10 @@ import { Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Header, Toast, Confirm, Footer, PrivateRoute } from 'components';
 import { Home, Scrap, Login, Register, Write, NoMatch } from 'pages';
-import { getCookie } from 'util/cookie';
-import { authRequest, authFailure } from 'modules/authentication';
-import { locationRequest } from 'modules/location';
-import { categoryInit } from "actions/component/category";
+import { getCookie, deleteCookie } from 'util/cookie';
+import { auth, authFailure } from 'modules/authentication';
+import { locationInit } from 'modules/location';
+import { category } from 'modules/category';
 
 class App extends Component {
     constructor(props) {
@@ -20,14 +20,15 @@ class App extends Component {
 
         // Auth 체크
         if (getCookie('Authentication')) {
-            this.props.authRequest();
+            this.props.auth();
         } else {
             this.props.authFailure();
+            deleteCookie('Authentication');
         }
         // Location 정보 획득
-        this.props.locationRequest();
+        this.props.locationInit();
         // Category 정보 획득
-        this.props.categoryInit();
+        this.props.category();
 
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
     }
@@ -101,10 +102,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    authRequest: () => dispatch(authRequest()),
+    auth: () => dispatch(auth()),
     authFailure: () => dispatch(authFailure()),
-    locationRequest: () => dispatch(locationRequest()),
-    categoryInit: () => dispatch(categoryInit()),
+    locationInit: () => dispatch(locationInit()),
+    category: () => dispatch(category()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

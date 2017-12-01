@@ -1,122 +1,43 @@
 import { createAction, handleActions } from 'redux-actions';
+import { pender } from 'redux-pender';
 import * as authenticationService from 'service/authentication';
-import { setCookie } from 'util/cookie';
+import { setCookie, deleteCookie } from 'util/cookie';
 
-const AUTH = "authentication/AUTH";
-const AUTH_SUCCESS = "authentication/AUTH_SUCCESS";
-const AUTH_FAILURE = "authentication/AUTH_FAILURE";
-const AUTH_LOGIN = "authentication/AUTH_LOGIN";
-const AUTH_LOGIN_SUCCESS = "authentication/AUTH_LOGIN_SUCCESS";
-const AUTH_LOGIN_FAILURE = "authentication/AUTH_LOGIN_FAILURE";
-const AUTH_LOGOUT = "authentication/AUTH_LOGOUT";
-const AUTH_REGISTER = "authentication/AUTH_REGISTER";
-const AUTH_REGISTER_SUCCESS = "authentication/AUTH_REGISTER_SUCCESS";
-const AUTH_REGISTER_FAILURE = "authentication/AUTH_REGISTER_FAILURE ";
+const AUTH = 'authentication/AUTH';
+const AUTH_FAILURE = 'authentication/AUTH_FAILURE';
+const LOGIN = 'authentication/LOGIN';
+const LOGOUT = 'authentication/LOGOUT';
+const SIGN_UP = 'authentication/SIGN_UP';
 
 /*============================================================================
  Action
  ===========================================================================*/
-export function authRequest() {
-    return (dispatch) => {
-        dispatch(auth);
-        return authenticationService.auth()
-            .then((response) => {
-                if (response.result === 'OK') {
-                    dispatch(authSuccess(response.data.id, response.data.nickname));
-                } else {
-                    dispatch(authFailure(response.message));
-                }
-            }).catch((error) => {
-                dispatch(authFailure(error.error));
-            });
-    }
-}
+/**
+ * @param void
+ */
+export const auth = createAction(AUTH, authenticationService.auth);
 
 /**
  * @param void
  */
-export const auth = createAction(AUTH);
+export const authFailure = createAction(AUTH_FAILURE);
+
+/**
+ * @param void
+ */
+export const login = createAction(LOGIN, authenticationService.login);
+
+/**
+ * @param void
+ */
+export const logout = createAction(LOGOUT);
 
 /**
  * @param id:String
  * @param nickname:String
+ * @param password:String
  */
-export const authSuccess = createAction(AUTH_SUCCESS);
-
-/**
- * @param message:String
- */
-export const authFailure = createAction(AUTH_FAILURE);
-
-export function loginRequest(id, password) {
-    return (dispatch) => {
-        dispatch(login());
-        return authenticationService.login(id, password)
-            .then((response) => {
-                if (response.result === 'OK') {
-                    // SUCCEED
-                    setCookie('Authentication', response.data.token, 365);
-                    dispatch(loginSuccess(id));
-                } else {
-                    // FAILED
-                    dispatch(loginFailure());
-                }
-            }).catch((error) => {
-                dispatch(loginFailure(error.message));
-            });
-    };
-}
-
-/**
- * @param void
- */
-export const login = createAction(AUTH_LOGIN);
-
-/**
- * @param id:String
- */
-export const loginSuccess = createAction(AUTH_LOGIN_SUCCESS);
-
-/**
- * @param message:String
- */
-export const loginFailure = createAction(AUTH_LOGIN_FAILURE);
-
-/**
- * @param void
- */
-export const logout = createAction(AUTH_LOGOUT);
-
-export function registerRequest(id, nickname, password) {
-    return (dispatch) => {
-        dispatch(register());
-        return authenticationService.signup(id, nickname, password)
-            .then((response) => {
-                if (response.result === 'OK') {
-                    dispatch(registerSuccess(response.message));
-                } else {
-                    dispatch(registerFailure(response.message));
-                }
-            }).catch((error) => {
-                dispatch(registerFailure(error.message));
-            });
-    };
-}
-
-/**
- * @param void
- */
-export const register = createAction(AUTH_REGISTER);
-
-/**
- * @param id:String
- */
-export const registerSuccess = createAction(AUTH_REGISTER_SUCCESS);
-
-/**
- * @param message:String
- */
-export const registerFailure = createAction(AUTH_REGISTER_FAILURE);
+export const signUp = createAction(SIGN_UP, authenticationService.signup);
 
 
 /*============================================================================
@@ -124,130 +45,94 @@ export const registerFailure = createAction(AUTH_REGISTER_FAILURE);
  ===========================================================================*/
 const initialState = {
     auth: {
-        status: 'INIT',
-        message: '',
-    },
-    login: {
-        status: 'INIT',
-        message: '',
-    },
-    register: {
-        status: 'INIT',
-        message: '',
-    },
-    status: {
         id: '',
         nickname: '',
         isLoggedIn: null,
-    }
+    },
+    message: '',
 };
 
 /*============================================================================
  Reducer
  ===========================================================================*/
 export default handleActions({
-    [AUTH]: (state) => {
+    ...pender({
+        type: AUTH,
+        onSuccess: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                auth: {
+                    ...state.auth,
+                    id: res.data.id,
+                    nickname: res.data.nickname,
+                    isLoggedIn: true,
+                }
+            }
+        },
+        onFailure: (state, action) => {
+            deleteCookie('Authentication');
+            const res = action.payload;
+            return {
+                ...state,
+                auth: {
+                    ...state.auth,
+                    isLoggedIn: false,
+                },
+                message: res ? res.message : '',
+            };
+        },
+    }),
+    ...pender({
+        type: LOGIN,
+        onSuccess: (state, action) => {
+            const res = action.payload;
+            setCookie('Authentication', res.data.token, 365);
+            return {
+                ...state,
+                auth: {
+                    id: res.data.id,
+                    nickname: res.data.nickname,
+                    isLoggedIn: true,
+                },
+                message: res.message,
+            }
+        },
+        onFailure: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                message: res.message,
+            };
+        },
+    }),
+    ...pender({
+        type: SIGN_UP,
+        onSuccess: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                message: res.message,
+            };
+        },
+        onFailure: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                message: res.message,
+            };
+        },
+    }),
+    [LOGOUT]: (state) => {
+        deleteCookie('Authentication');
         return {
             ...state,
             auth: {
-                status: 'WAITING'
-            },
-        }
-    },
-    [AUTH_SUCCESS]: (state, action) => {
-        return {
-            ...state,
-            auth: {
-                status: 'SUCCESS'
-            },
-            status: {
-                ...state.status,
-                id: action.payload.id,
-                nickname: action.payload.nickname,
-                isLoggedIn: true,
-            }
-        }
-    },
-    [AUTH_FAILURE]: (state, action) => {
-        return {
-            ...state,
-            auth: {
-                status: 'FAILURE',
-                message: action.payload,
-            },
-            status: {
-                ...state.status,
-                isLoggedIn: false,
-            }
-        };
-    },
-    [AUTH_LOGIN]: (state) => {
-        return {
-            ...state,
-            login: {
-                ...state.login,
-                status: 'WAITING'
-            },
-        };
-    },
-    [AUTH_LOGIN_SUCCESS]: (state, action) => {
-        return {
-            ...state,
-            login: {
-                ...state.login,
-                status: 'SUCCESS'
-            },
-            status: {
-                ...state.status,
-                id: action.payload,
-                isLoggedIn: true,
-            }
-        };
-    },
-    [AUTH_LOGIN_FAILURE]: (state, action) => {
-        return {
-            ...state,
-            login: {
-                ...state.login,
-                status: 'FAILURE',
-                message: action.payload,
-            },
-        };
-    },
-    [AUTH_LOGOUT]: (state) => {
-        return {
-            ...state,
-            status: {
-                ...state.status,
+                ...state.auth,
                 id: '',
+                nickname: '',
                 isLoggedIn: false,
             }
-        };
-    },
-    [AUTH_REGISTER]: (state) => {
-        return {
-            ...state,
-            register: {
-                status: 'WAITING'
-            },
-        };
-    },
-    [AUTH_REGISTER_SUCCESS]: (state, action) => {
-        return {
-            ...state,
-            register: {
-                status: 'SUCCESS',
-                message: action.payload,
-            }
-        };
-    },
-    [AUTH_REGISTER_FAILURE]: (state, action) => {
-        return {
-            ...state,
-            register: {
-                status: 'FAILURE',
-                message: action.payload,
-            },
         };
     },
 }, initialState);

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginRequest } from 'modules/authentication';
+import { login } from 'modules/authentication';
 import { toast } from 'modules/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Sakura } from 'components';
@@ -23,11 +23,10 @@ class Login extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.status.isLoggedIn) {
+        if (nextProps.auth.isLoggedIn) {
             // this.props.history.replace('/');
         }
     }
-
 
     handleKeyPress(e) {
         if(e.charCode === 13) {
@@ -55,19 +54,19 @@ class Login extends Component {
             return false;
         }
 
-        this.props.loginRequest(id, pw).then(
-            () => {
-                if(this.props.login.status === 'SUCCESS') {
-                    this.props.toast(`${this.props.status.nickname}님 환영합니다.`);
+        this.props.login(id, pw)
+            .then(() => {
+                if(this.props.auth.isLoggedIn) {
+                    this.props.toast(`${this.props.auth.nickname}님 환영합니다.`);
                     this.props.history.push('/');
-                } else {
-                    this.props.toast(this.props.login.message);
-                    this.setState({
-                        password: ''
-                    });
                 }
-            }
-        )
+            })
+            .catch(() => {
+            this.props.toast(this.props.message);
+            this.setState({
+                password: ''
+            });
+        });
     }
 
     render() {
@@ -117,7 +116,7 @@ class Login extends Component {
                                         <label>비밀번호</label>
                                     </div>
                                 </div>
-                                {this.props.login.status === 'WAITING' ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue lighten-2">LOGIN</a>}
+                                {this.props.pending['authentication/LOGIN'] ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue lighten-2">LOGIN</a>}
                             </div>
                             <div className="footer">
                                 <div className="card-content">
@@ -135,12 +134,13 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    login: state.authentication.login,
-    status: state.authentication.status,
+    auth: state.authentication.auth,
+    message: state.authentication.message,
+    pending: state.pender.pending,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    loginRequest: (id, pw) => dispatch(loginRequest(id, pw)),
+    login: (id, pw) => dispatch(login(id, pw)),
     toast: (content, time) => dispatch(toast(content, time)),
 });
 

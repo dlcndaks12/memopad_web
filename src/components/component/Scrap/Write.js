@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { toast } from 'actions/component/toast';
+import { toast } from 'modules/toast';
 import axios from 'axios';
 import { CircleLoader, Preview, Select } from 'components';
 
@@ -200,7 +200,7 @@ class Write extends Component {
 const mapStateToProps = (state) => ({
     location: state.location,
     category: state.category.category,
-    nickname: state.authentication.status.nickname,
+    nickname: state.authentication.auth.nickname,
 });
 
 const mapDispatchToProps = (dispatch) => ({

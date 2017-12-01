@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 
-const CONFIRM_OPEN = "confirm/CONFIRM_OPEN";
+const CONFIRM = "confirm/CONFIRM";
 const CONFIRM_CLOSE = "confirm/CONFIRM_CLOSE";
 
 /*============================================================================
@@ -10,7 +10,7 @@ const CONFIRM_CLOSE = "confirm/CONFIRM_CLOSE";
  * @param content:String
  * @param callback:Function
  */
-export const confirmOpen = createAction(CONFIRM_OPEN);
+export const confirm = createAction(CONFIRM);
 
 /**
  * @param void
@@ -21,7 +21,7 @@ export const confirmClose = createAction(CONFIRM_CLOSE);
  Default State
  ===========================================================================*/
 const initialState = {
-    content: '',
+    message: '',
     callback: null,
     show: false,
 };
@@ -30,10 +30,10 @@ const initialState = {
  Reducer
  ===========================================================================*/
 export default handleActions({
-    [CONFIRM_OPEN]: (state, action) => {
+    [CONFIRM]: (state, action) => {
         return {
             ...state,
-            content: action.payload.content,
+            message: action.payload.message,
             callback: action.payload.callback,
             show: true,
         }

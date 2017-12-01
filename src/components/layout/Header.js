@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { logout } from 'actions/component/authentication';
-import { toast } from 'actions/component/toast';
-import { confirmOpen } from 'modules/confirm';
+import { logout } from 'modules/authentication';
+import { toast } from 'modules/toast';
+import { confirm } from 'modules/confirm';
 import { SideNavigation } from "components";
-import { deleteCookie } from 'util/cookie';
 
 class Header extends Component {
     constructor(props) {
@@ -15,14 +14,15 @@ class Header extends Component {
     }
 
     handleLogout() {
-        this.props.confirmOpen('정말 로그아웃 하시게요?', (result) => {
-          if (result) {
-            deleteCookie('Authentication');
-
-            this.props.logout();
-            this.props.toast('로그아웃 되었습니다.');
-            // this.props.history.push('/login');
-          }
+        this.props.confirm({
+            message: '정말 로그아웃 하시게요?',
+            callback: (result) => {
+                if (result) {
+                    this.props.logout();
+                    this.props.toast('로그아웃 되었습니다.');
+                    // this.props.history.push('/login');
+                }
+            }
         });
     }
 
@@ -57,7 +57,7 @@ class Header extends Component {
                                 <i className="material-icons">mode_edit</i>
                             </Link>
                         </li>*/}
-                        { this.props.status.isLoggedIn !== null ? this.props.status.isLoggedIn ? logoutButton : loginButton : '' }
+                        { this.props.auth.isLoggedIn !== null ? this.props.auth.isLoggedIn ? logoutButton : loginButton : '' }
                     </ul>
                     {this.props.progress.show ?
                         <div className="progress red lighten-4">
@@ -71,12 +71,12 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    status: state.authentication.status,
+    auth: state.authentication.auth,
     progress: state.progress,
 });
 const mapDispatchToProps = (dispatch) => ({
-    toast: (content, time) => dispatch(toast(content, time)),
-    confirmOpen: (content, callback) => dispatch((confirmOpen(content, callback))),
+    toast: (message, time) => dispatch(toast(message, time)),
+    confirm: (message, callback) => dispatch((confirm(message, callback))),
     logout: () => dispatch(logout()),
 });
 

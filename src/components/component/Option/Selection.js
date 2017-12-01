@@ -7,7 +7,7 @@ class City extends Component {
         super(props);
 
         this.state = {
-            checkedAll: props.scrapListCondition[props.type] === 'all',
+            checkedAll: props.scrap[props.type] === 'all',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -43,6 +43,9 @@ class City extends Component {
                 for (let i = 0; i < chkCheckedList.length; i++) {
                     checkedValue.push(chkCheckedList[i].value);
                 }
+                if (checkedValue.length === 0 ) {
+                    checkedValue = 'none'
+                }
             }
         }
         this.props.onChange(checkedValue, this.props.type);
@@ -50,18 +53,20 @@ class City extends Component {
 
     render() {
         const type = this.props.type;
-        const condition = this.props.scrapListCondition[type];
+        const condition = this.props.selectedItem;
         let checked = false;
+
+        console.log(type, condition);
 
         return (
             <div className="selection" ref={`${this.props.type}List`}>
-                <Input name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={this.state.checkedAll} onChange={this.handleChange} />
-                {this.props.item !== null ?
+                <Input name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={this.state.checkedAll || condition === 'all'} onChange={this.handleChange} />
+                {this.props.item ?
                     this.props.item.map((item, i) => {
-                        const items = condition;
-                        checked = items !== 'none' ? items === 'all' ? true : items.indexOf(item.idx.toString()) >= 0 : false;
+                        checked = condition !== 'none' ? condition === 'all' ? true : condition.indexOf(item.idx.toString()) >= 0 : false;
+                        console.log(item.name, checked);
                         return (
-                            <Input name={this.props.type} type="checkbox" key={i} value={item.idx.toString()} label={item.name} defaultChecked={checked} onChange={this.handleChange} />
+                            <Input name={this.props.type} type="checkbox" key={i} value={item.idx.toString()} label={item.name} checked={checked} onChange={this.handleChange} />
                         )
                     }) : '' }
             </div>
@@ -72,7 +77,7 @@ class City extends Component {
 const mapStateToProps = (state) => ({
     city: state.location.city,
     category: state.category.category,
-    scrapListCondition: state.scrap.scrapListCondition,
+    scrap: state.scrap,
 });
 
 const mapDispatchToProps = (dispatch) => ({
