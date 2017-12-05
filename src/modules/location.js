@@ -2,13 +2,13 @@ import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import * as locationService from 'service/location';
 
-const NATION = "location/NATION";
-const CITY = "location/CITY";
+const GET_NATIONS = "location/GET_NATIONS";
+const GET_CITIES = "location/GET_CITIES";
 
 /*============================================================================
  Action
  ===========================================================================*/
-export function locationInit() {
+export function initLocations() {
     return (dispatch) => {
         dispatch(nation());
         dispatch(city());
@@ -18,12 +18,12 @@ export function locationInit() {
 /**
  * @param void
  */
-export const nation = createAction(NATION, locationService.getNationList);
+export const nation = createAction(GET_NATIONS, locationService.getNations);
 
 /**
  * @param void
  */
-export const city = createAction(CITY, locationService.getCityList);
+export const city = createAction(GET_CITIES, locationService.getCities);
 
 /*============================================================================
  Default State
@@ -39,7 +39,7 @@ const initialState = {
  ===========================================================================*/
 export default handleActions({
     ...pender({
-        type: NATION,
+        type: GET_NATIONS,
         onSuccess: (state, action) => {
             const res = action.payload;
             return {
@@ -56,7 +56,7 @@ export default handleActions({
         },
     }),
     ...pender({
-        type: CITY,
+        type: GET_CITIES,
         onSuccess: (state, action) => {
             const res = action.payload;
             return {

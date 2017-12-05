@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signUp } from 'modules/authentication';
+import { signUp } from 'modules/auth';
 import { toast } from 'modules/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Sakura } from 'components';
@@ -95,12 +95,12 @@ class Register extends Component {
         }
 
         this.props.signUp(id, nickname, password).then(
-            () => {
-                if(this.props.success['authentication/SIGN_UP']) {
-                    this.props.toast(this.props.message);
+            (res) => {
+                if(res.result === 'OK') {
+                    this.props.toast(res.message);
                     this.props.history.push('/login');
                 } else {
-                    this.props.toast(this.props.message);
+                    this.props.toast(res.message);
                 }
             }
         );
@@ -179,7 +179,7 @@ class Register extends Component {
                                     </div>
                                 </div>
                             </div>
-                            {this.props.pending['authentication/SIGN_UP'] ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue lighten-2">CREATE</a>}
+                            {this.props.pending['auth/SIGN_UP'] ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue lighten-2">CREATE</a>}
                         </div>
                     </div>
                 </div>
@@ -189,8 +189,7 @@ class Register extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authentication.auth,
-    message: state.authentication.message,
+    auth: state.auth,
     pending: state.pender.pending,
     success: state.pender.success,
 });

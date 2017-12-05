@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 /* Nation List */
-export function getNationList() {
+export function getNations() {
   return axios.get('api/nation');
 }
 
 /* City List */
-export function getCityList() {
+export function getCities() {
   return axios.get('api/city/all');
 }

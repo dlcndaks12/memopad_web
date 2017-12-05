@@ -25,7 +25,6 @@ const initialState = {
  ===========================================================================*/
 export default handleActions({
     [TOAST]: (state, action) => {
-        console.log(action);
         return {
             ...state,
             message: action.payload.message || action.payload,

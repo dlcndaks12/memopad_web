@@ -3,9 +3,10 @@ import toast from './toast';
 import confirm from './confirm';
 import sideNav from './sideNav';
 import progress from './progress';
-import authentication from './authentication';
+import auth from './auth';
 import location from './location';
 import category from './category';
+import og from './og';
 import scrap from './scrap';
 import { penderReducer } from 'redux-pender';
 
@@ -14,9 +15,10 @@ export default combineReducers({
     confirm,
     sideNav,
     progress,
-    authentication,
+    auth,
     location,
     category,
+    og,
     scrap,
     pender: penderReducer,
 });

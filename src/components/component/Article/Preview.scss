@@ -1,3 +1,5 @@
+@import "../../../resources/styles/helper/mixins";
+
 .preview-area {
     width: 800px;
     margin: 20px auto 0;
@@ -6,13 +8,17 @@
         margin: 20px 0;
     }
     .thumb {
-        margin-bottom: 50px;
+        overflow: hidden;
+        position: relative;
+        height: 340px;
+        margin: 0 auto 50px;
         font-size: 0;
         img {
+            @include alignY;
             display: block;
-            overflow: hidden;
+            left: 0;
+            right: 0;
             width: 100%;
-            border-radius: 5px;
         }
     }
     .submit-area {

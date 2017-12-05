@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import * as path from 'config/path';
-import { CircleLoader } from 'components';
+import './Preview.scss';
 
 class Preview extends Component {
+    shouldComponentUpdate(nextProps) {
+        return JSON.stringify(this.props.og) !== JSON.stringify(nextProps.og);
+    }
 
     render() {
         return (
             <div className="preview-area">
                 <div className="thumb">
-                    <img src={`${path.apiUrl}/api/image?url=${this.props.og.ogImageUrl}`} alt="" className="z-depth-1" />
+                    <img src={`${path.apiUrl}/api/image?url=${this.props.og.ogImageUrl}`} alt="" />
                 </div>
                 <div className="title">
                     <div className="input-field title">
@@ -29,18 +32,6 @@ class Preview extends Component {
                                   onChange={this.props.onChange} />
                         <label htmlFor="og-description" className="active">Description</label>
                     </div>
-                </div>
-                <div className="submit-area">
-                    {this.props.submitPending ?
-                        <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action">
-                            <CircleLoader/>
-                        </button>
-                        :
-                        <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action" onClick={this.props.onSubmit}>
-                            등록
-                            <i className="material-icons right">send</i>
-                        </button>
-                    }
                 </div>
             </div>
         );

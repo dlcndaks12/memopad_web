@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { logout } from 'modules/authentication';
+import { logout } from 'modules/auth';
 import { toast } from 'modules/toast';
 import { confirm } from 'modules/confirm';
 import { SideNavigation } from "components";
@@ -71,7 +71,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authentication.auth,
+    auth: state.auth,
     progress: state.progress,
 });
 const mapDispatchToProps = (dispatch) => ({

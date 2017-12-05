@@ -1,59 +1,38 @@
 import { createAction, handleActions } from 'redux-actions';
+import { pender } from 'redux-pender';
 import * as scrapService from 'service/scrap';
 
-const SCRAP_LIST = "scrap/SCRAP_LIST";
-const SCRAP_LIST_SUCCESS = "scrap/SCRAP_LIST_SUCCESS";
-const SCRAP_LIST_FAILURE = "scrap/SCRAP_LIST_FAILURE";
-const SCRAP_SET_LIST_CONDITION = "scrap/SCRAP_SET_LIST_CONDITION";
+const GET_SCRAPS = 'scrap/GET_SCRAPS';
+const REGISTER_SCRAP = 'scrap/REGISTER_SCRAP';
+const SET_SCRAPS_CONDITION = 'scrap/SET_SCRAPS_CONDITION';
 
 /*============================================================================
  Action
  ===========================================================================*/
-export function requestScrapList() {
+export function getScraps() {
     return (dispatch, getState) => {
-        const state = getState().scrap;
-        dispatch(scrapList());
-
-        const nationCode = state.scrapListCondition.nationCode;
-        const limit = state.scrapListCondition.limit;
-        const page = state.scrapListCondition.page;
-        let city = state.scrapListCondition.city !== 'none' ? state.scrapListCondition.city === 'all' ? null : state.scrapListCondition.city.toString() : -1;
-        let category = state.scrapListCondition.category !== 'none' ? state.scrapListCondition.category === 'all' ? null : state.scrapListCondition.category.toString() : -1;
-
-        return scrapService.getScrapList(nationCode, city, category, limit, page)
-            .then((response) => {
-                if (response.result === 'OK') {
-                    console.log(response);
-                    dispatch(scrapListSuccess(response.data.list));
-                } else {
-                    dispatch(scrapListFailure(response.message));
-                }
-            }).catch((error) => {
-                console.log('catch', error);
-            });
+        const scrap = getState().scrap;
+        return dispatch(getScrapsByCondition(scrap.nationCode, scrap.city, scrap.category, scrap.limit, scrap.page));
     };
 }
 
 /**
- * @param scrapListCondition:Object
+ * @param nationCode:String
+ * @param cityIdx:Number
+ * @param categoryIdx:Number
+ * @param og:Object
  */
-export const scrapSetListCondition = createAction(SCRAP_SET_LIST_CONDITION);
+export const registerScrap = createAction(REGISTER_SCRAP, scrapService.registerScrap);
 
 /**
  * @param void
  */
-export const scrapList = createAction(SCRAP_LIST);
+export const getScrapsByCondition = createAction(GET_SCRAPS, scrapService.getScraps);
 
 /**
- * @param list:Array
+ * @param scrapListCondition:Object
  */
-export const scrapListSuccess = createAction(SCRAP_LIST_SUCCESS);
-
-/**
- * @param message:String
- */
-export const scrapListFailure = createAction(SCRAP_LIST_FAILURE);
-
+export const setScrapsCondition = createAction(SET_SCRAPS_CONDITION);
 
 /*============================================================================
  Default State
@@ -64,50 +43,49 @@ const initialState = {
     category: 'all',
     limit: 10,
     page: 1,
-    scrapList: {
-        status: 'INIT',
-        message: '',
-        list: [],
-    },
+    total: 0,
+    scraps: [],
 };
 
 /*============================================================================
  Reducer
  ===========================================================================*/
 export default handleActions({
-    [SCRAP_SET_LIST_CONDITION]: (state, action) => {
+    ...pender({
+        type: [GET_SCRAPS],
+        onSuccess: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                total: res.data.total,
+                scraps: res.data.list,
+            }
+        },
+        onFailure: (state, action) => {
+            const res = action.payload;
+            return {
+                ...state,
+                total: res.data.total,
+            }
+        },
+    }),
+    ...pender({
+        type: [REGISTER_SCRAP],
+        onSuccess: (state) => {
+            return {
+                ...state,
+            }
+        },
+        onFailure: (state) => {
+            return {
+                ...state,
+            }
+        },
+    }),
+    [SET_SCRAPS_CONDITION]: (state, action) => {
         return {
             ...state,
             ...action.payload,
-        }
-    },
-    [SCRAP_LIST]: (state) => {
-        return {
-            ...state,
-            scrapList: {
-                ...state.scrapList,
-                status: 'WAITING',
-            }
-        }
-    },
-    [SCRAP_LIST_SUCCESS]: (state, action) => {
-        return {
-            ...state,
-            scrapList: {
-                ...state.scrapList,
-                status: 'SUCCESS',
-                list: action.payload,
-            }
-        }
-    },
-    [SCRAP_LIST_FAILURE]: (state, action) => {
-        return {
-            ...state,
-            scrapList: {
-                ...state.scrapList,
-                status: 'FAILURE',
-                message: action.payload,
-            }
-        }
+        };
     },
 }, initialState);

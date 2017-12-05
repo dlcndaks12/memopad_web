@@ -6,7 +6,7 @@ class Option extends Component {
     render() {
         return (
             <div className="option-area z-depth-1">
-                {this.props.city && this.props.city[this.props.selectedNation].length > 0 ?
+                {this.props.city ?
                     <div className="option">
                         <h6>지역</h6>
                         <Selection

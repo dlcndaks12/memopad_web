@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { toast } from 'modules/toast';
 import { Write as ScrapWrite } from 'components';
 import './Scrap.scss';
 
@@ -29,13 +27,4 @@ class Write extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    login: state.authentication.login,
-    location: state.location,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    toast: (content, time) => dispatch(toast(content, time)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Write);
+export default Write;

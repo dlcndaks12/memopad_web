@@ -10,7 +10,7 @@ const CATEGORY = "category/CATEGORY";
 /**
  * @param void
  */
-export const category = createAction(CATEGORY, categoryService.getCategoryList);
+export const category = createAction(CATEGORY, categoryService.getCategories);
 
 /*============================================================================
  Default State

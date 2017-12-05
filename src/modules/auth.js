@@ -1,13 +1,13 @@
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
-import * as authenticationService from 'service/authentication';
+import * as authService from 'service/auth';
 import { setCookie, deleteCookie } from 'util/cookie';
 
-const AUTH = 'authentication/AUTH';
-const AUTH_FAILURE = 'authentication/AUTH_FAILURE';
-const LOGIN = 'authentication/LOGIN';
-const LOGOUT = 'authentication/LOGOUT';
-const SIGN_UP = 'authentication/SIGN_UP';
+const AUTH = 'auth/AUTH';
+const AUTH_FAILURE = 'auth/AUTH_FAILURE';
+const LOGIN = 'auth/LOGIN';
+const LOGOUT = 'auth/LOGOUT';
+const SIGN_UP = 'auth/SIGN_UP';
 
 /*============================================================================
  Action
@@ -15,7 +15,7 @@ const SIGN_UP = 'authentication/SIGN_UP';
 /**
  * @param void
  */
-export const auth = createAction(AUTH, authenticationService.auth);
+export const auth = createAction(AUTH, authService.auth);
 
 /**
  * @param void
@@ -25,7 +25,7 @@ export const authFailure = createAction(AUTH_FAILURE);
 /**
  * @param void
  */
-export const login = createAction(LOGIN, authenticationService.login);
+export const login = createAction(LOGIN, authService.login);
 
 /**
  * @param void
@@ -37,19 +37,16 @@ export const logout = createAction(LOGOUT);
  * @param nickname:String
  * @param password:String
  */
-export const signUp = createAction(SIGN_UP, authenticationService.signup);
+export const signUp = createAction(SIGN_UP, authService.signup);
 
 
 /*============================================================================
  Default State
  ===========================================================================*/
 const initialState = {
-    auth: {
-        id: '',
-        nickname: '',
-        isLoggedIn: null,
-    },
-    message: '',
+    id: '',
+    nickname: '',
+    isLoggedIn: null,
 };
 
 /*============================================================================
@@ -62,24 +59,16 @@ export default handleActions({
             const res = action.payload;
             return {
                 ...state,
-                auth: {
-                    ...state.auth,
-                    id: res.data.id,
-                    nickname: res.data.nickname,
-                    isLoggedIn: true,
-                }
+                id: res.data.id,
+                nickname: res.data.nickname,
+                isLoggedIn: true,
             }
         },
-        onFailure: (state, action) => {
+        onFailure: (state) => {
             deleteCookie('Authentication');
-            const res = action.payload;
             return {
                 ...state,
-                auth: {
-                    ...state.auth,
-                    isLoggedIn: false,
-                },
-                message: res ? res.message : '',
+                isLoggedIn: false,
             };
         },
     }),
@@ -90,36 +79,28 @@ export default handleActions({
             setCookie('Authentication', res.data.token, 365);
             return {
                 ...state,
-                auth: {
-                    id: res.data.id,
-                    nickname: res.data.nickname,
-                    isLoggedIn: true,
-                },
-                message: res.message,
+                id: res.data.id,
+                nickname: res.data.nickname,
+                isLoggedIn: true,
             }
         },
-        onFailure: (state, action) => {
-            const res = action.payload;
+        onFailure: (state) => {
             return {
                 ...state,
-                message: res.message,
+                isLoggedIn: false,
             };
         },
     }),
     ...pender({
         type: SIGN_UP,
-        onSuccess: (state, action) => {
-            const res = action.payload;
+        onSuccess: (state) => {
             return {
                 ...state,
-                message: res.message,
             };
         },
-        onFailure: (state, action) => {
-            const res = action.payload;
+        onFailure: (state) => {
             return {
                 ...state,
-                message: res.message,
             };
         },
     }),
@@ -127,12 +108,9 @@ export default handleActions({
         deleteCookie('Authentication');
         return {
             ...state,
-            auth: {
-                ...state.auth,
-                id: '',
-                nickname: '',
-                isLoggedIn: false,
-            }
+            id: '',
+            nickname: '',
+            isLoggedIn: false,
         };
     },
 }, initialState);

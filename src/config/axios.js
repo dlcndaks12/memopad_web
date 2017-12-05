@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as path from './path';
 import { getCookie } from 'util/cookie';
 
-export function axiosInit() {
+export function initAxios() {
     axios.defaults.baseURL = path.apiUrl;
     axios.defaults.headers.common['Authorization'] = getCookie('Authentication');
     axios.interceptors.response.use((response) => {

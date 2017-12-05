@@ -52,11 +52,8 @@ class City extends Component {
     }
 
     render() {
-        const type = this.props.type;
         const condition = this.props.selectedItem;
         let checked = false;
-
-        console.log(type, condition);
 
         return (
             <div className="selection" ref={`${this.props.type}List`}>
@@ -64,7 +61,6 @@ class City extends Component {
                 {this.props.item ?
                     this.props.item.map((item, i) => {
                         checked = condition !== 'none' ? condition === 'all' ? true : condition.indexOf(item.idx.toString()) >= 0 : false;
-                        console.log(item.name, checked);
                         return (
                             <Input name={this.props.type} type="checkbox" key={i} value={item.idx.toString()} label={item.name} checked={checked} onChange={this.handleChange} />
                         )

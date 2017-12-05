@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast } from 'modules/toast';
-import { scrapSetListCondition, requestScrapList } from 'modules/scrap';
+import { setScrapsCondition, getScraps } from 'modules/scrap';
 import { NationTab, CardList, Option } from 'components';
 import qs from 'query-string';
 
@@ -14,7 +14,7 @@ class Scrap extends Component {
         this.setScrapCondition = this.setScrapCondition.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleNation = this.handleNation.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleCheckbox = this.handleCheckbox.bind(this);
     }
 
     componentWillMount() {
@@ -22,7 +22,7 @@ class Scrap extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.match.params.nation !== this.props.match.params.nation) {
+        if (prevProps.match.params.nation !== this.props.match.params.nation || prevProps.location.search !== this.props.location.search) {
             this.setScrapCondition();
         }
     }
@@ -41,9 +41,9 @@ class Scrap extends Component {
             limit: 10,
             page: 1,
         };
-        console.log('condition .... ', scrapListCondition);
 
-        this.props.scrapSetListCondition(scrapListCondition);
+        this.props.setScrapsCondition(scrapListCondition);
+        this.props.getScraps();
     }
 
     handleLogin() {
@@ -55,8 +55,8 @@ class Scrap extends Component {
         this.props.history.push(`/scrap/${nationCode}`);
     }
 
-    handleChange(selectedItems, type) {
-        this.props.scrapSetListCondition({
+    handleCheckbox(selectedItems, type) {
+        this.props.setScrapsCondition({
             [type]: selectedItems,
         });
         const city = type === 'city' ? selectedItems : this.props.scrap.city;
@@ -90,9 +90,9 @@ class Scrap extends Component {
                     selectedNation={this.props.scrap.nationCode}
                     selectedCity={this.props.scrap.city}
                     selectedCategory={this.props.scrap.category}
-                    onChange={this.handleChange} />
+                    onChange={this.handleCheckbox} />
                 <div className="card-wrap">
-                    <CardList/>
+                    <CardList cards={this.props.scrap.scraps}/>
                 </div>
                 { this.props.auth.isLoggedIn ? writeButton : loginButton }
             </div>
@@ -101,15 +101,15 @@ class Scrap extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authentication.auth,
+    auth: state.auth,
     nation: state.location.nation,
     scrap: state.scrap,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     toast: (content, time) => dispatch(toast(content, time)),
-    scrapSetListCondition: (nationCode, city, category, limit, page) => dispatch(scrapSetListCondition(nationCode, city, category, limit, page)),
-    requestScrapList: () => dispatch(requestScrapList()),
+    setScrapsCondition: (nationCode, city, category, limit, page) => dispatch(setScrapsCondition(nationCode, city, category, limit, page)),
+    getScraps: () => dispatch(getScraps()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrap);

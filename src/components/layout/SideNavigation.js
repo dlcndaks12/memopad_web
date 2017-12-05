@@ -58,7 +58,7 @@ class SideNavigation extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authentication.auth,
+    auth: state.auth,
 });
 
 const mapDispatchToProps = (dispatch) => ({

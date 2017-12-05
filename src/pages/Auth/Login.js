@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from 'modules/authentication';
+import { login } from 'modules/auth';
 import { toast } from 'modules/toast';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Sakura } from 'components';
@@ -61,12 +61,12 @@ class Login extends Component {
                     this.props.history.push('/');
                 }
             })
-            .catch(() => {
-            this.props.toast(this.props.message);
-            this.setState({
-                password: ''
+            .catch((error) => {
+                this.props.toast(error.message);
+                this.setState({
+                    password: ''
+                });
             });
-        });
     }
 
     render() {
@@ -116,7 +116,7 @@ class Login extends Component {
                                         <label>비밀번호</label>
                                     </div>
                                 </div>
-                                {this.props.pending['authentication/LOGIN'] ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue lighten-2">LOGIN</a>}
+                                {this.props.pending['auth/LOGIN'] ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue lighten-2">LOGIN</a>}
                             </div>
                             <div className="footer">
                                 <div className="card-content">
@@ -134,8 +134,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.authentication.auth,
-    message: state.authentication.message,
+    auth: state.auth,
     pending: state.pender.pending,
 });
 

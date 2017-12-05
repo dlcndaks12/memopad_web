@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'modules/toast';
-import axios from 'axios';
+import { initOg, getOgByUrl, setOg } from 'modules/og';
+import { registerScrap } from 'modules/scrap';
 import { CircleLoader, Preview, Select } from 'components';
 
 class Write extends Component {
@@ -11,20 +12,13 @@ class Write extends Component {
 
         this.state = {
             url: '',
-            message: '',
-            result: '',
-            og: {
-                ogUrl: '',
-                ogImageUrl: '',
-                ogTitle: '',
-                ogDescription: '',
-            },
-            ogPending: false,
-            submitPending: false,
             nationSelected: props.nationSelected,
             citySelected: props.citySelected,
             categorySelected: -1,
+            requestOgTimer: null,
         };
+
+        this.props.initOg();
 
         this.handleLink = this.handleLink.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
@@ -34,10 +28,26 @@ class Write extends Component {
     }
 
     handleLink(e) {
+        const value = e.target.value;
         this.setState({
-            url: e.target.value,
+            url: value,
         });
-        this.listenOGTag(e.target.value);
+        /* n초간 입력이 없을시 request 요청 */
+        clearTimeout(this.state.requestOgTimer);
+        this.setState({
+            requestOgTimer: setTimeout(() => {
+                                this.listenOGTag(value);
+                            }, 1000),
+        });
+    }
+
+    listenOGTag(url) {
+        this.props.getOgByUrl(url)
+            .then(() => {
+                if (this.props.og.result !== 'OK') {
+                    this.props.toast(this.props.og.message);
+                }
+            });
     }
 
     handleSelect(e) {
@@ -58,98 +68,38 @@ class Write extends Component {
     handleInput(e) {
         const name = e.target.name;
         if (name === 'og-title') {
-            this.setState({
-                og: {
-                    ...this.state.og,
-                    ogTitle: e.target.value,
-                }
+            this.props.setOg({
+                ogTitle: e.target.value,
+                ogDescription: this.props.og.ogDescription,
             });
         } else if (name === 'og-description') {
-            this.setState({
-                og: {
-                    ...this.state.og,
-                    ogDescription: e.target.value,
-                }
+            this.props.setOg({
+                ogTitle: this.props.og.ogDescription,
+                ogDescription: e.target.value,
             });
         }
-    }
-
-    listenOGTag(url) {
-        this.setState({
-            ogPending: true,
-        });
-        return axios.get(`/api/og`, {
-            params: {
-                url: url,
-            }
-        }).then((response) => {
-            if (response.result === 'OK') {
-                this.setState({
-                    result: response.result,
-                    og: {
-                        ...this.state.og,
-                        ogImageUrl: response.data.ogImageUrl,
-                        ogTitle: response.data.ogTitle,
-                        ogDescription: response.data.ogDescription,
-                        ogUrl: response.data.ogUrl,
-                    }
-                });
-            } else {
-                this.setState({
-                    result: response.result,
-                    message: response.message,
-                });
-            }
-        }).catch((error) => {
-            this.props.toast(error.message);
-        }).then(() => {
-            this.setState({
-                ogPending: false,
-            });
-        });
     }
 
     handleSubmit() {
         const nationCode = this.state.nationSelected;
         const cityIdx = this.state.citySelected;
         const categoryIdx = this.state.categorySelected;
-        const og = this.state.og;
+        const og = this.props.og.og;
 
         if (categoryIdx === -1) {
             this.props.toast('분류를 선택해주세요.');
             return;
         }
 
-        this.setState({
-            submitPending: true,
-        });
-
-        axios.post(`/api/scrap`, {
-            nationCode: nationCode,
-            cityIdx: cityIdx,
-            categoryIdx: categoryIdx,
-            imageUrl: og.ogImageUrl,
-            title: og.ogTitle,
-            description: og.ogDescription,
-            url: og.ogUrl,
-        }).then((response) => {
-            console.log(response);
-            if (response.result === 'OK') {
-                this.props.toast(response.message);
-                this.props.history.push('/scrap');
-            } else {
-                this.setState({
-                    result: response.result,
-                    message: response.message,
-                });
-            }
-        }).catch((error) => {
-            this.props.toast(error.message);
-        }).then(() => {
-            this.setState({
-                submitPending: false,
+        this.props.registerScrap(nationCode, cityIdx, categoryIdx, og)
+            .then((res) => {
+                if (res.result === 'OK') {
+                    this.props.toast(res.message);
+                    this.props.history.push('/scrap');
+                }
+            }).catch((error) => {
+                this.props.toast(error.message);
             });
-        });
     }
 
     render() {
@@ -185,25 +135,43 @@ class Write extends Component {
                         {this.state.result !== 'OK' ? <div className="guide red-text text-accent-2">{this.state.message}</div> : ''}
                     </div>
                 </div>
-                {this.state.ogPending ? <CircleLoader color="blue" /> :
-                    this.state.result === 'OK' ?
-                        <Preview
-                            og={this.state.og}
-                            submitPending={this.state.submitPending}
-                            onChange={this.handleInput}
-                            onSubmit={this.handleSubmit} /> : ''}
+                {this.props.pending['scrap/GET_OG_BY_URL'] ? <CircleLoader color="blue" /> :
+                    this.props.og.result === 'OK' ?
+                        <div className="scrap-view">
+                            <Preview
+                                og={this.props.og.og}
+                                onChange={this.handleInput}
+                                onSubmit={this.handleSubmit} />
+                            <div className="submit-area">
+                                {this.props.pending['scrap/REGISTER_SCRAP'] ?
+                                    <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action">
+                                        <CircleLoader/>
+                                    </button>
+                                    :
+                                    <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action" onClick={this.handleSubmit}>
+                                        등록
+                                        <i className="material-icons right">send</i>
+                                    </button>}
+                            </div>
+                        </div> : ''}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
+    pending: state.pender.pending,
+    og: state.og,
     location: state.location,
     category: state.category.category,
-    nickname: state.authentication.auth.nickname,
+    nickname: state.auth.nickname,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    initOg: () => dispatch(initOg()),
+    getOgByUrl: (url) => dispatch(getOgByUrl(url)),
+    setOg: (og) => dispatch(setOg(og)),
+    registerScrap: (nationCode, cityIdx, categoryIdx, og) => dispatch(registerScrap(nationCode, cityIdx, categoryIdx, og)),
     toast: (content, time) => dispatch(toast(content, time)),
 });
 
