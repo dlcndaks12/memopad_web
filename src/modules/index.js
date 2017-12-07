@@ -8,6 +8,7 @@ import location from './location';
 import category from './category';
 import og from './og';
 import scrap from './scrap';
+import layout from './layout';
 import { penderReducer } from 'redux-pender';
 
 export default combineReducers({
@@ -20,5 +21,6 @@ export default combineReducers({
     category,
     og,
     scrap,
+    layout,
     pender: penderReducer,
 });

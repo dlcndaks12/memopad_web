@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import { toast } from 'modules/toast';
 
 class PrivateRoute extends Component {
 
@@ -10,23 +11,30 @@ class PrivateRoute extends Component {
             <Route
                 exact={this.props.exact}
                 path={this.props.path}
-                render={props => (
-                    isLoggedIn === null || isLoggedIn ? (
-                        <this.props.component {...props}/>
-                    ) : (
-                        <Redirect to={{
+                render={(props) => {
+                    let component;
+                    if (isLoggedIn === null || isLoggedIn) {
+                        component = <this.props.component {...props}/>;
+                    } else {
+                        this.props.toast('로그인 해주세요.');
+                        component = <Redirect to={{
                             pathname: '/login',
                             state: { from: props.location }
-                        }}/>
-                    )
-                )}
+                        }}/>;
+                    }
+                    return component;
+                }}
             />
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+    auth: state.auth,
 });
 
-export default connect(mapStateToProps, null)(PrivateRoute);
+const mapDispatchToProps = (dispatch) => ({
+    toast: (content, time) => dispatch(toast(content, time)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);

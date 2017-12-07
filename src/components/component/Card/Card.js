@@ -7,9 +7,7 @@ class Card extends Component {
         return (
             <div className="card-wrap">
                 <div className="card">
-                    <div className="card-image">
-                        <img src={`${path.apiUrl}/api/image?url=${this.props.item.imageUrl}`} alt="" />
-                    </div>
+                    <div className="card-image" style={{backgroundImage: `url(${path.apiUrl}/api/image?url=${this.props.item.imageUrl})`}} />
                     <div className="card-content">
                         <span className="card-title" title="Card Title">{item.title}</span>
                         <p className="desc" title="I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.">

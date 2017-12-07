@@ -3,16 +3,24 @@ import { pender } from 'redux-pender';
 import * as scrapService from 'service/scrap';
 
 const GET_SCRAPS = 'scrap/GET_SCRAPS';
+const ADD_SCRAPS = 'scrap/ADD_SCRAPS';
 const REGISTER_SCRAP = 'scrap/REGISTER_SCRAP';
 const SET_SCRAPS_CONDITION = 'scrap/SET_SCRAPS_CONDITION';
 
 /*============================================================================
  Action
  ===========================================================================*/
-export function getScraps() {
-    return (dispatch, getState) => {
-        const scrap = getState().scrap;
-        return dispatch(getScrapsByCondition(scrap.nationCode, scrap.city, scrap.category, scrap.limit, scrap.page));
+export function getScraps(scrapsCondition) {
+    return (dispatch) => {
+        dispatch(setScrapsCondition(scrapsCondition));
+        return dispatch(getScrapsByCondition(scrapsCondition.nationCode, scrapsCondition.city, scrapsCondition.category, scrapsCondition.limit, scrapsCondition.page));
+    };
+}
+
+export function addScraps(scrapsCondition) {
+    return (dispatch) => {
+        dispatch(setScrapsCondition(scrapsCondition));
+        return dispatch(addScrapsByCondition(scrapsCondition.nationCode, scrapsCondition.city, scrapsCondition.category, scrapsCondition.limit, scrapsCondition.page));
     };
 }
 
@@ -28,6 +36,11 @@ export const registerScrap = createAction(REGISTER_SCRAP, scrapService.registerS
  * @param void
  */
 export const getScrapsByCondition = createAction(GET_SCRAPS, scrapService.getScraps);
+
+/**
+ * @param void
+ */
+export const addScrapsByCondition = createAction(ADD_SCRAPS, scrapService.getScraps);
 
 /**
  * @param scrapListCondition:Object
@@ -58,14 +71,32 @@ export default handleActions({
             return {
                 ...state,
                 total: res.data.total,
+                totalPage: res.data.totalPage,
                 scraps: res.data.list,
             }
         },
-        onFailure: (state, action) => {
+        onFailure: (state) => {
+            return {
+                ...state,
+            }
+        },
+    }),
+    ...pender({
+        type: [ADD_SCRAPS],
+        onSuccess: (state, action) => {
             const res = action.payload;
+            let scraps = JSON.parse(JSON.stringify(state.scraps));
+            scraps = scraps.concat(res.data.list);
             return {
                 ...state,
                 total: res.data.total,
+                totalPage: res.data.totalPage,
+                scraps: scraps,
+            }
+        },
+        onFailure: (state) => {
+            return {
+                ...state,
             }
         },
     }),

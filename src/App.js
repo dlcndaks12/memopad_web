@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { Header, Toast, Confirm, Footer, PrivateRoute } from 'components';
-import { Home, Scrap, Login, Register, Write, NoMatch } from 'pages';
+import { Header, Toast, Confirm, Footer } from 'components';
+import { Home, Scrap, Login, Register, NoMatch } from 'pages';
 import { getCookie, deleteCookie } from 'util/cookie';
 import { auth, authFailure } from 'modules/auth';
 import { initLocations } from 'modules/location';
 import { category } from 'modules/category';
+import { setScrollEnd } from 'modules/layout';
 
 class App extends Component {
     constructor(props) {
@@ -35,7 +36,13 @@ class App extends Component {
 
     // Scroll Handler
     handleScrollFrame(values) {
+        const top = values.top;
         const scrollTop = values.scrollTop;
+        if (top > 0.8) {
+            this.props.setScrollEnd(true);
+        } else if (top !== 1 && this.props.layout.scroll.end) {
+            this.props.setScrollEnd(false);
+        }
 
         if (scrollTop > 50) {
             if (!this.state.simpleHeader) {
@@ -80,8 +87,6 @@ class App extends Component {
                             <Route exact path="/" component={Home}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/register" component={Register}/>
-                            <PrivateRoute path="/scrap/write" component={Write}/>
-                            <Route path="/scrap/:nation" component={Scrap}/>
                             <Route path="/scrap" component={Scrap}/>
                             <Route path="/*" component={NoMatch}/>
                         </Switch>
@@ -99,6 +104,7 @@ class App extends Component {
 const mapStateToProps = (state) => ({
     status: state.auth.status,
     sideNav: state.sideNav,
+    layout: state.layout,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -106,6 +112,7 @@ const mapDispatchToProps = (dispatch) => ({
     authFailure: () => dispatch(authFailure()),
     initLocations: () => dispatch(initLocations()),
     category: () => dispatch(category()),
+    setScrollEnd: (isEnd) => dispatch(setScrollEnd(isEnd)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

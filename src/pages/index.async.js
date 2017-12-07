@@ -6,6 +6,7 @@ export const Login = asyncRoute(() => import('./Auth/Login'));
 export const Register = asyncRoute(() => import('./Auth/Register'));
 
 export const Scrap = asyncRoute(() => import('./Scrap/Scrap'));
-export const Write = asyncRoute(() => import('./Scrap/Write'));
+export const ScrapList = asyncRoute(() => import('./Scrap/List'));
+export const ScrapWrite = asyncRoute(() => import('./Scrap/Write'));
 
 export const NoMatch = asyncRoute(() => import('./Common/NoMatch'));

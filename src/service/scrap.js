@@ -2,6 +2,8 @@ import axios from 'axios';
 
 /* Scrap List */
 export function getScraps(nationCode, city, category, limit, page) {
+    if (city === 'none') city = [-1];
+    if (category === 'none') category = [-1];
     return axios.get('api/scrap', {
         params: {
             nationCode: nationCode,

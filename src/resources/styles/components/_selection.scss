@@ -1,9 +1,9 @@
 .selection {
   @include clearfix;
-  margin: -2px -10px;
+  margin: -5px -10px;
   > div {
     float: left;
-    padding: 2px 10px;
+    padding: 5px 10px;
   }
   [type="checkbox"] {
     &:checked {
