@@ -11,6 +11,7 @@ class Scrap extends Component {
         super(props);
 
         this.state = {
+            limit: 20,
             pagePending: false,
         };
 
@@ -59,7 +60,7 @@ class Scrap extends Component {
             nationCode: nation,
             city: city,
             category: category,
-            limit: 10,
+            limit: this.state.limit,
             page: page,
         };
 
