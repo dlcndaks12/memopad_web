@@ -16,7 +16,7 @@ class Scrap extends Component {
         };
 
         this.setScrapCondition = this.setScrapCondition.bind(this);
-        this.hadlePagePending = this.hadlePagePending.bind(this);
+        this.handlePagePending = this.handlePagePending.bind(this);
         this.handleNation = this.handleNation.bind(this);
         this.handleCheckbox = this.handleCheckbox.bind(this);
     }
@@ -29,8 +29,9 @@ class Scrap extends Component {
         const scrollEnd = nextProps.layout.scroll.end;
         const currentPage = nextProps.scrap.page;
         const nextPage = +currentPage + 1;
-        const totalPage = nextProps.scrap.totalPage;
+        const totalPage = Math.ceil(nextProps.scrap.total / this.state.limit);
         const pagePending = this.state.pagePending;
+
         if (!pagePending && scrollEnd && currentPage < totalPage) {
             const city = nextProps.scrap.city;
             const category = nextProps.scrap.category;
@@ -67,32 +68,26 @@ class Scrap extends Component {
         console.log(prevPage, page);
 
         if (type === 'init') {
-            for (let i = 1; i <= page; i++) {
-                scrapCondition.page = i;
-                if (i === 1) {
-                    props.getScraps(scrapCondition).then(() => {
-                        if (i === page) this.hadlePagePending(false);
-                    });
-                } else {
-                    props.addScraps(scrapCondition).then(() => {
-                        if (i === page) this.hadlePagePending(false);
-                    });
-                }
-            }
+            this.props.setScrapsCondition(scrapCondition);
+            scrapCondition.page = 1;
+            scrapCondition.limit = (page * scrapCondition.limit);
+            props.getScraps(scrapCondition, false).then(() => {
+                this.handlePagePending(false);
+            });
             return;
         }
         if (prevPage >= page) {
             props.getScraps(scrapCondition).then(() => {
-                this.hadlePagePending(false);
+                this.handlePagePending(false);
             });
         } else {
             props.addScraps(scrapCondition).then(() => {
-                this.hadlePagePending(false);
+                this.handlePagePending(false);
             });
         }
     }
 
-    hadlePagePending(flag) {
+    handlePagePending(flag) {
         this.setState({
             pagePending: flag,
         });
@@ -103,9 +98,6 @@ class Scrap extends Component {
     }
 
     handleCheckbox(selectedItems, type) {
-        this.props.setScrapsCondition({
-            [type]: selectedItems,
-        });
         const city = type === 'city' ? selectedItems : this.props.scrap.city;
         const category = type === 'category' ? selectedItems : this.props.scrap.category;
         this.props.history.push(`${this.props.match.url}?city=${city}&category=${category}`);
@@ -125,7 +117,10 @@ class Scrap extends Component {
                 <div className="card-wrap">
                     <CardList cards={this.props.scrap.scraps}/>
                     <div className="progress-area">
-                        <CircleLoader color="blue"/>
+                        {this.props.pending['scrap/GET_SCRAPS'] || this.props.pending['scrap/ADD_SCRAPS'] ?
+                            <CircleLoader color="blue"/>
+                            : null}
+
                     </div>
                 </div>
                 <div className="btn-write">
@@ -149,8 +144,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     toast: (content, time) => dispatch(toast(content, time)),
     setScrapsCondition: (nationCode, city, category, limit, page) => dispatch(setScrapsCondition(nationCode, city, category, limit, page)),
-    getScraps: (scrapsCondition) => dispatch(getScraps(scrapsCondition)),
-    addScraps: (scrapsCondition) => dispatch(addScraps(scrapsCondition)),
+    getScraps: (scrapsCondition, settable) => dispatch(getScraps(scrapsCondition, settable)),
+    addScraps: (scrapsCondition, settable) => dispatch(addScraps(scrapsCondition, settable)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrap);

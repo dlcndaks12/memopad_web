@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import * as path from 'config/path';
 
 class Card extends Component {
@@ -10,7 +10,7 @@ class Card extends Component {
                     <div className="card-image" style={{backgroundImage: `url(${path.apiUrl}/api/image?url=${this.props.item.imageUrl})`}} />
                     <div className="card-content">
                         <span className="card-title" title="Card Title">{item.title}</span>
-                        <p className="desc" title="I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.">
+                        <p className="desc">
                             {item.description}
                         </p>
                         <div className="card-date">{item.regDate}</div>

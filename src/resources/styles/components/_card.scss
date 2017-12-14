@@ -53,14 +53,14 @@
         .card-content {
             padding: 15px 20px;
             .desc {
-                display: block;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                display: -webkit-box;
                 -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
-                word-wrap:break-word;
-                height: 66px;
+                word-wrap: break-word;
                 word-break: break-all;
+                height: 66px;
             }
         }
         .card-action {

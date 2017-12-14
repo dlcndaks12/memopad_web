@@ -10,16 +10,16 @@ const SET_SCRAPS_CONDITION = 'scrap/SET_SCRAPS_CONDITION';
 /*============================================================================
  Action
  ===========================================================================*/
-export function getScraps(scrapsCondition) {
+export function getScraps(scrapsCondition, settable) {
     return (dispatch) => {
-        dispatch(setScrapsCondition(scrapsCondition));
+        if (settable !== false) dispatch(setScrapsCondition(scrapsCondition));
         return dispatch(getScrapsByCondition(scrapsCondition.nationCode, scrapsCondition.city, scrapsCondition.category, scrapsCondition.limit, scrapsCondition.page));
     };
 }
 
-export function addScraps(scrapsCondition) {
+export function addScraps(scrapsCondition, settable) {
     return (dispatch) => {
-        dispatch(setScrapsCondition(scrapsCondition));
+        if (!settable) dispatch(setScrapsCondition(scrapsCondition));
         return dispatch(addScrapsByCondition(scrapsCondition.nationCode, scrapsCondition.city, scrapsCondition.category, scrapsCondition.limit, scrapsCondition.page));
     };
 }
@@ -71,7 +71,6 @@ export default handleActions({
             return {
                 ...state,
                 total: res.data.total,
-                totalPage: res.data.totalPage,
                 scraps: res.data.list,
             }
         },
@@ -90,7 +89,6 @@ export default handleActions({
             return {
                 ...state,
                 total: res.data.total,
-                totalPage: res.data.totalPage,
                 scraps: scraps,
             }
         },
