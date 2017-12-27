@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast } from 'modules/toast';
 import { addScraps, setScrapsCondition, getScraps } from 'modules/scrap';
+import { scrollTo } from 'modules/layout';
 import { NationTab, CardList, Option, CircleLoader } from 'components';
 import qs from 'query-string';
 
@@ -73,6 +74,10 @@ class Scrap extends Component {
             scrapCondition.limit = (page * scrapCondition.limit);
             props.getScraps(scrapCondition, false).then(() => {
                 this.handlePagePending(false);
+                const target = document.querySelectorAll(`.card-list .card-wrap:nth-child(${scrapCondition.limit - this.state.limit})`);
+                if (target[0]) {
+                    this.props.scrollTo(target[0].offsetTop);
+                }
             });
             return;
         }
@@ -114,7 +119,7 @@ class Scrap extends Component {
                     selectedCity={this.props.scrap.city}
                     selectedCategory={this.props.scrap.category}
                     onChange={this.handleCheckbox} />
-                <div className="card-wrap">
+                <div className="card-list-wrap">
                     <CardList cards={this.props.scrap.scraps}/>
                     <div className="progress-area">
                         {this.props.pending['scrap/GET_SCRAPS'] || this.props.pending['scrap/ADD_SCRAPS'] ?
@@ -143,6 +148,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     toast: (content, time) => dispatch(toast(content, time)),
+    scrollTo: (top) => dispatch(scrollTo(top)),
     setScrapsCondition: (nationCode, city, category, limit, page) => dispatch(setScrapsCondition(nationCode, city, category, limit, page)),
     getScraps: (scrapsCondition, settable) => dispatch(getScraps(scrapsCondition, settable)),
     addScraps: (scrapsCondition, settable) => dispatch(addScraps(scrapsCondition, settable)),

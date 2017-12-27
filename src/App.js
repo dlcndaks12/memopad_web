@@ -34,6 +34,15 @@ class App extends Component {
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (this.props.layout.scroll.top !== nextProps.layout.scroll.top) {
+            const top = nextProps.layout.scroll.top;
+            const scrollbars = this.refs.scrollbars;
+            scrollbars.scrollTop(top);
+        }
+    }
+
+
     // Scroll Handler
     handleScrollFrame(values) {
         const top = values.top;
@@ -69,6 +78,7 @@ class App extends Component {
         return (
             <div id="app" className={appClassName}>
                 <Scrollbars
+                    ref="scrollbars"
                     className="scroll-wrap"
                     style={{ height: '100vh' }}
                     autoHide
