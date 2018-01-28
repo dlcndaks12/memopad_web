@@ -19,6 +19,10 @@ class App extends Component {
           simpleHeader: false,
         };
 
+        this.handleScrollFrame = this.handleScrollFrame.bind(this);
+    }
+
+    componentWillMount() {
         // Auth 체크
         if (getCookie('Authentication')) {
             this.props.auth();
@@ -30,9 +34,8 @@ class App extends Component {
         this.props.initLocations();
         // Category 정보 획득
         this.props.category();
-
-        this.handleScrollFrame = this.handleScrollFrame.bind(this);
     }
+
 
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.layout.scroll.top !== nextProps.layout.scroll.top) {
