@@ -27,4 +27,18 @@
       }
     }
   }
+  [type="checkbox"] {
+    & + label {
+      &:before {
+        transition: none;
+      }
+    }
+  }
+  [type="checkbox"]:not(.filled-in) {
+    & + label {
+      &:after {
+        transition: none;
+      }
+    }
+  }
 }

@@ -16,6 +16,9 @@ class Scrap extends Component {
             pagePending: false,
         };
 
+        let domain = window.location.hostname;
+        if (domain.split('.').length > 2) domain = domain.substring(0, domain.indexOf('.'));
+
         this.setScrapCondition = this.setScrapCondition.bind(this);
         this.handlePagePending = this.handlePagePending.bind(this);
         this.handleNation = this.handleNation.bind(this);
@@ -65,8 +68,6 @@ class Scrap extends Component {
             limit: this.state.limit,
             page: page,
         };
-
-        console.log(prevPage, page);
 
         if (type === 'init') {
             this.props.setScrapsCondition(scrapCondition);
@@ -125,7 +126,6 @@ class Scrap extends Component {
                         {this.props.pending['scrap/GET_SCRAPS'] || this.props.pending['scrap/ADD_SCRAPS'] ?
                             <CircleLoader color="blue"/>
                             : null}
-
                     </div>
                 </div>
                 <div className="btn-write">

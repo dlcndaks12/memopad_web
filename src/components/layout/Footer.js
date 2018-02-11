@@ -13,7 +13,7 @@ class Footer extends Component {
                         <div className="copy-wrap">
                             <div className="info">
                                 <span>© 2017 Copyright </span>
-                                <span>Almond Bong Bong</span>
+                                <span>cmlee</span>
                             </div>
                             <div className="link-wrap">
                                 <span className="mail">dlcndaks12@naver.com</span>

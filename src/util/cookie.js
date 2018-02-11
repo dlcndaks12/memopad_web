@@ -1,7 +1,9 @@
 export function setCookie(cName, cValue, cDay) {
     const expire = new Date();
+    let domain = window.location.hostname.split('.');
+    if (domain.length > 2) domain = `.${domain[1]}.${domain[2]}`;
     expire.setDate(expire.getDate() + cDay);
-    let cookies = cName + '=' + cValue + '; path=/ ';
+    let cookies = `${cName}=${cValue}; domain=${domain}; path=/;`;
     if (typeof cDay !== 'undefined') {
         cookies += ';expires=' + expire.toGMTString() + ';';
     }

@@ -24,9 +24,6 @@ class City extends Component {
             this.setState({
                 checkedAll: checked,
             });
-            for (let i = 0; i < chkList.length; i++) {
-                chkList[i].checked = checked
-            }
             checkedValue = checked ? 'all' : 'none';
         } else {
             const chkCheckedList = chkArea.querySelectorAll(`[name="${this.props.type}"]:checked`);
@@ -52,6 +49,7 @@ class City extends Component {
     }
 
     render() {
+        const type = this.props.type;
         const condition = this.props.selectedItem;
         let checked = false;
 
@@ -62,7 +60,7 @@ class City extends Component {
                     this.props.item.map((item, i) => {
                         checked = condition !== 'none' ? condition === 'all' ? true : condition.indexOf(item.idx.toString()) >= 0 : false;
                         return (
-                            <Input name={this.props.type} type="checkbox" key={i} value={item.idx.toString()} label={item.name} checked={checked} onChange={this.handleChange} />
+                            <Input name={type} type="checkbox" key={type + i + checked.toString()} value={item.idx.toString()} label={item.name} checked={checked} onChange={this.handleChange} />
                         )
                     }) : '' }
             </div>
