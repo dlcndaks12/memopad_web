@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { PrivateRoute } from 'components';
 import { ScrapWrite, ScrapList } from 'pages';
+import './Scrap.scss';
 
 class Scrap extends Component {
     render() {

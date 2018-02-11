@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Write as ScrapWrite } from 'components';
-import './Scrap.scss';
 
 class Write extends Component {
     constructor(props) {
