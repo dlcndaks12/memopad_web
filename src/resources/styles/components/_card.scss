@@ -1,12 +1,12 @@
 .card-list {
     .card-list-inner {
         @include clearfix;
-        margin: -10px;
+        margin: -5px;
     }
     .card-wrap {
         float: left;
         width: 16.66666666%;
-        padding: 10px;
+        padding: 5px;
         animation: cardIn .4s forwards;
         @media screen and (max-width: 1600px) {
             width: 25%;
@@ -20,12 +20,15 @@
         @media screen and (max-width: 768px) {
             width: 50%;
         }
-        @media screen and (max-width: 500px) {
-            width: auto;
-        }
+        //@media screen and (max-width: 500px) {
+        //    width: auto;
+        //}
     }
     .card {
+        display: block;
         margin: 0;
+        overflow: hidden;
+        border-radius: 2px;
         .card-title {
             right: 0;
             padding: 15px 20px;
@@ -34,13 +37,21 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            @media screen and (max-width: 768px) {
+                padding: 10px;
+                font-size: 16px;
+            }
         }
         .card-image {
+	        display: block;
             overflow: hidden;
             padding-top: 75%;
             background-repeat: no-repeat;
             background-position: 50% 50%;
             background-size: cover;
+            &.done {
+                animation: fadeIn .4s;
+            }
             img {
                 @include alignXY;
                 width: 100%;
@@ -52,40 +63,34 @@
             font-size: 12px;
             text-align: right;
         }
+	    .author {
+		    display: block;
+		    margin-top: 11px;
+		    color: #aaa;
+		    font-size: 12px;
+		    text-align: right;
+		    em {
+			    color: $point-color1;
+		    }
+	    }
         .card-content {
             padding: 15px 20px;
+            @media screen and (max-width: 768px) {
+                padding: 10px;
+            }
             .desc {
-                overflow: hidden;
-                text-overflow: ellipsis;
                 display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
+                text-overflow: ellipsis;
                 word-wrap: break-word;
                 word-break: break-all;
-                height: 66px;
-            }
-        }
-        .card-action {
-            position: relative;
-            padding: 10px 20px;
-            font-size: 0;
-            text-align: right;
-            .btn-link {
-                display: inline-block;
-                height: 30px;
-                margin-right: 0 !important;
-            }
-            .author {
-                display: block;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
                 overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                position: absolute;
-                top: 13px;
-                left: 20px;
-                right: 60px;
-                font-size: 13px;
-                text-align: left;
+                height: 44px;
+                @media screen and (max-width: 768px) {
+                    height: 42px;
+                    font-size: 14px;
+                }
             }
         }
     }

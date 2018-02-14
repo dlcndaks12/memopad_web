@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast } from 'modules/toast';
-import { addScraps, setScrapsCondition, getScraps } from 'modules/scrap';
+import { addScraps, setScrapsCondition, getScraps, clearScraps } from 'modules/scrap';
 import { scrollTo } from 'modules/layout';
 import { NationTab, CardList, Option, CircleLoader } from 'components';
 import qs from 'query-string';
@@ -15,9 +15,6 @@ class Scrap extends Component {
             limit: 20,
             pagePending: false,
         };
-
-        let domain = window.location.hostname;
-        if (domain.split('.').length > 2) domain = domain.substring(0, domain.indexOf('.'));
 
         this.setScrapCondition = this.setScrapCondition.bind(this);
         this.handlePagePending = this.handlePagePending.bind(this);
@@ -100,6 +97,7 @@ class Scrap extends Component {
     }
 
     handleNation(nationCode) {
+        this.props.clearScraps();
         this.props.history.push(`/scrap/${nationCode}`);
     }
 
@@ -152,6 +150,7 @@ const mapDispatchToProps = (dispatch) => ({
     setScrapsCondition: (nationCode, city, category, limit, page) => dispatch(setScrapsCondition(nationCode, city, category, limit, page)),
     getScraps: (scrapsCondition, settable) => dispatch(getScraps(scrapsCondition, settable)),
     addScraps: (scrapsCondition, settable) => dispatch(addScraps(scrapsCondition, settable)),
+    clearScraps: () => dispatch(clearScraps()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrap);

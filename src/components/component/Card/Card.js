@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as path from 'config/path';
 
 class Card extends Component {
@@ -35,21 +36,23 @@ class Card extends Component {
 
         return (
             <div className="card-wrap">
+                {/*<div className="card">*/}
                 <div className="card">
-                    <div className="card-image" style={imagePending ? preloaderStyle : thumbStyle}>
-                        <span className="card-title" title="Card Title">{item.title}</span>
-                    </div>
+                    {imagePending ?
+                        <a href={item.url} target="_blank" className="card-image" style={preloaderStyle} title={item.title}>
+                            <span className="card-title">{item.title}</span>
+                        </a>
+                        :
+                        <a href={item.url} target="_blank" className="card-image done" style={thumbStyle} title={item.title}>
+                            <span className="card-title">{item.title}</span>
+                        </a>
+                    }
                     <div className="card-content">
                         <p className="desc">
                             {item.description}
                         </p>
-                        <div className="card-date">{item.regDate}</div>
-                    </div>
-                    <div className="card-action">
-                        <span className="author">{item.writer}</span>
-                        <a href={item.url} target="_blank" className="btn-link">
-                            <i className="small red-text text-lighten-3 material-icons">open_in_new</i>
-                        </a>
+                        {/*<div className="card-date">{item.regDate}</div>*/}
+                        <Link to={`/${item.writer}`} className="author"><em>{item.writer}</em>'s pick</Link>
                     </div>
                 </div>
             </div>

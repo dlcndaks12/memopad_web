@@ -76,6 +76,14 @@ body {
     font-family: $font-noto;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    
+    a {
+        color: inherit;
+    }
+}
+
+em {
+    font-style: normal;
 }
 
 /* Change the white to any color ;) */

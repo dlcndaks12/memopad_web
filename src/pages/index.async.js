@@ -1,6 +1,7 @@
 import asyncRoute from 'lib/asyncRoute';
 
 export const Home = asyncRoute(() => import('./Home/Home'));
+export const Personal = asyncRoute(() => import('./Personal/Personal'));
 
 export const Login = asyncRoute(() => import('./Auth/Login'));
 export const Register = asyncRoute(() => import('./Auth/Register'));

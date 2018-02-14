@@ -4,7 +4,7 @@ import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Header, Toast, Confirm, Footer } from 'components';
-import { Home, Scrap, Login, Register, NoMatch } from 'pages';
+import { Home, Scrap, Login, Register, Personal, NoMatch } from 'pages';
 import { getCookie, deleteCookie } from 'util/cookie';
 import { auth, authFailure } from 'modules/auth';
 import { initLocations } from 'modules/location';
@@ -101,6 +101,7 @@ class App extends Component {
                             <Route path="/login" component={Login}/>
                             <Route path="/register" component={Register}/>
                             <Route path="/scrap" component={Scrap}/>
+                            <Route path="/:nickname" component={Personal}/>
                             <Route path="/*" component={NoMatch}/>
                         </Switch>
                     </div>

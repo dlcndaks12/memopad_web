@@ -119,7 +119,7 @@ class Register extends Component {
             <div>
                 <Sakura />
                 <div className="container auth">
-                    <Link className="logo blue-text text-lighten-2" to="/">Trip Book</Link>
+                    <Link className="logo blue-text text-lighten-2" to="/">Tripl</Link>
                     <div className="card">
                         <div className="header light-blue darken-1 white-text center">
                             <div className="card-content">회원가입</div>

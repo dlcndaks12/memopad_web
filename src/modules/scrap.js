@@ -4,6 +4,7 @@ import * as scrapService from 'service/scrap';
 
 const GET_SCRAPS = 'scrap/GET_SCRAPS';
 const ADD_SCRAPS = 'scrap/ADD_SCRAPS';
+const CLEAR_SCRAPS = 'scrap/CLEAR_SCRAPS';
 const REGISTER_SCRAP = 'scrap/REGISTER_SCRAP';
 const SET_SCRAPS_CONDITION = 'scrap/SET_SCRAPS_CONDITION';
 
@@ -46,6 +47,11 @@ export const addScrapsByCondition = createAction(ADD_SCRAPS, scrapService.getScr
  * @param scrapListCondition:Object
  */
 export const setScrapsCondition = createAction(SET_SCRAPS_CONDITION);
+
+/**
+ * @param void
+ */
+export const clearScraps = createAction(CLEAR_SCRAPS);
 
 /*============================================================================
  Default State
@@ -111,6 +117,12 @@ export default handleActions({
             }
         },
     }),
+    [CLEAR_SCRAPS]: (state) => {
+        return {
+            ...state,
+            scraps: [],
+        };
+    },
     [SET_SCRAPS_CONDITION]: (state, action) => {
         return {
             ...state,

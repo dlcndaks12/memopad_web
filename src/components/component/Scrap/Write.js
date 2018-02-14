@@ -135,7 +135,7 @@ class Write extends Component {
                         {this.state.result !== 'OK' ? <div className="guide red-text text-accent-2">{this.state.message}</div> : ''}
                     </div>
                 </div>
-                {this.props.pending['scrap/GET_OG_BY_URL'] ? <CircleLoader color="blue" /> :
+                {this.props.pending['scrap/GET_OG_BY_URL'] ? <CircleLoader className="write-loader" color="blue" /> :
                     this.props.og.result === 'OK' ?
                         <div className="scrap-view">
                             <Preview
