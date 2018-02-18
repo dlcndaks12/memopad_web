@@ -13,17 +13,18 @@ class Card extends Component {
 
     componentDidMount() {
         const downloadingImage = new Image();
+        const imageUrl = this.props.item.imageUrl.replace(/%/gi, '%25');
         downloadingImage.onload = () => {
             this.setState({
                 imagePending: false,
             });
         };
-        downloadingImage.src = `${path.apiUrl}/api/image?url=${this.props.item.imageUrl}`;
+        downloadingImage.src = `${path.apiUrl}/api/image?url=${imageUrl}`;
     }
-
 
     render() {
         const item = this.props.item;
+        const imageURl = item.imageUrl.replace(/%/gi, '%25');
         const imagePending = this.state.imagePending;
         const preloaderStyle = {
             backgroundImage: `url(${require('resources/images/common/preloader/ellipsis.svg')})`,
@@ -31,7 +32,7 @@ class Card extends Component {
             backgroundPosition: '50% 50%',
         };
         const thumbStyle = {
-            backgroundImage: `url(${path.apiUrl}/api/image?url=${this.props.item.imageUrl})`,
+            backgroundImage: `url(${path.apiUrl}/api/image?url=${imageURl})`,
         };
 
         return (
