@@ -22,6 +22,11 @@ class Card extends Component {
         downloadingImage.src = `${path.apiUrl}/api/image?url=${imageUrl}`;
     }
 
+    componentWillUnmount() {
+
+    }
+
+
     render() {
         const item = this.props.item;
         const imageURl = item.imageUrl.replace(/%/gi, '%25');

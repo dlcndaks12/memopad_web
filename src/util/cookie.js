@@ -1,7 +1,11 @@
 export function setCookie(cName, cValue, cDay) {
     const expire = new Date();
     let domain = window.location.hostname.split('.');
-    domain = `.${domain[domain.length - 2]}.${domain[domain.length - 1]}`;
+    if (domain[0] === 'localhost') {
+        domain = domain[0]
+    } else {
+        domain = `.${domain[domain.length - 2]}.${domain[domain.length - 1]}`;
+    }
     expire.setDate(expire.getDate() + cDay);
     let cookies = `${cName}=${cValue}; domain=${domain}; path=/;`;
     if (typeof cDay !== 'undefined') {

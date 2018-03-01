@@ -28,6 +28,9 @@ class City extends Component {
         } else {
             const chkCheckedList = chkArea.querySelectorAll(`[name="${this.props.type}"]:checked`);
 
+            console.log('chk list = ', chkList.length);
+            console.log('checked list = ', chkCheckedList.length);
+
             if (chkList.length === chkCheckedList.length) {
                 this.setState({
                     checkedAll: true,
@@ -51,11 +54,12 @@ class City extends Component {
     render() {
         const type = this.props.type;
         const condition = this.props.selectedItem;
+        const checkedAll = this.state.checkedAll;
         let checked = false;
 
         return (
             <div className="selection" ref={`${this.props.type}List`}>
-                <Input name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={this.state.checkedAll || condition === 'all'} onChange={this.handleChange} />
+                <Input key={`${this.props.type}-all-${checkedAll}`} name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={checkedAll} onChange={this.handleChange} />
                 {this.props.item ?
                     this.props.item.map((item, i) => {
                         checked = condition !== 'none' ? condition === 'all' ? true : condition.indexOf(item.idx.toString()) >= 0 : false;

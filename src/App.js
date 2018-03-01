@@ -25,7 +25,9 @@ class App extends Component {
     componentWillMount() {
         // Auth 체크
         if (getCookie('Authentication')) {
-            this.props.auth();
+            this.props.auth().catch(() => {
+                deleteCookie('Authentication');
+            });
         } else {
             this.props.authFailure();
             deleteCookie('Authentication');

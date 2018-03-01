@@ -43,9 +43,10 @@ class Write extends Component {
 
     listenOGTag(url) {
         this.props.getOgByUrl(url)
-            .then(() => {
-                if (this.props.og.result !== 'OK') {
-                    this.props.toast(this.props.og.message);
+            .then((res) => {
+                console.log(res);
+                if (res.result !== 'OK') {
+                    this.props.toast(res.message);
                 }
             });
     }

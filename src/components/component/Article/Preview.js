@@ -8,10 +8,12 @@ class Preview extends Component {
     }
 
     render() {
+        const imageUrl = this.props.og.ogImageUrl.replace(/%/gi, '%25');
+
         return (
             <div className="preview-area">
                 <div className="thumb">
-                    <img src={`${path.apiUrl}/api/image?url=${this.props.og.ogImageUrl}`} alt="" />
+                    <img src={`${path.apiUrl}/api/image?url=${imageUrl}`} alt="" />
                 </div>
                 <div className="title">
                     <div className="input-field title">
