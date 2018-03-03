@@ -39,7 +39,7 @@ class App extends Component {
     }
 
 
-    componentWillReceiveProps(nextProps, nextContext) {
+    componentWillReceiveProps(nextProps) {
         if (this.props.layout.scroll.top !== nextProps.layout.scroll.top) {
             const top = nextProps.layout.scroll.top;
             const scrollbars = this.refs.scrollbars;
