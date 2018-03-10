@@ -34,7 +34,7 @@ class Preview extends Component {
                                   name="og-description"
                                   className="materialize-textarea"
                                   value={this.props.og.ogDescription}
-                                  onChange={this.props.onChange} />
+                                  onChange={this.props.onChange}/>
                         <label htmlFor="og-description" className="active">Description</label>
                     </div>
                 </div>

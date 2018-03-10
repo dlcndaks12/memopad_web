@@ -67,14 +67,17 @@ class Write extends Component {
 
     handleInput(e) {
         const name = e.target.name;
+        const og = this.props.og.og;
+
+        // return false;
         if (name === 'og-title') {
             this.props.setOg({
                 ogTitle: e.target.value,
-                ogDescription: this.props.og.ogDescription,
+                ogDescription: og.ogDescription,
             });
         } else if (name === 'og-description') {
             this.props.setOg({
-                ogTitle: this.props.og.ogDescription,
+                ogTitle: og.ogTitle,
                 ogDescription: e.target.value,
             });
         }
