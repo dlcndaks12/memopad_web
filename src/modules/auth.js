@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import * as authService from 'service/auth';
 import { setCookie, deleteCookie } from 'util/cookie';
+import { setAuthorization } from 'config/axios';
 
 const AUTH = 'auth/AUTH';
 const AUTH_FAILURE = 'auth/AUTH_FAILURE';
@@ -77,6 +78,7 @@ export default handleActions({
         onSuccess: (state, action) => {
             const res = action.payload;
             setCookie('Authentication', res.data.token, 365);
+            setAuthorization();
             return {
                 ...state,
                 id: res.data.id,

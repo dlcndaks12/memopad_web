@@ -1,9 +1,11 @@
 /* COMMON */
 export { default as CircleLoader } from './common/Loader/CircleLoader';
+export { default as ImageLoader } from './common/Loader/ImageLoader';
 export { default as Toast } from './common/Toast/Toast';
 export { default as Message } from './common/Toast/Message';
 export { default as Confirm } from './common/Confirm/Confirm';
 export { default as Sakura } from './common/Decoration/Sakura';
+export { default as Map } from './common/Map/Map';
 
 /* COMPONENT */
 export { default as CardList } from './component/Card/CardList';

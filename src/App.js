@@ -22,7 +22,7 @@ class App extends Component {
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // Auth 체크
         if (getCookie('Authentication')) {
             this.props.auth().catch(() => {

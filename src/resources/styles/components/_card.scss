@@ -29,6 +29,9 @@
         margin: 0;
         overflow: hidden;
         border-radius: 2px;
+        a {
+            display: block;
+        }
         .card-title {
             right: 0;
             padding: 15px 20px;
@@ -42,8 +45,7 @@
                 font-size: 16px;
             }
         }
-        .card-image {
-	        display: block;
+        .image {
             overflow: hidden;
             padding-top: 75%;
             background-repeat: no-repeat;
@@ -51,10 +53,6 @@
             background-size: cover;
             &.done {
                 animation: fadeIn .4s;
-            }
-            img {
-                @include alignXY;
-                width: 100%;
             }
         }
         .card-date {

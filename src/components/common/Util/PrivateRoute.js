@@ -16,11 +16,13 @@ class PrivateRoute extends Component {
                     if (isLoggedIn === null || isLoggedIn) {
                         component = <this.props.component {...props}/>;
                     } else {
-                        this.props.toast('로그인 해주세요.');
                         component = <Redirect to={{
                             pathname: '/login',
                             state: { from: props.location }
                         }}/>;
+                        setTimeout(() => {
+                            this.props.toast('로그인 해주세요.');
+                        }, 100);
                     }
                     return component;
                 }}

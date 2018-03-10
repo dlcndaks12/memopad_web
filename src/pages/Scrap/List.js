@@ -22,7 +22,7 @@ class Scrap extends Component {
         this.handleCheckbox = this.handleCheckbox.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setScrapCondition(this.props, 'init');
     }
 
@@ -52,6 +52,7 @@ class Scrap extends Component {
     setScrapCondition(props, type) {
         const params = qs.parse(props.location.search);
         const nation = props.match.params.nation ? props.match.params.nation : 'kr';
+
         let city = params.city ? params.city : 'all';
         let category = params.category ? params.category : 'all';
         let prevPage = this.props.scrap.page;

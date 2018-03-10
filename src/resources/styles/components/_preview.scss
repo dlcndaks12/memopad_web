@@ -1,5 +1,3 @@
-@import "../../../resources/styles/helper/mixins";
-
 .preview-area {
     width: 800px;
     margin: 20px auto 0;
@@ -19,6 +17,17 @@
             left: 0;
             right: 0;
             width: 100%;
+        }
+    }
+    .map {
+        position: relative;
+        padding-top: 50%;
+        > div {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
         }
     }
     .submit-area {

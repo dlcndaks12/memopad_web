@@ -58,6 +58,7 @@ export default handleActions({
                         ogTitle: res.data.ogTitle,
                         ogDescription: res.data.ogDescription,
                         ogUrl: res.data.ogUrl,
+                        map: res.data.map,
                     }
                 }
             } else {

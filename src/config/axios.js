@@ -4,7 +4,7 @@ import { getCookie } from 'util/cookie';
 
 export function initAxios() {
     axios.defaults.baseURL = path.apiUrl;
-    axios.defaults.headers.common['Authorization'] = getCookie('Authentication');
+    setAuthorization();
     axios.interceptors.response.use((response) => {
         return response.data;
     }, (error) => {
@@ -14,4 +14,8 @@ export function initAxios() {
             return Promise.reject(error);
         }
     });
+}
+
+export function setAuthorization() {
+    axios.defaults.headers.common['Authorization'] = getCookie('Authentication');
 }
