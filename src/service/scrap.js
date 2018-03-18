@@ -25,6 +25,7 @@ export function registerScrap(nationCode, cityIdx, categoryIdx, og) {
         title: og.ogTitle,
         description: og.ogDescription,
         url: og.ogUrl,
+        map: og.map,
     });
 }
 

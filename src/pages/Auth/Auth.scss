@@ -1,3 +1,12 @@
+.auth-page {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(rgba(196, 102, 0, 0.22), rgba(155, 89, 182, 0.15));
+}
+
 .container {
     &.auth {
         .pwd-confirm {
@@ -9,6 +18,9 @@
 .auth {
     margin-top: 100px;
     text-align: center;
+    @media screen and (max-width: 1200px) {
+        margin-top: 50px;
+    }
 }
 
 .logo {
@@ -20,6 +32,9 @@
     user-select: none;
     cursor: pointer;
     color: #5B5B5B;
+    font-family: 'Indie Flower', cursive;
+    letter-spacing: 10px;
+    animation: neon 1.5s ease-in-out infinite alternate;
 }
 
 .auth {
@@ -28,11 +43,6 @@
         margin: 0 auto;
         @media screen and (max-width: 480px) {
             width: 100%;
-        }
-    }
-    .logo {
-        @media screen and (max-width: 480px) {
-            font-size: 60px;
         }
     }
     .header {

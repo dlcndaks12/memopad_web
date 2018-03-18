@@ -16,7 +16,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-          simpleHeader: false,
+            scrollTop: 0,
+            simpleHeader: false,
         };
 
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
@@ -47,30 +48,40 @@ class App extends Component {
         }
     }
 
-
-    // Scroll Handler
     handleScrollFrame(values) {
         const top = values.top;
         const scrollTop = values.scrollTop;
-        if (top > 0.8) {
-            this.props.setScrollEnd(true);
-        } else if (top !== 1 && this.props.layout.scroll.end) {
-            this.props.setScrollEnd(false);
+
+        /* 위로 스크롤 */
+        if (scrollTop < this.scrollTop) {
+            // clearTimeout(this.scrollTime);
+            setTimeout(() => {
+                if (this.state.simpleHeader) {
+                    this.setState({ simpleHeader: false });
+                }
+            }, 500);
+        } else { /* 아래로 스크롤 */
+            if (top > 0.8) {
+                this.props.setScrollEnd(true);
+            } else if (top !== 1 && this.props.layout.scroll.end) {
+                this.props.setScrollEnd(false);
+            }
+
+            // clearTimeout(this.scrollTime);
+            if (scrollTop > 50) {
+                setTimeout(() => {
+                    if (!this.state.simpleHeader) {
+                        this.setState({ simpleHeader: true });
+                    }
+                }, 500);
+            } else {
+                if (this.state.simpleHeader) {
+                    this.setState({ simpleHeader: false, });
+                }
+            }
         }
 
-        if (scrollTop > 50) {
-            if (!this.state.simpleHeader) {
-                this.setState({
-                    simpleHeader: true,
-                });
-            }
-        } else {
-            if (this.state.simpleHeader) {
-                this.setState({
-                    simpleHeader: false,
-                });
-            }
-        }
+        this.scrollTop = scrollTop;
     }
 
     render() {
@@ -87,7 +98,7 @@ class App extends Component {
                     className="scroll-wrap"
                     style={{ height: '100vh' }}
                     autoHide
-                    onScrollFrame={this.handleScrollFrame} >
+                    onScrollFrame={this.handleScrollFrame}>
                     {/* 공통영역 S */}
                     <Toast />
                     <Confirm />

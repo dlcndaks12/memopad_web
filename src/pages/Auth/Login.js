@@ -79,14 +79,14 @@ class Login extends Component {
         );
 
         return (
-            <div>
+            <div className="auth-page">
                 {/*<Authentication*/}
                     {/*mode={true}*/}
                     {/*onLogin={this.handleLogin}*/}
                 {/*/>*/}
                 <Sakura />
                 <div className="container auth">
-                    <Link className="logo blue-text text-lighten-2" to="/">Tripl</Link>
+                    <Link className="logo blue-text text-lighten-2" to="/">tripl</Link>
                     <div className="card">
                         <div className="header light-blue darken-1 white-text center">
                             <div className="card-content">로그인</div>

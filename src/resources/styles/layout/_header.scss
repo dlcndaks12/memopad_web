@@ -1,26 +1,10 @@
 .simple-header {
     header {
-        line-height: 40px;
         .nav-wrapper {
-            background-color: rgba(239,154,154,0.8) !important;
-            height: 40px;
+            transform: translateY(-100%);
         }
         .side-nav-wrap {
-            > span {
-                i {
-                    height: 40px;
-                    line-height: 40px;
-                }
-            }
-        }
-        .brand-logo {
-            padding: 5px;
-        }
-        .right {
-            i {
-                height: 40px;
-                line-height: 40px;
-            }
+            transform: translateY(-100%);
         }
     }
 }
@@ -29,15 +13,12 @@ header {
     width: 100%;
     height: 57px;
     line-height: 57px;
-    @media only screen and (min-width: 601px) {
-        height: 64px;
-        line-height: 64px;
-    }
     .side-nav-wrap {
         position: fixed;
         top: 0;
         left: 0;
         z-index: 1000;
+        transition: transform .6s;
         > span {
             display: block;
             a {
@@ -48,14 +29,10 @@ header {
             }
             i {
                 display: block;
-                height:57px;
+                height: 57px;
                 color: #fff;
-                line-height:57px;
+                line-height: 57px;
                 transition: all .6s;
-                @media only screen and (min-width: 601px) {
-                    height: 64px;
-                    line-height: 64px;
-                }
             }
         }
         .my-area {
@@ -126,18 +103,6 @@ header {
             }
         }
     }
-    .brand-logo {
-        @include alignX;
-        display: inline-block;
-        top: 0;
-        font-size: 0;
-        padding: 10px;
-        height: 100%;
-        transition: all .6s;
-        img {
-            height: 100%;
-        }
-    }
     .nav-wrapper {
         position: fixed;
         top: 0;
@@ -146,9 +111,9 @@ header {
         z-index: 10;
         height: 57px;
         text-align: center;
-        transition: height .6s, filter 1s;
-        @media only screen and (min-width: 601px) {
-            height: 64px;
+        transition: filter 1s, transform .6s;
+        &.red.lighten-3 {
+            background-color: rgba(239, 154, 154, 0.8) !important;
         }
         li {
             span {
@@ -157,6 +122,23 @@ header {
             a {
                 display: block;
             }
+        }
+    }
+    .brand-logo {
+        @include alignX;
+        display: inline-block;
+        top: 0;
+        height: 100%;
+        padding: 0 10px;
+        font-family: 'Indie Flower', cursive;
+        color: #fff;
+        font-size: 24px;
+        line-height: 57px;
+        letter-spacing: 10px;
+        transition: all .6s;
+        animation: neon 1.5s ease-in-out infinite alternate;
+        img {
+            height: 100%;
         }
     }
     .right {
@@ -168,14 +150,10 @@ header {
         }
         i {
             display: block;
-            height:57px;
+            height: 57px;
             color: #fff;
-            line-height:57px;
+            line-height: 57px;
             transition: all .6s;
-            @media only screen and (min-width: 601px) {
-                height: 64px;
-                line-height: 64px;
-            }
         }
     }
 }

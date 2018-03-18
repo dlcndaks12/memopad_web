@@ -97,9 +97,9 @@ class Write extends Component {
         this.props.registerScrap(nationCode, cityIdx, categoryIdx, og)
             .then((res) => {
                 if (res.result === 'OK') {
-                    this.props.toast(res.message);
                     this.props.history.push('/scrap');
                 }
+                this.props.toast(res.message);
             }).catch((error) => {
                 this.props.toast(error.message);
             });

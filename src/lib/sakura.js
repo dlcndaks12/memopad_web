@@ -96,8 +96,8 @@ export function sakura() {
             ctx.scale(this.scale, this.scale);
 
             let grad = ctx.createRadialGradient(0, 0, 0, 0, 0, this.length);
-            grad.addColorStop(0, 'rgba(255,200,200,1)');
-            grad.addColorStop(1, 'rgba(255,200,200,0.6)');
+            grad.addColorStop(0, 'rgba(255,156,156,1)');
+            grad.addColorStop(1, 'rgba(255,156,156,0.6)');
             ctx.fillStyle = grad;
             ctx.shadowColor = ('rgb(255,255,255)');
             ctx.shadowBlur = 10;

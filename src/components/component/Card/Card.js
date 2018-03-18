@@ -6,6 +6,7 @@ import { ImageLoader } from 'components';
 class Card extends Component {
     render() {
         const item = this.props.item;
+        const map = this.props.item.map;
         const imageUrl = item.imageUrl.replace(/%/gi, '%25');
 
         return (
@@ -21,7 +22,15 @@ class Card extends Component {
                             {item.description}
                         </p>
                         {/*<div className="card-date">{item.regDate}</div>*/}
-                        <Link to={`/${item.writer}`} className="author"><em>{item.writer}</em>'s pick</Link>
+                        <div className="util-area">
+                            <Link to={`/${item.writer}`} className="author"><em>{item.writer}</em>'s pick</Link>
+                            {map ?
+                                <a href={`https://www.google.co.kr/maps/@${map.latitude},${map.longitude},15.75z?hl=ko`} target="_blank" className="btn-map" title="지도">
+                                    <img src={require('resources/images/common/map.svg')}  alt="지도"/>
+                                </a>
+                                : null
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
