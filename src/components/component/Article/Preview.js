@@ -11,6 +11,7 @@ class Preview extends Component {
 
     render() {
         const og = this.props.og;
+        const map = og.map;
         const imageUrl = og.ogImageUrl;
 
         return (
@@ -38,21 +39,18 @@ class Preview extends Component {
                         <label htmlFor="og-description" className="active">Description</label>
                     </div>
                 </div>
-                <div className="map">
-                    {/*<GoogleMapReact bootstrapURLKeys={{ key: GOOGLE_KEY }}
-                                    defaultCenter={{lat: parseFloat(og.map.latitude), lng: parseFloat(og.map.longitude)}}
-                                    defaultZoom={15}>
-                        <SimpleMarker lat={parseFloat(og.map.latitude)}
-                                      lng={parseFloat(og.map.longitude)}/>
-                    </GoogleMapReact>*/}
-                    <Map googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                         loadingElement={<div style={{ height: '100%' }} />}
-                         containerElement={<div style={{ height: '100%' }} />}
-                         mapElement={<div style={{ height: '100%' }} />}
-                         title={og.map.title}
-                         defaultZoom={15}
-                         defaultCenter={{lat: parseFloat(og.map.latitude), lng: parseFloat(og.map.longitude)}}/>
-                </div>
+                {map ?
+                    <div className="map">
+                        <Map googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                             loadingElement={<div style={{ height: '100%' }} />}
+                             containerElement={<div style={{ height: '100%' }} />}
+                             mapElement={<div style={{ height: '100%' }} />}
+                             title={map.title}
+                             defaultZoom={15}
+                             defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>
+                    </div>
+                    : null
+                }
             </div>
         );
     }
