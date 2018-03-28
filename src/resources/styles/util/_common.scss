@@ -17,6 +17,9 @@
     bottom: 0;
     left: 0;
     z-index: -1;
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
 }
 #sakura {
     width: 100%;

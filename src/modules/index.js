@@ -9,6 +9,7 @@ import category from './category';
 import og from './og';
 import scrap from './scrap';
 import layout from './layout';
+import modalMap from './modal/map';
 import { penderReducer } from 'redux-pender';
 
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
     og,
     scrap,
     layout,
+    modalMap,
     pender: penderReducer,
 });

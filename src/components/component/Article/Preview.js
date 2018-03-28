@@ -12,7 +12,7 @@ class Preview extends Component {
     render() {
         const og = this.props.og;
         const map = og.map;
-        const imageUrl = og.ogImageUrl;
+        const imageUrl = og.ogImageUrl.replace(/%/gi, '%25');
 
         return (
             <div className="preview-area">

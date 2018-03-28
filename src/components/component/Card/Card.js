@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as path from 'config/path';
 import { ImageLoader } from 'components';
+import { mapOpen } from 'modules/modal/map';
 
 class Card extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleMap = this.handleMap.bind(this);
+    }
+
+    handleMap(map) {
+        this.props.mapOpen({
+            title: map.title,
+            latitude: parseFloat(map.latitude),
+            longitude: parseFloat(map.longitude)
+        });
+    }
+
     render() {
         const item = this.props.item;
         const map = this.props.item.map;
@@ -25,7 +41,7 @@ class Card extends Component {
                         <div className="util-area">
                             <Link to={`/${item.writer}`} className="author"><em>{item.writer}</em>'s pick</Link>
                             {map ?
-                                <a href={`https://www.google.co.kr/maps/@${map.latitude},${map.longitude},15.75z?hl=ko`} target="_blank" className="btn-map" title="지도">
+                                <a onClick={() => this.handleMap(map)} className="btn-map" title="지도">
                                     <img src={require('resources/images/common/map.svg')}  alt="지도"/>
                                 </a>
                                 : null
@@ -38,4 +54,8 @@ class Card extends Component {
     }
 }
 
-export default Card;
+const mapDispatchToProps = (dispatch) => ({
+    mapOpen: (payload) => dispatch(mapOpen(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Card);

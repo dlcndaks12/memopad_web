@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { Header, Toast, Confirm, Footer } from 'components';
+import { Header, Toast, Confirm, Modal, Footer } from 'components';
 import { Home, Scrap, Login, Register, Personal, NoMatch } from 'pages';
 import { getCookie, deleteCookie } from 'util/cookie';
 import { auth, authFailure } from 'modules/auth';
@@ -102,6 +102,7 @@ class App extends Component {
                     {/* 공통영역 S */}
                     <Toast />
                     <Confirm />
+                    <Modal />
                     {/* 공통영역 E */}
 
                     {isAuth ? '' :

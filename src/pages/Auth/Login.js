@@ -86,7 +86,7 @@ class Login extends Component {
                 {/*/>*/}
                 <Sakura />
                 <div className="container auth">
-                    <Link className="logo blue-text text-lighten-2" to="/">tripl</Link>
+                    <Link className="logo" to="/">tripl</Link>
                     <div className="card">
                         <div className="header light-blue darken-1 white-text center">
                             <div className="card-content">로그인</div>
@@ -140,7 +140,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     login: (id, pw) => dispatch(login(id, pw)),
-    toast: (content, time) => dispatch(toast(content, time)),
+    toast: (payload) => dispatch(toast(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

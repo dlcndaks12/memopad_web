@@ -22,3 +22,7 @@ export { default as Write } from './component/Scrap/Write';
 export { default as Header } from './layout/Header';
 export { default as Footer } from './layout/Footer';
 export { default as SideNavigation } from './layout/SideNavigation';
+
+/* MODAL POPUP */
+export { default as Modal } from './modal/Modal';
+export { default as MapModal } from './modal/MapModal/MapModal';
