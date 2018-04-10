@@ -41,9 +41,6 @@ class Write extends Component {
         const nationSelected = this.state.nationSelected;
         const citySelected = this.state.citySelected;
 
-        console.log('render = ', nationSelected);
-        console.log('render = ', citySelected);
-
         return (
             <div className="scrap-write">
                 <blockquote>공유하고자 하는 link만 입력하시면 간편 스크랩 내용이 채워집니다.</blockquote>

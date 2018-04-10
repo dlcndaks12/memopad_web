@@ -28,9 +28,6 @@ class City extends Component {
         } else {
             const chkCheckedList = chkArea.querySelectorAll(`[name="${this.props.type}"]:checked`);
 
-            console.log('chk list = ', chkList.length);
-            console.log('checked list = ', chkCheckedList.length);
-
             if (chkList.length === chkCheckedList.length) {
                 this.setState({
                     checkedAll: true,
