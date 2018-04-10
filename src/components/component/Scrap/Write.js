@@ -56,11 +56,11 @@ class Write extends Component {
             const defaultCityIdx = cityLength > 0 ? this.props.location.city[e.target.selectedOptions[0].value][0].idx : -1;
             this.setState({
                 [`${e.target.name}Selected`]: e.target.selectedOptions[0].value,
-                citySelected: defaultCityIdx,
+                citySelected: parseInt(defaultCityIdx, 10),
             });
         } else {
             this.setState({
-                [`${e.target.name}Selected`]: e.target.selectedOptions[0].value,
+                [`${e.target.name}Selected`]: parseInt(e.target.selectedOptions[0].value, 10),
             });
         }
     }
@@ -97,7 +97,7 @@ class Write extends Component {
         this.props.registerScrap(nationCode, cityIdx, categoryIdx, og)
             .then((res) => {
                 if (res.result === 'OK') {
-                    this.props.history.push('/scrap');
+                    this.props.history.push(`/scrap/${nationCode}`);
                 }
                 this.props.toast(res.message);
             }).catch((error) => {

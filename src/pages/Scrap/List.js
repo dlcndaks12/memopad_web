@@ -109,13 +109,15 @@ class Scrap extends Component {
     }
 
     render() {
+        const nationCode = this.props.scrap.nationCode;
+
         return (
             <div className="contents scrap">
                 <NationTab
-                    selectedNationCode={this.props.scrap.nationCode}
+                    selectedNationCode={nationCode}
                     onChange={this.handleNation} />
                 <Option
-                    selectedNation={this.props.scrap.nationCode}
+                    selectedNation={nationCode}
                     selectedCity={this.props.scrap.city}
                     selectedCategory={this.props.scrap.category}
                     onChange={this.handleCheckbox} />
@@ -128,7 +130,7 @@ class Scrap extends Component {
                     </div>
                 </div>
                 <div className="btn-write">
-                    <Link to="/scrap/write">
+                    <Link to={`/scrap/write?nation=${nationCode}`}>
                         <i className="material-icons">mode_edit</i>
                     </Link>
                 </div>
