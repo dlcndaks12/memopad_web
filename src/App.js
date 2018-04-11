@@ -20,6 +20,7 @@ class App extends Component {
             simpleHeader: false,
         };
 
+        this.detectScrollEnd = this.detectScrollEnd.bind(this);
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
     }
 
@@ -48,9 +49,19 @@ class App extends Component {
         }
     }
 
+    detectScrollEnd(top) {
+        if (top > 0.8) {
+            this.props.setScrollEnd(true);
+        } else if (top !== 1 && this.props.layout.scroll.end) {
+            this.props.setScrollEnd(false);
+        }
+    }
+
     handleScrollFrame(values) {
         const top = values.top;
         const scrollTop = values.scrollTop;
+
+        this.detectScrollEnd(top);
 
         /* 위로 스크롤 */
         if (scrollTop < this.scrollTop) {
@@ -61,12 +72,6 @@ class App extends Component {
                 }
             }, 500);
         } else { /* 아래로 스크롤 */
-            if (top > 0.8) {
-                this.props.setScrollEnd(true);
-            } else if (top !== 1 && this.props.layout.scroll.end) {
-                this.props.setScrollEnd(false);
-            }
-
             // clearTimeout(this.scrollTime);
             if (scrollTop > 50) {
                 setTimeout(() => {

@@ -7,7 +7,7 @@ class City extends Component {
         super(props);
 
         this.state = {
-            checkedAll: props.scrap[props.type] === 'all',
+            checkedAll: props.selectedItem === 'all',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -45,10 +45,12 @@ class City extends Component {
                 }
             }
         }
+
         this.props.onChange(checkedValue, this.props.type);
     }
 
     render() {
+        const nationCode = this.props.nationCode;
         const type = this.props.type;
         const condition = this.props.selectedItem;
         const checkedAll = this.state.checkedAll;
@@ -56,7 +58,7 @@ class City extends Component {
 
         return (
             <div className="selection" ref={`${this.props.type}List`}>
-                <Input key={`${this.props.type}-all-${checkedAll}`} name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={checkedAll} onChange={this.handleChange} />
+                <Input key={`${nationCode}-${this.props.type}-all-${checkedAll}`} name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={checkedAll} onChange={this.handleChange} />
                 {this.props.item ?
                     this.props.item.map((item, i) => {
                         checked = condition !== 'none' ? condition === 'all' ? true : condition.indexOf(item.idx.toString()) >= 0 : false;
@@ -72,7 +74,6 @@ class City extends Component {
 const mapStateToProps = (state) => ({
     city: state.location.city,
     category: state.category.category,
-    scrap: state.scrap,
 });
 
 const mapDispatchToProps = (dispatch) => ({
