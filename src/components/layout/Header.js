@@ -48,10 +48,10 @@ class Header extends Component {
                     <SideNavigation location={this.props.location.pathname} />
                 </div>
                 <div className="nav-wrapper red lighten-3 z-depth-2">
-                    <a href="/" className="brand-logo center">
+                    <Link to="/" className="brand-logo center">
                         {/*<img src={require('resources/images/common/logo.svg')}  alt=""/>*/}
                         tripl
-                    </a>
+                    </Link>
                     <ul className="right">
                         {/*<li>
                             <Link to="/write">
