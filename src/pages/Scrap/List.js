@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast } from 'modules/toast';
-import { getScrapList, addScrapList, clearScraps } from 'modules/scrap';
+import { getScrapList, addScrapList, clearScrapList } from 'modules/scrap';
 import { NationTab, CardList, Option, CircleLoader } from 'components';
 import qs from 'query-string';
 
@@ -32,6 +32,10 @@ class Scrap extends Component {
         this.handleCheckbox = this.handleCheckbox.bind(this);
     }
 
+    componentWillMount() {
+        this.props.clearScrapList();
+    }
+
     componentDidMount() {
         this.getScrapList();
     }
@@ -51,7 +55,7 @@ class Scrap extends Component {
             if (category !== 'all' && category !== 'none') category = category.split(',');
 
             this.setState({
-                nationCode: nextProps.match.params.nation,
+                nationCode: nextProps.match.params.nation ? nextProps.match.params.nation : 'kr',
                 city: city,
                 category: category,
                 page: 1,
@@ -67,22 +71,6 @@ class Scrap extends Component {
                 this.addScrapList();
             });
         }
-
-        //
-        // if (!pagePending && scrollEnd && currentPage < totalPage) {
-        //     const city = nextProps.scrap.city;
-        //     const category = nextProps.scrap.category;
-        //     this.setState({
-        //         pagePending: true
-        //     }, () => {
-        //         this.props.history.push(`${nextProps.match.url}?city=${city}&category=${category}&page=${nextPage}`);
-        //     });
-        //     return;
-        // }
-        //
-        // if (this.props.match.params.nation !== nextProps.match.params.nation || this.props.location.search !== nextProps.location.search) {
-        //     this.setScrapCondition(nextProps);
-        // }
     }
 
     getScrapCondition() {
@@ -109,48 +97,6 @@ class Scrap extends Component {
         this.props.addScrapList(this.getScrapCondition());
     }
 
-    // setScrapCondition(props, type) {
-    //     const params = qs.parse(props.location.search);
-    //     const nation = props.match.params.nation ? props.match.params.nation : 'kr';
-    //
-    //     let city = params.city ? params.city : 'all';
-    //     let category = params.category ? params.category : 'all';
-    //     let prevPage = this.props.scrap.page;
-    //     let page = params.page ? +params.page : 1;
-    //     if (city !== 'all' && city !== 'none') city = city.split(',');
-    //     if (category !== 'all' && category !== 'none') category = category.split(',');
-    //     const scrapCondition = {
-    //         nationCode: nation,
-    //         city: city,
-    //         category: category,
-    //         limit: this.state.limit,
-    //         page: page,
-    //     };
-    //
-    //     if (type === 'init') {
-    //         this.props.setScrapsCondition(scrapCondition);
-    //         scrapCondition.page = 1;
-    //         scrapCondition.limit = (page * scrapCondition.limit);
-    //         props.getScraps(scrapCondition, false).then(() => {
-    //             this.handlePagePending(false);
-    //             const target = document.querySelectorAll(`.card-list .card-wrap:nth-child(${scrapCondition.limit - this.state.limit})`);
-    //             if (target[0]) {
-    //                 this.props.scrollTo(target[0].offsetTop);
-    //             }
-    //         });
-    //         return;
-    //     }
-    //     if (prevPage >= page) {
-    //         props.getScraps(scrapCondition).then(() => {
-    //             this.handlePagePending(false);
-    //         });
-    //     } else {
-    //         props.addScraps(scrapCondition).then(() => {
-    //             this.handlePagePending(false);
-    //         });
-    //     }
-    // }
-
     handlePagePending(flag) {
         this.setState({
             pagePending: flag,
@@ -158,7 +104,7 @@ class Scrap extends Component {
     }
 
     handleNation(nationCode) {
-        this.props.clearScraps();
+        this.props.clearScrapList();
         this.props.history.push(`/scrap/${nationCode}`);
     }
 
@@ -213,7 +159,7 @@ const mapDispatchToProps = (dispatch) => ({
     toast: (content, time) => dispatch(toast(content, time)),
     getScrapList: (scrapsCondition) => dispatch(getScrapList(scrapsCondition)),
     addScrapList: (scrapsCondition) => dispatch(addScrapList(scrapsCondition)),
-    clearScraps: () => dispatch(clearScraps()),
+    clearScrapList: () => dispatch(clearScrapList()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrap);

@@ -12,13 +12,15 @@ class Preview extends Component {
     render() {
         const og = this.props.og;
         const map = og.map;
-        const imageUrl = og.ogImageUrl.replace(/%/gi, '%25');
+        const imageUrl = og.ogImageUrl ? og.ogImageUrl.replace(/%/gi, '%25') : null;
 
         return (
             <div className="preview-area">
-                <div className="thumb">
-                    <ImageLoader image={`${path.apiUrl}/api/image?url=${imageUrl}`}/>
-                </div>
+                {imageUrl ?
+                    <div className="thumb">
+                        <ImageLoader image={`${path.apiUrl}/api/image?url=${imageUrl}`}/>
+                    </div>
+                    : null}
                 <div className="title">
                     <div className="input-field title">
                         <input id="og-title"

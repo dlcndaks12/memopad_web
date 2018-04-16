@@ -4,8 +4,10 @@ import * as scrapService from 'service/scrap';
 
 const GET_SCRAP_LIST = 'scrap/GET_SCRAP_LIST';
 const ADD_SCRAP_LIST = 'scrap/ADD_SCRAP_LIST';
-const CLEAR_SCRAPS = 'scrap/CLEAR_SCRAPS';
+const CLEAR_SCRAP_LIST = 'scrap/CLEAR_SCRAP_LIST';
 const REGISTER_SCRAP = 'scrap/REGISTER_SCRAP';
+const LIKE_SCRAP = 'scrap/LIKE_SCRAP';
+const LIKE_SCRAP_CANCEL = 'scrap/LIKE_SCRAP_CANCEL';
 
 /*============================================================================
  Action
@@ -23,14 +25,6 @@ const REGISTER_SCRAP = 'scrap/REGISTER_SCRAP';
 // }
 
 /**
- * @param nationCode:String
- * @param cityIdx:Number
- * @param categoryIdx:Number
- * @param og:Object
- */
-export const registerScrap = createAction(REGISTER_SCRAP, scrapService.registerScrap);
-
-/**
  * @param void
  */
 export const getScrapList = createAction(GET_SCRAP_LIST, scrapService.getScraps);
@@ -43,7 +37,25 @@ export const addScrapList = createAction(ADD_SCRAP_LIST, scrapService.getScraps)
 /**
  * @param void
  */
-export const clearScraps = createAction(CLEAR_SCRAPS);
+export const clearScrapList = createAction(CLEAR_SCRAP_LIST);
+
+/**
+ * @param nationCode:String
+ * @param cityIdx:Number
+ * @param categoryIdx:Number
+ * @param og:Object
+ */
+export const registerScrap = createAction(REGISTER_SCRAP, scrapService.registerScrap);
+
+/**
+ * @param scrapIdx:Number
+ */
+export const likeScrap = createAction(LIKE_SCRAP, scrapService.likeScrap);
+
+/**
+ * @param scrapIdx:Number
+ */
+export const likeScrapCancel = createAction(LIKE_SCRAP_CANCEL, scrapService.likeScrapCancel);
 
 /*============================================================================
  Default State
@@ -109,10 +121,23 @@ export default handleActions({
             }
         },
     }),
-    [CLEAR_SCRAPS]: (state) => {
+    [CLEAR_SCRAP_LIST]: (state) => {
         return {
             ...state,
             scraps: [],
         };
     },
+    ...pender({
+        type: [LIKE_SCRAP],
+        onSuccess: (state) => {
+            return {
+                ...state,
+            }
+        },
+        onFailure: (state) => {
+            return {
+                ...state,
+            }
+        },
+    }),
 }, initialState);

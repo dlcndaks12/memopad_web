@@ -35,3 +35,17 @@ export function registerScrap(nationCode, cityIdx, categoryIdx, og) {
     });
 }
 
+/* SCRAP LIKE */
+export function likeScrap(scrapIdx) {
+    return axios.post(`/api/scrap/like/${scrapIdx}`, {
+        scrapIdx: scrapIdx,
+    });
+}
+
+/* SCRAP LIKE CANCEL */
+export function likeScrapCancel(scrapIdx) {
+    return axios.delete(`/api/scrap/like/${scrapIdx}`, {
+        scrapIdx: scrapIdx,
+    });
+}
+

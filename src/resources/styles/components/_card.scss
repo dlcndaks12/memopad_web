@@ -6,7 +6,7 @@
     .card-wrap {
         float: left;
         width: 16.66666666%;
-        padding: 10px;
+        padding: 5px;
         animation: cardIn .4s forwards;
         @media screen and (max-width: 1600px) {
             width: 25%;
@@ -29,16 +29,22 @@
         margin: 0;
         overflow: hidden;
         border-radius: 2px;
-        a {
+        .card-image-wrap {
+            position: relative;
+            .btn-map {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+            }
+        }
+        .card-image {
             display: block;
+            overflow: hidden;
             &:hover {
                 .image-wrap {
                     transform: scale(1.05);
                 }
             }
-        }
-        .card-image {
-            overflow: hidden;
         }
         .card-title {
             right: 0;
@@ -74,21 +80,25 @@
             text-align: right;
         }
         .util-area {
-            overflow: hidden;
+            @include clearfix();
             margin-top: 11px;
             height: 22px;
         }
         .btn-map {
-            float: right;
+            border-radius: 50%;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.6);
             cursor: pointer;
             img {
                 display: block;
-                width: 22px;
-                height: 22px;
+                width: 30px;
+                height: 30px;
             }
         }
-	    .author {
+        .btn-like {
             float: left;
+        }
+	    .author {
+            float: right;
             padding: 2px 0;
 		    color: #aaa;
 		    font-size: 12px;
