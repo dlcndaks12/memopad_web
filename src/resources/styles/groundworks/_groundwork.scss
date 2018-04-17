@@ -87,6 +87,9 @@ em {
 }
 
 /* Change the white to any color ;) */
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px white inset;
-}
+//input[type="text"] {
+//    -webkit-box-shadow: 0 0 0 30px white inset !important;
+//}
+//input[type="text"]:-webkit-autofill {
+//    -webkit-box-shadow: 0 0 0 30px white inset !important;
+//}

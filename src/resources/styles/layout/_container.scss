@@ -13,8 +13,10 @@
 	//}
 }
 #container {
-	padding: 20px 20px 70px;
+	padding: 20px 10px 70px;
+	max-width: 1080px;
 	min-height: calc(100vh - 107px);
+	margin: 0 auto;
 	transition: filter 1s;
 	@media screen and (max-width: 768px) {
 		min-height: calc(100vh - 125px);

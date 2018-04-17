@@ -63,30 +63,44 @@ class App extends Component {
 
         this.detectScrollEnd(top);
 
-        /* 위로 스크롤 */
-        if (scrollTop < this.scrollTop) {
-            // clearTimeout(this.scrollTime);
-            setTimeout(() => {
-                if (this.state.simpleHeader) {
-                    this.setState({ simpleHeader: false });
-                }
-            }, 500);
-        } else { /* 아래로 스크롤 */
-            // clearTimeout(this.scrollTime);
-            if (scrollTop > 50) {
-                setTimeout(() => {
-                    if (!this.state.simpleHeader) {
-                        this.setState({ simpleHeader: true });
-                    }
-                }, 500);
-            } else {
-                if (this.state.simpleHeader) {
-                    this.setState({ simpleHeader: false, });
-                }
+        if (scrollTop > 100) {
+            if (!this.state.simpleHeader) {
+                this.setState({
+                    simpleHeader: true,
+                });
+            }
+        } else {
+            if (this.state.simpleHeader) {
+                this.setState({
+                    simpleHeader: false,
+                });
             }
         }
 
-        this.scrollTop = scrollTop;
+        /* 위로 스크롤 */
+        // if (scrollTop < this.scrollTop) {
+        //     // clearTimeout(this.scrollTime);
+        //     setTimeout(() => {
+        //         if (this.state.simpleHeader) {
+        //             this.setState({ simpleHeader: false });
+        //         }
+        //     }, 500);
+        // } else { /* 아래로 스크롤 */
+        //     // clearTimeout(this.scrollTime);
+        //     if (scrollTop > 50) {
+        //         setTimeout(() => {
+        //             if (!this.state.simpleHeader) {
+        //                 this.setState({ simpleHeader: true });
+        //             }
+        //         }, 500);
+        //     } else {
+        //         if (this.state.simpleHeader) {
+        //             this.setState({ simpleHeader: false, });
+        //         }
+        //     }
+        // }
+
+        // this.scrollTop = scrollTop;
     }
 
     render() {

@@ -47,7 +47,7 @@ class Header extends Component {
                 <div className="side-nav-wrap">
                     <SideNavigation location={this.props.location.pathname} />
                 </div>
-                <div className="nav-wrapper red lighten-3 z-depth-2">
+                <div className="nav-wrapper">
                     <Link to="/" className="brand-logo center">
                         {/*<img src={require('resources/images/common/logo.svg')}  alt=""/>*/}
                         tripl

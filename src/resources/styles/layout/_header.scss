@@ -1,10 +1,30 @@
+$simple-header-height: 38px;
+
 .simple-header {
     header {
         .nav-wrapper {
-            transform: translateY(-100%);
+            height: $simple-header-height;
+            background-color: rgba(255, 255, 255, 0.8);
+	        box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
         .side-nav-wrap {
-            transform: translateY(-100%);
+            > span {
+                i {
+                    height: $simple-header-height;
+	                line-height: $simple-header-height;
+	                color: #888;
+                }
+            }
+        }
+	    .right i {
+		    height: $simple-header-height;
+		    line-height: $simple-header-height;
+		    color: #666;
+	    }
+        .brand-logo {
+	        color: #666;
+	        font-size: 20px;
+            line-height: $simple-header-height;
         }
     }
 }
@@ -18,7 +38,7 @@ header {
         top: 0;
         left: 0;
         z-index: 1000;
-        transition: transform .6s;
+        transition: background-color .5s;
         > span {
             display: block;
             a {
@@ -111,10 +131,9 @@ header {
         z-index: 10;
         height: 57px;
         text-align: center;
-        transition: filter 1s, transform .6s;
-        &.red.lighten-3 {
-            background-color: rgba(239, 154, 154, 0.8) !important;
-        }
+	    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        background-color: rgba(239, 154, 154, 0.8);
+        transition: all .5s;
         li {
             span {
                 display: block;
