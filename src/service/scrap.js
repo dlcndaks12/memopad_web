@@ -35,6 +35,13 @@ export function registerScrap(nationCode, cityIdx, categoryIdx, og) {
     });
 }
 
+/* SCRAP DELETE */
+export function deleteScrap(scrapIdx) {
+    return axios.delete(`/api/scrap/${scrapIdx}`, {
+        scrapIdx: scrapIdx,
+    });
+}
+
 /* SCRAP LIKE */
 export function likeScrap(scrapIdx) {
     return axios.post(`/api/scrap/like/${scrapIdx}`, {

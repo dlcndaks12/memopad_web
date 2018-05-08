@@ -6,6 +6,7 @@ const GET_SCRAP_LIST = 'scrap/GET_SCRAP_LIST';
 const ADD_SCRAP_LIST = 'scrap/ADD_SCRAP_LIST';
 const CLEAR_SCRAP_LIST = 'scrap/CLEAR_SCRAP_LIST';
 const REGISTER_SCRAP = 'scrap/REGISTER_SCRAP';
+const DELETE_SCRAP = 'scrap/DELETE_SCRAP';
 const LIKE_SCRAP = 'scrap/LIKE_SCRAP';
 const LIKE_SCRAP_CANCEL = 'scrap/LIKE_SCRAP_CANCEL';
 
@@ -46,6 +47,11 @@ export const clearScrapList = createAction(CLEAR_SCRAP_LIST);
  * @param og:Object
  */
 export const registerScrap = createAction(REGISTER_SCRAP, scrapService.registerScrap);
+
+/**
+ * @param scrapIdx:Number
+ */
+export const deleteScrap = createAction(DELETE_SCRAP, scrapService.deleteScrap);
 
 /**
  * @param scrapIdx:Number
@@ -127,6 +133,25 @@ export default handleActions({
             scraps: [],
         };
     },
+    ...pender({
+        type: [DELETE_SCRAP],
+        onSuccess: (state, action) => {
+            console.log(state, action);
+            const res = action.payload;
+            const deletedScraps = state.scraps.filter((item) => {
+                return item.idx !== res.data;
+            });
+            return {
+                ...state,
+                scraps: deletedScraps,
+            }
+        },
+        onFailure: (state) => {
+            return {
+                ...state,
+            }
+        },
+    }),
     ...pender({
         type: [LIKE_SCRAP],
         onSuccess: (state) => {

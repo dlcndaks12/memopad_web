@@ -177,7 +177,13 @@ header {
     }
 }
 body {
+    .side-nav {
+        bottom: 0;
+        height: auto;
+    }
     #sidenav-overlay {
+        bottom: 0;
+        height: auto;
         background: rgba(255,235,238,0.4);
     }
 }
