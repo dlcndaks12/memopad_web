@@ -50,7 +50,7 @@ class App extends Component {
     }
 
     detectScrollEnd(top) {
-        if (top > 0.8) {
+        if (top > 0.8 && !this.props.layout.scroll.end) {
             this.props.setScrollEnd(true);
         } else if (top !== 1 && this.props.layout.scroll.end) {
             this.props.setScrollEnd(false);

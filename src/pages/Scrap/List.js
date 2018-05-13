@@ -64,12 +64,14 @@ class Scrap extends Component {
             });
         }
 
-        if (!pagePending && scrollEnd && currentPage < totalPage) {
-            this.setState({
-                page: nextPage,
-            }, () => {
-                this.addScrapList();
-            });
+        if (this.props.layout.scroll.end !== scrollEnd) {
+            if (!pagePending && scrollEnd && currentPage < totalPage) {
+                this.setState({
+                    page: nextPage,
+                }, () => {
+                    this.addScrapList();
+                });
+            }
         }
     }
 
