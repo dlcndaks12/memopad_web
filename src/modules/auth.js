@@ -47,6 +47,7 @@ export const signUp = createAction(SIGN_UP, authService.signup);
 const initialState = {
     id: '',
     nickname: '',
+    totalScrap: 0,
     isLoggedIn: null,
 };
 
@@ -62,6 +63,7 @@ export default handleActions({
                 ...state,
                 id: res.data.id,
                 nickname: res.data.nickname,
+                totalScrap: res.data.totalScrap,
                 isLoggedIn: true,
             }
         },
@@ -83,6 +85,7 @@ export default handleActions({
                 ...state,
                 id: res.data.id,
                 nickname: res.data.nickname,
+                totalScrap: res.data.totalScrap,
                 isLoggedIn: true,
             }
         },

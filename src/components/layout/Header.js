@@ -49,8 +49,8 @@ class Header extends Component {
                 </div>
                 <div className="nav-wrapper">
                     <Link to="/" className="brand-logo center">
-                        {/*<img src={require('resources/images/common/logo.svg')}  alt=""/>*/}
-                        tripl
+                        <img src={require('resources/images/common/logo.png')}  alt=""/>
+                        {/*tripl*/}
                     </Link>
                     <ul className="right">
                         {/*<li>

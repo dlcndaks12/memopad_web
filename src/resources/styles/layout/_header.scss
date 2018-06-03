@@ -4,25 +4,20 @@ $simple-header-height: 38px;
     header {
         .nav-wrapper {
             height: $simple-header-height;
-            background-color: rgba(255, 255, 255, 0.8);
-	        box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
         .side-nav-wrap {
             > span {
                 i {
                     height: $simple-header-height;
 	                line-height: $simple-header-height;
-	                color: #888;
                 }
             }
         }
 	    .right i {
 		    height: $simple-header-height;
 		    line-height: $simple-header-height;
-		    color: #666;
 	    }
         .brand-logo {
-	        color: #666;
 	        font-size: 20px;
             line-height: $simple-header-height;
         }
@@ -50,7 +45,7 @@ header {
             i {
                 display: block;
                 height: 57px;
-                color: #fff;
+	            color: #888;
                 line-height: 57px;
                 transition: all .6s;
             }
@@ -131,8 +126,8 @@ header {
         z-index: 10;
         height: 57px;
         text-align: center;
-	    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        background-color: rgba(239, 154, 154, 0.8);
+	    background-color: rgba(255, 255, 255, 0.8);
+	    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         transition: all .5s;
         li {
             span {
@@ -150,14 +145,16 @@ header {
         height: 100%;
         padding: 0 10px;
         font-family: 'Indie Flower', cursive;
-        color: #fff;
+	    color: #666;
         font-size: 24px;
         line-height: 57px;
         letter-spacing: 10px;
         transition: all .6s;
         animation: neon 1.5s ease-in-out infinite alternate;
         img {
-            height: 100%;
+	        @include alignXY;
+	        opacity: 0.9;
+            height: 35%;
         }
     }
     .right {
@@ -170,7 +167,7 @@ header {
         i {
             display: block;
             height: 57px;
-            color: #fff;
+	        color: #666;
             line-height: 57px;
             transition: all .6s;
         }

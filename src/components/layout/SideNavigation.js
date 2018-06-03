@@ -20,6 +20,8 @@ class SideNavigation extends Component {
     }
 
     render() {
+        const auth = this.props.auth;
+
         return (
             <SideNav
                 trigger={<a><i className="material-icons">menu</i></a>}
@@ -28,16 +30,16 @@ class SideNavigation extends Component {
                     onOpen: this.handleOpen,
                     onClose: this.handleClose,
                 }}>
-                {this.props.auth.isLoggedIn ?
+                {auth.isLoggedIn ?
                     <li className="my-area blue lighten-2">
-                        <Link to="/mypage" className="name">{this.props.auth.nickname}</Link>
+                        <Link to="/mypage" className="name">{auth.nickname}</Link>
                         <ul className="info-list">
                             <li>
-                                <span>3241</span>개의 스크랩을 하셨어요!
+                                <span>{auth.totalScrap}</span>개의 스크랩을 하셨어요!
                             </li>
-                            <li>
+                            {/*<li>
                                 <span>3241</span>개의 리뷰를 작성하셨어요!
-                            </li>
+                            </li>*/}
                         </ul>
                     </li> :
                     <li className="welcome-area">

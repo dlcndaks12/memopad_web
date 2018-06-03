@@ -20,7 +20,7 @@ class Scrap extends Component {
             nationCode: this.props.match.params.nation ? this.props.match.params.nation : 'kr',
             city: city,
             category: category,
-            limit: 20,
+            limit: 15,
             page: 1,
         };
 
