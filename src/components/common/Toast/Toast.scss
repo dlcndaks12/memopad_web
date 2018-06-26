@@ -6,13 +6,13 @@
 }
 .toast-alarm {
     margin-bottom: 10px;
-    //animation: toastIn .4s;
+    animation: toastIn .4s;
     .toast-inner {
         min-width: 280px;
         overflow: hidden;
         height: 41px;
         padding: 10px 20px;
-        background: rgba(255,138,130,0.8);
+        background: rgba(100,100,100,0.8);
         box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
         border-radius: 2px;
         color: #fff;

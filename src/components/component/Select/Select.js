@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'react-materialize';
 
 class Select extends Component {
     render() {
@@ -32,9 +31,9 @@ class Select extends Component {
 
         return (
             <div>
-                <Input key={selectReady} name={this.props.type} type="select" defaultValue={this.props.defaultSelected} onChange={this.props.onChange}>
+                <Select key={selectReady} name={this.props.type} type="select" defaultValue={this.props.defaultSelected} onChange={this.props.onChange}>
                     {optionEl}
-                </Input>
+                </Select>
             </div>
         );
     }

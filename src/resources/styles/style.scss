@@ -11,9 +11,9 @@
 @import "layout/header";
 @import "layout/footer";
 @import "layout/container";
-@import "layout/base";
 
 // components
+@import "components/input";
 @import "components/button";
 @import "components/card";
 @import "components/selection";
@@ -21,6 +21,7 @@
 @import "components/tab";
 @import "components/preview";
 @import "components/modal";
+@import "components/loader";
 
 // util
 @import "util/common";

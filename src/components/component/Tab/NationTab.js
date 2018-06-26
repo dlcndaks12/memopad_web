@@ -1,22 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './NationTab.scss';
 
 class NationTab extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            width: '',
+            left: '',
+        };
+
+        this.handleTab = this.handleTab.bind(this);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.refs.tabs) {
+            if (JSON.stringify(prevProps) !== JSON.stringify(this.props) || JSON.stringify(prevState) !== JSON.stringify(this.state)) {
+                const activedEl = this.refs.tabs.querySelector('.tab.active');
+                this.setState({
+                    width: activedEl.getBoundingClientRect().width,
+                    left: activedEl.offsetLeft
+                });
+            }
+        }
+    }
+
+    handleTab(e, nationCode) {
+        const tab = e.target;
+        this.setState({
+            width: tab.getBoundingClientRect().width,
+            left: tab.offsetLeft
+        }, () => {
+            this.props.onChange(nationCode);
+        });
+    }
+
     render() {
+        const lineStyle = {width: this.state.width, left: this.state.left};
+
         return (
-            <div className="nation-tab-area">
+            <div className="tab-area nation-tab-area">
                 {this.props.nation ?
-                    <ul ref="nationTab" className="tabs nation-tab">
+                    <ul ref="tabs" className="tabs nation-tab">
                         {this.props.nation.map((nation) => {
                             const active = nation.code === this.props.selectedNationCode;
                             return (
                                 <li key={nation.code} className={`tab col ${active ? 'active' : ''}`}>
-                                    <a onClick={() => this.props.onChange(nation.code)}>{nation.name}</a>
+                                    <a onClick={(e) => this.handleTab(e, nation.code)}>{nation.name}</a>
                                 </li>
                             )
                         })}
                     </ul> : '' }
+                <div className="tab-active-line" style={lineStyle}/>
             </div>
         );
     }

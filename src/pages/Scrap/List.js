@@ -32,11 +32,8 @@ class Scrap extends Component {
         this.handleCheckbox = this.handleCheckbox.bind(this);
     }
 
-    componentWillMount() {
-        this.props.clearScrapList();
-    }
-
     componentDidMount() {
+        this.props.clearScrapList();
         this.getScrapList();
     }
 
@@ -106,8 +103,10 @@ class Scrap extends Component {
     }
 
     handleNation(nationCode) {
-        this.props.clearScrapList();
-        this.props.history.push(`/scrap/${nationCode}`);
+        if (this.props.match.params.nation !== nationCode) {
+            this.props.clearScrapList();
+            this.props.history.push(`/scrap/${nationCode}`);
+        }
     }
 
     handleCheckbox(selectedItems, type) {

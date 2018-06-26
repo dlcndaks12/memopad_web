@@ -112,18 +112,18 @@ class Card extends Component {
                         <div className="util-area">
                             {!likePending ?
                                 <a className={`btn-like ${item.liked ? 'active' : ''}`} onClick={() => this.handleLike(!item.liked)}>
-                                    <span className="like-icon">
+                                    <div className="like-icon">
                                         <div className="heart-animation-1"/>
                                         <div className="heart-animation-2"/>
-                                    </span>
-                                    {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : null}
+                                    </div>
+                                    {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
                                 </a> :
                                 <a className={`btn-like ${item.liked ? 'active' : ''}`}>
-                                    <span className="like-icon">
+                                    <div className="like-icon">
                                         <div className="heart-animation-1"/>
                                         <div className="heart-animation-2"/>
-                                    </span>
-                                    {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : null}
+                                    </div>
+                                    {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
                                 </a>
                             }
                             <Link to={`/${item.writer}`} className="author">{item.writer}</Link>

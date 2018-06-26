@@ -1,22 +1,9 @@
-.side-nav-open {
-	/* 버벅이는 현상 발견 */
-	//header {
-	//    .nav-wrapper {
-	//        @include blur;
-	//    }
-	//}
-	//#container {
-	//    @include blur;
-	//}
-	//.page-footer {
-	//    @include blur;
-	//}
-}
 #container {
-	padding: 20px 10px 70px;
+	padding: 15px 10px 70px;
+	width: 100%;
 	max-width: 1080px;
 	min-height: calc(100vh - 107px);
-	margin: 0 auto;
+	margin: 57px auto 0;
 	transition: filter 1s;
 	@media screen and (max-width: 768px) {
 		min-height: calc(100vh - 125px);
@@ -24,12 +11,5 @@
 	}
 	> div {
 		animation: fadeIn .5s;
-	}
-}
-.scroll-wrap {
-	> div {
-		&:nth-child(3) {
-			z-index: 10;
-		}
 	}
 }

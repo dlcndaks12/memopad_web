@@ -30,41 +30,28 @@ class Header extends Component {
         const loginButton = (
             <li>
                 <Link to="/login">
-                    <i className="material-icons">vpn_key</i>
+                    <i className="fas fa-sign-in-alt"/>
                 </Link>
             </li>
         );
         const logoutButton = (
             <li>
                 <a onClick={this.handleLogout}>
-                    <i className="material-icons">lock_open</i>
+                    <i className="fas fa-lock"/>
                 </a>
             </li>
         );
 
         return (
             <header>
-                <div className="side-nav-wrap">
-                    <SideNavigation location={this.props.location.pathname} />
-                </div>
                 <div className="nav-wrapper">
-                    <Link to="/" className="brand-logo center">
-                        <img src={require('resources/images/common/logo.png')}  alt=""/>
-                        {/*tripl*/}
-                    </Link>
-                    <ul className="right">
-                        {/*<li>
-                            <Link to="/write">
-                                <i className="material-icons">mode_edit</i>
-                            </Link>
-                        </li>*/}
+                    <div className="side-nav-wrap">
+                        <SideNavigation location={this.props.location.pathname} />
+                    </div>
+                    <h1><Link to="/" className="logo center">trip &amp; place</Link></h1>
+                    <ul className="util-btn-group">
                         { this.props.auth.isLoggedIn !== null ? this.props.auth.isLoggedIn ? logoutButton : loginButton : '' }
                     </ul>
-                    {this.props.progress.show ?
-                        <div className="progress red lighten-4">
-                            <div className="indeterminate red lighten-1"> </div>
-                        </div> : ''
-                    }
                 </div>
             </header>
         );

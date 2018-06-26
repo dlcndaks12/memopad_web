@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { login } from 'modules/auth';
 import { toast } from 'modules/toast';
 import { Link } from 'react-router-dom';
-import { CircleLoader, Sakura } from 'components';
+import { CircleLoader, Input, Button } from 'components';
 import './Auth.scss';
 
 class Login extends Component {
@@ -71,60 +71,40 @@ class Login extends Component {
 
     render() {
         const waiting = (
-            <a className="waves-effect btn-large waves-light btn blue lighten-2">
+            <a className="btn expanded">
                 <span className="loader">
-                    <CircleLoader/>
+                    <CircleLoader size={30} color="white"/>
                 </span>
             </a>
         );
 
         return (
             <div className="auth-page">
-                {/*<Authentication*/}
-                    {/*mode={true}*/}
-                    {/*onLogin={this.handleLogin}*/}
-                {/*/>*/}
-                <Sakura />
                 <div className="container auth">
-                    <Link className="logo" to="/">tripl</Link>
+                    <Link className="logo" to="/">trip &amp; place</Link>
                     <div className="card">
-                        <div className="header light-blue darken-1 white-text center">
-                            <div className="card-content">로그인</div>
+                        <div className="card-content">
+                            <div className="input-form">
+                                <div className="input-field id">
+                                    <Input name="id"
+                                           type="text"
+                                           value={this.state.id}
+                                           placeholder="e-mail"
+                                           onChange={this.handleChange}/>
+                                </div>
+                                <div className="input-field">
+                                    <Input name="password"
+                                           type="password"
+                                           value={this.state.password}
+                                           placeholder="password"
+                                           onChange={this.handleChange}
+                                           onKeyPress={this.handleKeyPress}/>
+                                </div>
+                            </div>
+                            {this.props.pending['auth/LOGIN'] ? waiting : <Button onClick={this.handleLogin} value="로그인"/>}
                         </div>
-                        <div>
-                            <div className="card-content">
-                                <div>
-                                    <div className="input-field s12 id">
-                                        <input
-                                            name="id"
-                                            type="text"
-                                            className="validate"
-                                            value={this.state.id}
-                                            onChange={this.handleChange}
-                                        />
-                                        <label>이메일</label>
-                                    </div>
-                                    <div className="input-field s12">
-                                        <input
-                                            name="password"
-                                            type="password"
-                                            className="validate"
-                                            value={this.state.password}
-                                            onChange={this.handleChange}
-                                            onKeyPress={this.handleKeyPress}
-                                        />
-                                        <label>비밀번호</label>
-                                    </div>
-                                </div>
-                                {this.props.pending['auth/LOGIN'] ? waiting : <a onClick={this.handleLogin} className="waves-effect btn-large waves-light btn blue lighten-2">LOGIN</a>}
-                            </div>
-                            <div className="footer">
-                                <div className="card-content">
-                                    <div className="right" >
-                                        처음이세요? <Link to="/register"><span className="blue-grey-text text-lighten-1">회원가입</span></Link>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="form-footer">
+                            처음이세요? <Link to="/register"><span>회원가입</span></Link>
                         </div>
                     </div>
                 </div>

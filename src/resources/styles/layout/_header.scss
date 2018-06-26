@@ -24,163 +24,174 @@ $simple-header-height: 38px;
     }
 }
 header {
-    color: #fff;
-    width: 100%;
-    height: 57px;
-    line-height: 57px;
-    .side-nav-wrap {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        transition: background-color .5s;
-        > span {
-            display: block;
-            a {
-                display: block;
-                padding: 0 15px;
-                cursor: pointer;
-                color: #999;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    height: 56px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: all .5s;
+    
+    .side-navigation {
+        &.active {
+            .nav-cont {
+                transform: translateX(0%);
             }
-            i {
-                display: block;
-                height: 57px;
-	            color: #888;
-                line-height: 57px;
-                transition: all .6s;
+            .close-trigger {
+                transform: translateX(0%) rotate(0deg);
             }
         }
-        .my-area {
-            padding: 30px 20px 40px;
-            color: #fff;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: left;
-            a {
-                color: #fff;
-                &:hover {
-                    background-color: transparent;
-                }
+        
+        .nav-trigger {
+            display: block;
+            position: relative;
+            width: 56px;
+            height: 56px;
+            cursor: pointer;
+            .txt {
+                @include hidden;
             }
-            .name {
-                padding: 0;
-                font-size: 20px;
-            }
-            .info-list {
-                margin-top: 15px;
-                font-size: 0;
-                text-align: left;
-                > li {
-                    font-size: 15px;
-                    line-height: 1.5;
-                    + li {
+            .lines {
+                @include alignXY;
+                display: block;
+                > span {
+                    display: block;
+                    width: 22px;
+                    height: 2px;
+                    border-radius: 2px;
+                    background-color: #666;
+                    + span {
                         margin-top: 5px;
                     }
-                    i {
-                        height: 30px;
-                        line-height: 30px;
-                    }
                 }
             }
         }
-        .welcome-area {
-            a {
-                color: #fff;
+    
+        .nav-cont {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 300px;
+            padding-top: 56px;
+            background-color: #fff;
+            box-shadow: 0 8px 17px rgba(0,0,0,0.2);
+            transform: translateX(-100%);
+            transition: transform .3s cubic-bezier(0.24,1,0.32,1);
+        }
+        
+        .close-trigger {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 56px;
+            height: 56px;
+            text-indent: -9999px;
+            cursor: pointer;
+            transform: translateX(-100%) rotate(-360deg);
+            transition: transform 1s .3s;
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 2px;
+                height: 22px;
+                margin-top: -11px;
+                margin-left: -1px;
+                background-color: #666;
+                transform: rotate(45deg);
+                transform-origin: 50% 50%;
+            }
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 2px;
+                height: 22px;
+                margin-top: -11px;
+                margin-left: -1px;
+                background-color: #666;
+                transform: rotate(-45deg);
+                transform-origin: 50% 50%;
             }
         }
-        .side-nav {
+        
+        ul {
+            border-top: 1px solid #ddd;
             li {
+                text-align: left;
                 a {
+                    display: block;
+                    position: relative;
+                    height: 48px;
+                    padding: 0 24px 0 60px;
+                    line-height: 48px;
                     &.active {
-                        position: relative;
-                        background-color: #f9f9f9;
-                        /*&:before {
-                            content: ' ';
-                            display: block;
-                            position: absolute;
-                            top: 0;
-                            bottom: 0;
-                            left: 0;
-                            width: 4px;
-                            background-color: #e57373;
-                        }*/
-                        .material-icons {
-                            color: #e57373;
-                        }
-                        span {
-                            color: #e57373;
+                        background-color: #eceff1;
+                    }
+                    i {
+                        @include alignY;
+                        left: 24px;
+                        width: 24px;
+                        height: 24px;
+                        color: #666;
+                        font-size: 20px;
+                        vertical-align: middle;
+                        &:before {
+                            @include alignXY;
                         }
                     }
-                }
-                .material-icons {
-                    color: #aaa;
+                    span {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
                 }
             }
         }
     }
-    .nav-wrapper {
-        position: fixed;
+    
+    .side-nav-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    
+    h1 {
+        @include alignX;
+    }
+    
+    .logo {
+        display: block;
+        height: 100%;
+        line-height: 56px;
+        font-weight: 400;
+        font-size: 22px;
+    }
+    
+    .util-btn-group {
+        position: absolute;
         top: 0;
         right: 0;
-        left: 0;
-        z-index: 10;
-        height: 57px;
-        text-align: center;
-	    background-color: rgba(255, 255, 255, 0.8);
-	    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        transition: all .5s;
-        li {
-            span {
-                display: block;
-            }
-            a {
-                display: block;
-            }
-        }
-    }
-    .brand-logo {
-        @include alignX;
-        display: inline-block;
-        top: 0;
-        height: 100%;
-        padding: 0 10px;
-        font-family: 'Indie Flower', cursive;
-	    color: #666;
-        font-size: 24px;
-        line-height: 57px;
-        letter-spacing: 10px;
-        transition: all .6s;
-        animation: neon 1.5s ease-in-out infinite alternate;
-        img {
-	        @include alignXY;
-	        opacity: 0.9;
-            height: 35%;
-        }
-    }
-    .right {
-        margin: 0;
+        width: 56px;
+        height: 56px;
         a {
             display: block;
-            padding: 0 15px;
             cursor: pointer;
         }
         i {
             display: block;
-            height: 57px;
-	        color: #666;
-            line-height: 57px;
-            transition: all .6s;
+            height: 56px;
+            color: #666;
+            font-size: 20px;
+            line-height: 56px;
         }
-    }
-}
-body {
-    .side-nav {
-        bottom: 0;
-        height: auto;
-    }
-    #sidenav-overlay {
-        bottom: 0;
-        height: auto;
-        background: rgba(255,235,238,0.4);
     }
 }

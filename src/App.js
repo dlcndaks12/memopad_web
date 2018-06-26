@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
-import { Scrollbars } from 'react-custom-scrollbars';
 import { Header, Toast, Confirm, Modal, Footer } from 'components';
 import { Home, Scrap, Login, Register, Personal, NoMatch } from 'pages';
 import { getCookie, deleteCookie } from 'util/cookie';
@@ -10,6 +9,7 @@ import { auth, authFailure } from 'modules/auth';
 import { initLocations } from 'modules/location';
 import { category } from 'modules/category';
 import { setScrollEnd } from 'modules/layout';
+import {sideNavClose} from "./modules/sideNav";
 
 class App extends Component {
     constructor(props) {
@@ -22,6 +22,7 @@ class App extends Component {
 
         this.detectScrollEnd = this.detectScrollEnd.bind(this);
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
+        this.handleClickBody = this.handleClickBody.bind(this);
     }
 
     componentDidMount() {
@@ -76,31 +77,12 @@ class App extends Component {
                 });
             }
         }
+    }
 
-        /* 위로 스크롤 */
-        // if (scrollTop < this.scrollTop) {
-        //     // clearTimeout(this.scrollTime);
-        //     setTimeout(() => {
-        //         if (this.state.simpleHeader) {
-        //             this.setState({ simpleHeader: false });
-        //         }
-        //     }, 500);
-        // } else { /* 아래로 스크롤 */
-        //     // clearTimeout(this.scrollTime);
-        //     if (scrollTop > 50) {
-        //         setTimeout(() => {
-        //             if (!this.state.simpleHeader) {
-        //                 this.setState({ simpleHeader: true });
-        //             }
-        //         }, 500);
-        //     } else {
-        //         if (this.state.simpleHeader) {
-        //             this.setState({ simpleHeader: false, });
-        //         }
-        //     }
-        // }
-
-        // this.scrollTop = scrollTop;
+    handleClickBody() {
+        if (this.props.sideNav.isOpen) {
+            this.props.sideNavClose();
+        }
     }
 
     render() {
@@ -111,38 +93,33 @@ class App extends Component {
         if (this.props.sideNav.isOpen) appClassName.push('side-nav-open');
         appClassName = appClassName.toString().replace(',', ' ');
         return (
-            <div id="app" className={appClassName}>
-                <Scrollbars
-                    ref="scrollbars"
-                    className="scroll-wrap"
-                    style={{ height: '100vh' }}
-                    autoHide
-                    onScrollFrame={this.handleScrollFrame}>
-                    {/* 공통영역 S */}
-                    <Toast />
-                    <Confirm />
-                    <Modal />
-                    {/* 공통영역 E */}
+            <div id="app" className={appClassName} onClick={this.handleClickBody}>
+                {/* TODO this.handleScrollFrame() */}
 
-                    {isAuth ? '' :
-                        <Header />
-                    }
+                {/* 공통영역 S */}
+                <Toast />
+                <Confirm />
+                <Modal />
+                {/* 공통영역 E */}
 
-                    <div id="container">
-                        <Switch>
-                            <Route exact path="/" component={Home}/>
-                            <Route path="/login" component={Login}/>
-                            <Route path="/register" component={Register}/>
-                            <Route path="/scrap" component={Scrap}/>
-                            <Route path="/:nickname" component={Personal}/>
-                            <Route path="/*" component={NoMatch}/>
-                        </Switch>
-                    </div>
+                {isAuth ? '' :
+                    <Header />
+                }
 
-                    {isAuth ? '' :
-                        <Footer/>
-                    }
-                </Scrollbars>
+                <div id="container">
+                    <Switch>
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/register" component={Register}/>
+                        <Route path="/scrap" component={Scrap}/>
+                        <Route path="/:nickname" component={Personal}/>
+                        <Route path="/*" component={NoMatch}/>
+                    </Switch>
+                </div>
+
+                {isAuth ? '' :
+                    <Footer/>
+                }
             </div>
         );
     }
@@ -160,6 +137,7 @@ const mapDispatchToProps = (dispatch) => ({
     initLocations: () => dispatch(initLocations()),
     category: () => dispatch(category()),
     setScrollEnd: (isEnd) => dispatch(setScrollEnd(isEnd)),
+    sideNavClose: () => dispatch(sideNavClose()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

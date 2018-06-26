@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Input } from 'react-materialize';
+import { Checkbox } from 'components';
 
 class City extends Component {
     constructor(props) {
@@ -58,12 +58,12 @@ class City extends Component {
 
         return (
             <div className="selection" ref={`${this.props.type}List`}>
-                <Input key={`${nationCode}-${this.props.type}-all-${checkedAll}`} name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={checkedAll} onChange={this.handleChange} />
+                <Checkbox key={`${nationCode}-${this.props.type}-all-${checkedAll}`} name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={checkedAll} onChange={this.handleChange} />
                 {this.props.item ?
                     this.props.item.map((item, i) => {
                         checked = condition !== 'none' ? condition === 'all' ? true : condition.indexOf(item.idx.toString()) >= 0 : false;
                         return (
-                            <Input name={type} type="checkbox" key={type + i + checked.toString()} value={item.idx.toString()} label={item.name} checked={checked} onChange={this.handleChange} />
+                            <Checkbox name={type} type="checkbox" key={type + i + checked.toString()} value={item.idx.toString()} label={item.name} checked={checked} onChange={this.handleChange} />
                         )
                     }) : '' }
             </div>

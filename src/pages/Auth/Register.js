@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { signUp } from 'modules/auth';
 import { toast } from 'modules/toast';
 import { Link } from 'react-router-dom';
-import { CircleLoader, Sakura } from 'components';
+import { CircleLoader, Input, Button } from 'components';
 import './Auth.scss';
 
 class Register extends Component {
@@ -108,78 +108,60 @@ class Register extends Component {
 
     render() {
         const waiting = (
-            <a className="waves-effect btn-large waves-light btn blue lighten-2">
+            <a className="btn expanded">
                 <span className="loader">
-                    <CircleLoader/>
+                    <CircleLoader size={30} color="white"/>
                 </span>
             </a>
         );
 
         return (
             <div className="auth-page">
-                <Sakura />
                 <div className="container auth">
-                    <Link className="logo blue-text text-lighten-2" to="/">tripl</Link>
+                    <Link className="logo" to="/">trip &amp; place</Link>
                     <div className="card">
-                        <div className="header light-blue darken-1 white-text center">
-                            <div className="card-content">회원가입</div>
-                        </div>
                         <div className="card-content">
-                            <div className="reg-input-wrap">
-                                <div className="input-field s12 id">
-                                    <input
-                                        name="id"
-                                        type="text"
-                                        className="validate"
-                                        value={this.state.id}
-                                        onChange={this.handleChange}
-                                    />
-                                    <label>이메일</label>
+                            <div className="reg-input-wrap input-form">
+                                <div className="input-field id">
+                                    <Input name="id"
+                                           value={this.state.id}
+                                           onChange={this.handleChange}
+                                           placeholder="이메일"/>
                                     <div className={`guide ${this.state.idValidation !== null ? !this.state.idValidation ? 'error' : 'ok' : ''}`}>
                                         이메일형식으로 입력해주세요.
                                     </div>
                                 </div>
-                                <div className="input-field s12 id">
-                                    <input
-                                        name="nickname"
-                                        type="text"
-                                        className="validate"
-                                        value={this.state.nickname}
-                                        onChange={this.handleChange}
-                                    />
-                                    <label>닉네임</label>
+                                <div className="input-field id">
+                                    <Input name="nickname"
+                                           value={this.state.nickname}
+                                           onChange={this.handleChange}
+                                           placeholder="닉네임"/>
                                     <div className={`guide ${this.state.nicknameValidation !== null ? !this.state.nicknameValidation ? 'error' : 'ok' : ''}`}>
                                         4~12자 영문자 또는 숫자로 입력해주세요.
                                     </div>
                                 </div>
-                                <div className="input-field s12">
-                                    <input
-                                        name="password"
-                                        type="password"
-                                        className="validate"
-                                        value={this.state.password}
-                                        onChange={this.handleChange}
-                                    />
-                                    <label>비밀번호</label>
+                                <div className="input-field">
+                                    <Input name="password"
+                                           type="password"
+                                           value={this.state.password}
+                                           onChange={this.handleChange}
+                                           placeholder="비밀번호"/>
                                     <div className={`guide ${this.state.passwordValidation !== null ? !this.state.passwordValidation ? 'error' : 'ok' : ''}`}>
                                         8~20자로 입력해주세요.
                                     </div>
                                 </div>
-                                <div className="input-field s12">
-                                    <input
-                                        name="passwordConfirm"
-                                        type="password"
-                                        className="validate"
-                                        value={this.state.passwordConfirm}
-                                        onChange={this.handleChange}
-                                    />
-                                    <label>비밀번호 확인</label>
+                                <div className="input-field">
+                                    <Input name="passwordConfirm"
+                                           type="password"
+                                           value={this.state.passwordConfirm}
+                                           onChange={this.handleChange}
+                                           placeholder="비밀번호 확인"/>
                                     <div className={`guide ${this.state.passwordConfirmValidation !== null ? !this.state.passwordConfirmValidation ? 'error' : 'ok' : ''}`}>
                                         비밀번호를 한번더 입력해주세요.
                                     </div>
                                 </div>
                             </div>
-                            {this.props.pending['auth/SIGN_UP'] ? waiting : <a onClick={this.handleRegister} className="waves-effect btn-large waves-light btn blue lighten-2">CREATE</a>}
+                            {this.props.pending['auth/SIGN_UP'] ? waiting : <Button onClick={this.handleRegister} value="회원가입"/>}
                         </div>
                     </div>
                 </div>
