@@ -10,18 +10,27 @@ class NationTab extends Component {
             left: '',
         };
 
+        this.initActiveLine = this.initActiveLine.bind(this);
         this.handleTab = this.handleTab.bind(this);
     }
 
+    componentDidMount() {
+        this.initActiveLine();
+    }
+
     componentDidUpdate(prevProps, prevState) {
+        if (JSON.stringify(prevProps) !== JSON.stringify(this.props) || JSON.stringify(prevState) !== JSON.stringify(this.state)) {
+            this.initActiveLine();
+        }
+    }
+
+    initActiveLine() {
         if (this.refs.tabs) {
-            if (JSON.stringify(prevProps) !== JSON.stringify(this.props) || JSON.stringify(prevState) !== JSON.stringify(this.state)) {
-                const activedEl = this.refs.tabs.querySelector('.tab.active');
-                this.setState({
-                    width: activedEl.getBoundingClientRect().width,
-                    left: activedEl.offsetLeft
-                });
-            }
+            const activedEl = this.refs.tabs.querySelector('.tab.active');
+            this.setState({
+                width: activedEl.getBoundingClientRect().width,
+                left: activedEl.offsetLeft
+            });
         }
     }
 

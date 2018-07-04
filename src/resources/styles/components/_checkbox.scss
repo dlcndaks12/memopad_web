@@ -1,0 +1,27 @@
+.checkbox-wrap {
+	display: inline-block;
+}
+.checkbox {
+	display: block;
+	input {
+		@include hidden;
+		
+		&:checked {
+			+ label {
+				background-color: #f5f5f5;
+				color: #777;
+			}
+		}
+		
+		+ label {
+			display: block;
+			overflow: hidden;
+			padding: 8px 14px;
+			//border: 1px dashed #ddd;
+			border-radius: 3px;
+			color: #aaa;
+			font-size: 13px;
+			cursor: pointer;
+		}
+	}
+}

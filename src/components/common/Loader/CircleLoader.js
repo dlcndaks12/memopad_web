@@ -6,18 +6,14 @@ const CircleLoader = (props) => {
     const className = props.className ? props.className : '';
 
     return (
-        <div className={`circle-loader-wrap ${color} ${className}`} style={{height: `${size}px`}}>
-            <div className="circle-loader" style={{width: `${size}px`}}>
-                <svg className="circular" viewBox="25 25 50 50">
-                    <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="3" strokeMiterlimit="10"/>
-                </svg>
-            </div>
+        <div className={`circle-loader-wrap ${color} ${className}`}>
+            <div className="circle-loader" style={{width: `${size}px`, height: `${size}px`}}/>
         </div>
     );
 };
 
 CircleLoader.defaultProps = {
-    size: 100,
+    size: 60,
     color: '',
 };
 

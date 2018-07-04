@@ -8,7 +8,7 @@ class Option extends Component {
             <div className="option-area z-depth-1">
                 {this.props.city ?
                     <div className="option">
-                        <h6>지역</h6>
+                        {/*<h6>지역</h6>*/}
                         <Selection
                             key={this.props.selectedNation}
                             type="city"
@@ -18,7 +18,7 @@ class Option extends Component {
                             onChange={this.props.onChange} />
                     </div> : ''}
                 <div className="option">
-                    <h6>카테고리</h6>
+                    {/*<h6>카테고리</h6>*/}
                     <Selection
                         key={this.props.selectedNation}
                         type="category"

@@ -52,18 +52,19 @@ class City extends Component {
     render() {
         const nationCode = this.props.nationCode;
         const type = this.props.type;
+        const typeKo = type === 'city' ? '지역' : type === 'category' ? '카테고리' : '';
         const condition = this.props.selectedItem;
         const checkedAll = this.state.checkedAll;
         let checked = false;
 
         return (
             <div className="selection" ref={`${this.props.type}List`}>
-                <Checkbox key={`${nationCode}-${this.props.type}-all-${checkedAll}`} name={`${this.props.type}-all`} type="checkbox" value="all" label="전체" checked={checkedAll} onChange={this.handleChange} />
+                <Checkbox key={`${nationCode}-${this.props.type}-all-${checkedAll}`} id={`${this.props.type}-all`} name={`${this.props.type}-all`} type="checkbox" value="all" label={`${typeKo} 전체`} checked={checkedAll} onChange={this.handleChange} />
                 {this.props.item ?
                     this.props.item.map((item, i) => {
                         checked = condition !== 'none' ? condition === 'all' ? true : condition.indexOf(item.idx.toString()) >= 0 : false;
                         return (
-                            <Checkbox name={type} type="checkbox" key={type + i + checked.toString()} value={item.idx.toString()} label={item.name} checked={checked} onChange={this.handleChange} />
+                            <Checkbox name={type} id={`${type}_${i}`} type="checkbox" key={type + i + checked.toString()} value={item.idx.toString()} label={item.name} checked={checked} onChange={this.handleChange} />
                         )
                     }) : '' }
             </div>

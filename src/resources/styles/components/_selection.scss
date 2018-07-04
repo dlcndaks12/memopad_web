@@ -1,44 +1,8 @@
 .selection {
-  @include clearfix;
-  margin: -5px -10px;
-  > div {
-    float: left;
-    padding: 5px 10px;
-  }
-  [type="checkbox"] {
-    &:checked {
-      + label {
-        &:before {
-          top: -3px;
-        }
-      }
-    }
-    + label {
-      padding-left: 28px;
-      &:before {
-        top: 1px;
-      }
-    }
-    &:not(.filled-in) {
-      + label {
-        &:after {
-          top: 1px;
-        }
-      }
-    }
-  }
-  [type="checkbox"] {
-    & + label {
-      &:before {
-        transition: none;
-      }
-    }
-  }
-  [type="checkbox"]:not(.filled-in) {
-    & + label {
-      &:after {
-        transition: none;
-      }
-    }
-  }
+	margin: -5px;
+	font-size: 0;
+	
+	.checkbox-wrap {
+		padding: 5px;
+	}
 }

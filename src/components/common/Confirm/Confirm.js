@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { confirmClose } from 'modules/confirm';
-import './Confirm.scss';
+import { Button } from 'components'
 
 class Confirm extends Component {
     constructor(props) {
@@ -21,13 +21,13 @@ class Confirm extends Component {
         return (
             <div className={"confirm-alarm " + show} onClick={() => this.handleClick(false)}>
                 {/*<Sakura />*/}
-              <div className="confirm-cont z-depth-2" onClick={(e) => {e.stopPropagation();}}>
+              <div className="confirm-cont" onClick={(e) => {e.stopPropagation();}}>
                 <div className="message">
                     {this.props.message}
                 </div>
                 <div className="btn-area">
-                  <a className="waves-effect waves-light red lighten-3 btn" onClick={() => this.handleClick(true)}>예</a>
-                  <a className="waves-effect waves-light red lighten-3 btn" onClick={() => this.handleClick(false)}>아니오</a>
+                    <Button color="gray" onClick={() => this.handleClick(true)}>예</Button>
+                    <Button color="gray" onClick={() => this.handleClick(false)}>아니오</Button>
                 </div>
               </div>
             </div>

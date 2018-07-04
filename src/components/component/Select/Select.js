@@ -30,10 +30,10 @@ class Select extends Component {
         }
 
         return (
-            <div>
-                <Select key={selectReady} name={this.props.type} type="select" defaultValue={this.props.defaultSelected} onChange={this.props.onChange}>
+            <div className="select">
+                <select key={selectReady} name={this.props.type} defaultValue={this.props.defaultSelected} onChange={this.props.onChange}>
                     {optionEl}
-                </Select>
+                </select>
             </div>
         );
     }

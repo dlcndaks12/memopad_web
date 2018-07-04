@@ -108,11 +108,11 @@ class Register extends Component {
 
     render() {
         const waiting = (
-            <a className="btn expanded">
+            <button expanded>
                 <span className="loader">
                     <CircleLoader size={30} color="white"/>
                 </span>
-            </a>
+            </button>
         );
 
         return (
@@ -161,7 +161,7 @@ class Register extends Component {
                                     </div>
                                 </div>
                             </div>
-                            {this.props.pending['auth/SIGN_UP'] ? waiting : <Button onClick={this.handleRegister} value="회원가입"/>}
+                            {this.props.pending['auth/SIGN_UP'] ? waiting : <Button onClick={this.handleRegister} expanded>회원가입</Button>}
                         </div>
                     </div>
                 </div>

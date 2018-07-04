@@ -71,11 +71,11 @@ class Login extends Component {
 
     render() {
         const waiting = (
-            <a className="btn expanded">
+            <Button expanded>
                 <span className="loader">
                     <CircleLoader size={30} color="white"/>
                 </span>
-            </a>
+            </Button>
         );
 
         return (
@@ -101,7 +101,7 @@ class Login extends Component {
                                            onKeyPress={this.handleKeyPress}/>
                                 </div>
                             </div>
-                            {this.props.pending['auth/LOGIN'] ? waiting : <Button onClick={this.handleLogin} value="로그인"/>}
+                            {this.props.pending['auth/LOGIN'] ? waiting : <Button onClick={this.handleLogin} expanded>로그인</Button>}
                         </div>
                         <div className="form-footer">
                             처음이세요? <Link to="/register"><span>회원가입</span></Link>

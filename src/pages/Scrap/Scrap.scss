@@ -5,6 +5,10 @@
     }
 }
 .scrap-write {
+    input {
+        border: 0;
+        border-bottom: 1px solid #ddd;
+    }
     .input-row {
         display: flex;
         flex-direction: row;
@@ -35,9 +39,9 @@
         > div {
             flex: 1;
             + div {
-                margin-left: 20px;
+                margin-left: 10px;
                 @media screen and (max-width: 900px) {
-                    margin-left: 0;
+                    margin-left: 5px;
                 }
             }
         }
@@ -75,6 +79,9 @@
     .write-loader {
         padding: 100px 0;
         text-align: center;
+    }
+    .write-area {
+        margin-top: 30px;
     }
 }
 .submit-area {

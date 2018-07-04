@@ -140,7 +140,7 @@ class Scrap extends Component {
                 </div>
                 <div className="btn-write">
                     <Link to={`/scrap/write?nation=${nationCode}`}>
-                        <i className="material-icons">mode_edit</i>
+                        <i className="fas fa-pen"/>
                     </Link>
                 </div>
             </div>

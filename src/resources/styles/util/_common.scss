@@ -44,3 +44,10 @@
         }
     }
 }
+blockquote {
+    display: block;
+    margin: 5px 0;
+    padding: 2px 15px;
+    border-left: 3px solid $point-color1;
+    font-size: 15px;
+}

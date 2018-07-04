@@ -1,5 +1,6 @@
 .btn {
     display: inline-block;
+    position: relative;
     min-width: 80px;
     height: 40px;
     padding: 9px 10px;
@@ -8,10 +9,14 @@
     color: #fff;
     text-align: center;
     cursor: pointer;
+    vertical-align: middle;
     transition: all .3s;
     &.expanded {
         display: block;
         width: 100%;
+    }
+    &.gray {
+        background-color: #aaa;
     }
 }
 
@@ -228,5 +233,5 @@ $bezier: cubic-bezier(.175, .885, .32, 1.275);
 }
 
 :root {
-    --color-ripple: rgba(255,255,255,0.8);
+    --color-ripple: rgba(255,255,255,0.6);
 }

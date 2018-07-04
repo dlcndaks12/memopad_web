@@ -25,7 +25,7 @@ class Button extends Component {
                           transition: all linear 800ms;
                           transition-timing-function:cubic-bezier(0.250, 0.460, 0.450, 0.940);
                           border-radius: 50%;
-                          background: var(--color-ripple);
+                          background: rgba(255,255,255,0.6);
                           top:${posMouseY}px;
                           left:${posMouseX}px;
                           pointer-events: none;
@@ -43,18 +43,25 @@ class Button extends Component {
         }, 5);
 
         setTimeout( function() {
-            rippleEffect.remove();
+            button.removeChild(rippleEffect);
+            // rippleEffect.remove();
         }, 700);
     }
 
     render() {
-        const value = this.props.value;
+        const value = this.props.children;
         const handleClick = this.handleClick;
+        const color = this.props.color;
+        const expanded = this.props.expanded;
 
         return (
-            <a onClick={handleClick} className="btn expanded">{value}</a>
+            <a onClick={handleClick} className={`btn ${color} ${expanded ? 'expanded' : ''}`}>{value}</a>
         );
     }
 }
+
+Button.defaultProps = {
+    color: '',
+};
 
 export default Button;

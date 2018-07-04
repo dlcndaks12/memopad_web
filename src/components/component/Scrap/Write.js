@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { toast } from 'modules/toast';
 import { initOg, getOgByUrl, setOg } from 'modules/og';
 import { registerScrap } from 'modules/scrap';
-import { CircleLoader, Preview, Select } from 'components';
+import { CircleLoader, Preview, Select, Input } from 'components';
 
 class Write extends Component {
     constructor(props) {
@@ -18,13 +18,15 @@ class Write extends Component {
             requestOgTimer: null,
         };
 
-        this.props.initOg();
-
         this.handleLink = this.handleLink.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.listenOGTag = this.listenOGTag.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillMount() {
+        this.props.initOg();
     }
 
     handleLink(e) {
@@ -127,13 +129,10 @@ class Write extends Component {
                     </div>
                     <div className="input-area">
                         <div className="input-field link">
-                            <input
-                                name="link"
-                                type="text"
-                                value={this.state.url}
-                                onChange={this.handleLink}
-                            />
-                            <label>공유하고자 하는 link를 입력해주세요.</label>
+                            <Input name="link"
+                                   placeholder="공유하고자 하는 link를 입력해주세요."
+                                   value={this.state.url}
+                                   onChange={this.handleLink}/>
                         </div>
                         {this.state.result !== 'OK' ? <div className="guide red-text text-accent-2">{this.state.message}</div> : ''}
                     </div>
