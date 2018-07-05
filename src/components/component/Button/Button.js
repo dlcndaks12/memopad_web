@@ -52,16 +52,18 @@ class Button extends Component {
         const value = this.props.children;
         const handleClick = this.handleClick;
         const color = this.props.color;
+        const size = this.props.size;
         const expanded = this.props.expanded;
 
         return (
-            <a onClick={handleClick} className={`btn ${color} ${expanded ? 'expanded' : ''}`}>{value}</a>
+            <a onClick={handleClick} className={`btn ${size} ${color} ${expanded ? 'expanded' : ''}`}>{value}</a>
         );
     }
 }
 
 Button.defaultProps = {
     color: '',
+    size: '',
 };
 
 export default Button;

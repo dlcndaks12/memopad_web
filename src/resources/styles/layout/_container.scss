@@ -1,10 +1,9 @@
 #container {
-	padding: 15px 10px 70px;
+	padding: 15px 15px 70px;
 	width: 100%;
 	max-width: 1080px;
 	min-height: calc(100vh - 107px);
 	margin: 57px auto 0;
-	transition: filter 1s;
 	@media screen and (max-width: 768px) {
 		min-height: calc(100vh - 125px);
 		padding: 15px 13px 50px;

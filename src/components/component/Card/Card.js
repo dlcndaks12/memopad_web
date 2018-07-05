@@ -89,50 +89,43 @@ class Card extends Component {
 
         return (
             <div className="card-wrap">
-                <div className="card">
+                <a href={item.url} target="_blank" className="card">
                     <div className="card-image-wrap">
-                        <a href={item.url} target="_blank" className="card-image">
+                        <div className="card-image">
                             <ImageLoader image={`${path.apiUrl}/api/image?url=${imageUrl}`}
                                          background/>
-                            <span className="card-title">{item.title}</span>
-                        </a>
-                        {map ?
-                            <a onClick={() => this.handleMap(map)} className="btn-map" title="지도">
-                                {/*<i className="material-icons">map</i>*/}
-                                <img src={require('resources/images/common/map.svg')}  alt="지도"/>
-                            </a>
-                            : null
-                        }
+                        </div>
                     </div>
                     <div className="card-content">
+                        <div className="card-title">{item.title}</div>
                         <div className="desc">
                             {item.description}
                         </div>
                         {/*<div className="card-date">{item.regDate}</div>*/}
-                        <div className="util-area">
-                            {!likePending ?
-                                <a className={`btn-like ${item.liked ? 'active' : ''}`} onClick={() => this.handleLike(!item.liked)}>
-                                    <div className="like-icon">
-                                        <div className="heart-animation-1"/>
-                                        <div className="heart-animation-2"/>
-                                    </div>
-                                    {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
-                                </a> :
-                                <a className={`btn-like ${item.liked ? 'active' : ''}`}>
-                                    <div className="like-icon">
-                                        <div className="heart-animation-1"/>
-                                        <div className="heart-animation-2"/>
-                                    </div>
-                                    {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
-                                </a>
-                            }
-                            <Link to={`/${item.writer}`} className="author">{item.writer}</Link>
-                        </div>
-                        <div className="info-area">
-                            <span className="date">{date}</span>
-                            {item.owner ? <a className="btn-delete" onClick={() => this.handleDelete(item.idx)}>delete</a> : null}
-                        </div>
+                        {/*<div className="info-area">*/}
+                            {/*<span className="date">{date}</span>*/}
+                        {/*</div>*/}
                     </div>
+                </a>
+                <div className="util-area">
+                    {!likePending ?
+                        <a className={`btn-heart ${item.liked ? 'active' : ''}`} onClick={() => this.handleLike(!item.liked)}>
+                            <i className="fas fa-heart"/>
+                            {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
+                        </a> :
+                        <a className={`btn-heart ${item.liked ? 'active' : ''}`}>
+                            <i className="fas fa-heart"/>
+                            {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
+                        </a>}
+                    {item.owner ?
+                          <a className="btn-delete" onClick={() => this.handleDelete(item.idx)}><i class="fas fa-trash-alt"/></a>
+                        : undefined}
+                    {map ?
+                        <a onClick={() => this.handleMap(map)} className="btn-map" title="지도">
+                            <i className="fas fa-map-marked-alt"/>
+                        </a>
+                        : undefined}
+                    {/*<Link to={`/${item.writer}`} className="author">{item.writer}</Link>*/}
                 </div>
             </div>
         );

@@ -1,9 +1,11 @@
 .map-modal {
 	.inner {
+		overflow: hidden;
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		max-width: 90%;
+		border-radius: 5px;
 		box-shadow: 1px 2px 4px rgba(0,0,0,0.3);
 		transform: translate(-50%, -50%);
 	}

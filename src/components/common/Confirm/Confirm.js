@@ -20,7 +20,6 @@ class Confirm extends Component {
         let show = this.props.show ? 'active' : '';
         return (
             <div className={"confirm-alarm " + show} onClick={() => this.handleClick(false)}>
-                {/*<Sakura />*/}
               <div className="confirm-cont" onClick={(e) => {e.stopPropagation();}}>
                 <div className="message">
                     {this.props.message}

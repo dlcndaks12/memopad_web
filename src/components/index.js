@@ -13,7 +13,6 @@ export { default as CardList } from './component/Card/CardList';
 export { default as Card } from './component/Card/Card';
 export { default as PrivateRoute } from './common/Util/PrivateRoute';
 export { default as Preview } from './component/Article/Preview';
-export { default as Select } from './component/Select/Select';
 export { default as Button } from './component/Button/Button';
 export { default as Option } from './component/Option/Option';
 export { default as Selection } from './component/Option/Selection';
@@ -21,8 +20,10 @@ export { default as NationTab } from './component/Tab/NationTab';
 export { default as Write } from './component/Scrap/Write';
 
 /* COMPONENT/FORM */
-export { default as Checkbox } from './component/Form/Checkbox';
 export { default as Input } from './component/Form/Input';
+export { default as Textarea } from './component/Form/Textarea';
+export { default as Checkbox } from './component/Form/Checkbox';
+export { default as Select } from './component/Form/Select';
 
 /* LAUOUT */
 export { default as Header } from './layout/Header';

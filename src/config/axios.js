@@ -4,6 +4,7 @@ import { getCookie } from 'util/cookie';
 
 export function initAxios() {
     axios.defaults.baseURL = path.apiUrl;
+    axios.defaults.timeout = 8000;
     setAuthorization();
     axios.interceptors.response.use((response) => {
         return response.data;

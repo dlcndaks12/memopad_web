@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { toast } from 'modules/toast';
 import { initOg, getOgByUrl, setOg } from 'modules/og';
 import { registerScrap } from 'modules/scrap';
-import { CircleLoader, Preview, Select, Input } from 'components';
+import { CircleLoader, Preview, Select, Input, Button } from 'components';
 
 class Write extends Component {
     constructor(props) {
@@ -129,12 +129,12 @@ class Write extends Component {
                     </div>
                     <div className="input-area">
                         <div className="input-field link">
-                            <Input name="link"
+                            <Input id="link"
+                                   name="link"
                                    placeholder="공유하고자 하는 link를 입력해주세요."
                                    value={this.state.url}
                                    onChange={this.handleLink}/>
                         </div>
-                        {this.state.result !== 'OK' ? <div className="guide red-text text-accent-2">{this.state.message}</div> : ''}
                     </div>
                 </div>
                 {this.props.pending['scrap/GET_OG_BY_URL'] ? <CircleLoader className="write-loader" color="blue" /> :
@@ -146,14 +146,13 @@ class Write extends Component {
                                 onSubmit={this.handleSubmit} />
                             <div className="submit-area">
                                 {this.props.pending['scrap/REGISTER_SCRAP'] ?
-                                    <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action">
+                                    <Button name="action">
                                         <CircleLoader/>
-                                    </button>
+                                    </Button>
                                     :
-                                    <button className="btn-large waves-effect waves-light blue lighten-1" type="button" name="action" onClick={this.handleSubmit}>
+                                    <Button expanded size="lg" name="action" onClick={this.handleSubmit}>
                                         등록
-                                        <i className="material-icons right">send</i>
-                                    </button>}
+                                    </Button>}
                             </div>
                         </div> : ''}
             </div>

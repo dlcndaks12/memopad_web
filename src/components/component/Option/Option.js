@@ -16,17 +16,18 @@ class Option extends Component {
                             item={this.props.city[this.props.selectedNation]}
                             selectedItem={this.props.selectedCity}
                             onChange={this.props.onChange} />
-                    </div> : ''}
-                <div className="option">
-                    {/*<h6>카테고리</h6>*/}
-                    <Selection
-                        key={this.props.selectedNation}
-                        type="category"
-                        nationCode={this.props.selectedNation}
-                        item={this.props.category}
-                        selectedItem={this.props.selectedCategory}
-                        onChange={this.props.onChange} />
-                </div>
+                    </div> : undefined}
+                {this.props.category ?
+                    <div className="option">
+                        {/*<h6>카테고리</h6>*/}
+                        <Selection
+                            key={this.props.selectedNation}
+                            type="category"
+                            nationCode={this.props.selectedNation}
+                            item={this.props.category}
+                            selectedItem={this.props.selectedCategory}
+                            onChange={this.props.onChange} />
+                    </div> : undefined}
             </div>
         );
     }

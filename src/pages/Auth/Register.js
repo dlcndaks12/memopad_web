@@ -108,11 +108,11 @@ class Register extends Component {
 
     render() {
         const waiting = (
-            <button expanded>
+            <Button expanded>
                 <span className="loader">
                     <CircleLoader size={30} color="white"/>
                 </span>
-            </button>
+            </Button>
         );
 
         return (
@@ -123,7 +123,8 @@ class Register extends Component {
                         <div className="card-content">
                             <div className="reg-input-wrap input-form">
                                 <div className="input-field id">
-                                    <Input name="id"
+                                    <Input id="id"
+                                           name="id"
                                            value={this.state.id}
                                            onChange={this.handleChange}
                                            placeholder="이메일"/>
@@ -132,7 +133,8 @@ class Register extends Component {
                                     </div>
                                 </div>
                                 <div className="input-field id">
-                                    <Input name="nickname"
+                                    <Input id="nickname"
+                                           name="nickname"
                                            value={this.state.nickname}
                                            onChange={this.handleChange}
                                            placeholder="닉네임"/>
@@ -141,7 +143,8 @@ class Register extends Component {
                                     </div>
                                 </div>
                                 <div className="input-field">
-                                    <Input name="password"
+                                    <Input id="password"
+                                           name="password"
                                            type="password"
                                            value={this.state.password}
                                            onChange={this.handleChange}
@@ -151,7 +154,8 @@ class Register extends Component {
                                     </div>
                                 </div>
                                 <div className="input-field">
-                                    <Input name="passwordConfirm"
+                                    <Input id="passwordConfirm"
+                                           name="passwordConfirm"
                                            type="password"
                                            value={this.state.passwordConfirm}
                                            onChange={this.handleChange}

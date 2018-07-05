@@ -86,14 +86,16 @@ class Login extends Component {
                         <div className="card-content">
                             <div className="input-form">
                                 <div className="input-field id">
-                                    <Input name="id"
+                                    <Input id="id"
+                                           name="id"
                                            type="text"
                                            value={this.state.id}
                                            placeholder="e-mail"
                                            onChange={this.handleChange}/>
                                 </div>
                                 <div className="input-field">
-                                    <Input name="password"
+                                    <Input id="password"
+                                           name="password"
                                            type="password"
                                            value={this.state.password}
                                            placeholder="password"

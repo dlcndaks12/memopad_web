@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Input extends Component {
+class Textarea extends Component {
     render() {
-        const type = this.props.type;
         const id = this.props.id;
+        const height = this.props.height;
         const placeholder = this.props.placeholder;
         const className = this.props.className;
         const handleChange = this.props.onChange;
@@ -13,8 +13,8 @@ class Input extends Component {
         const value = this.props.value;
 
         return (
-            <div className={`input ${className}`}>
-                <input type={type} id={id} name={name} onChange={handleChange} onKeyPress={handleKeyPress} value={value}/>
+            <div className={`textarea ${className}`}>
+                <textarea id={id} name={name} onChange={handleChange} onKeyPress={handleKeyPress} value={value} style={{height: height}}/>
                 {!value && placeholder ?
                     <label htmlFor={id}>{placeholder}</label> : undefined}
             </div>
@@ -22,14 +22,14 @@ class Input extends Component {
     }
 }
 
-Input.propTypes = {
+Textarea.propsTypes = {
     id: PropTypes.string.isRequired,
 };
 
-Input.defaultProps = {
-    type: 'text',
+Textarea.defaultProps = {
     name: '',
     className: '',
+    height: '100px',
 };
 
-export default Input;
+export default Textarea;
