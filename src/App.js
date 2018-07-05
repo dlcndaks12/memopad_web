@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
+import _ from 'lodash';
 import { Header, Toast, Confirm, Modal, Footer } from 'components';
 import { Home, Scrap, Login, Register, Personal, NoMatch } from 'pages';
 import { getCookie, deleteCookie } from 'util/cookie';
@@ -39,44 +40,58 @@ class App extends Component {
         this.props.initLocations();
         // Category 정보 획득
         this.props.category();
+
+        window.addEventListener('scroll', _.debounce(this.handleScrollFrame, 100));
+
+        // scroll height 나 content 높이 변경시 detect 방법 필요
     }
 
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.layout.scroll.top !== nextProps.layout.scroll.top) {
-            const top = nextProps.layout.scroll.top;
-            const scrollbars = this.refs.scrollbars;
-            scrollbars.scrollTop(top);
-        }
+        // if (this.props.layout.scroll.top !== nextProps.layout.scroll.top) {
+        //     const top = nextProps.layout.scroll.top;
+        //     const scrollbars = this.refs.scrollbars;
+        //     scrollbars.scrollTop(top);
+        // }
     }
 
     detectScrollEnd(top) {
-        if (top > 0.8 && !this.props.layout.scroll.end) {
+        if (top > 0.9 && !this.props.layout.scroll.end) {
             this.props.setScrollEnd(true);
         } else if (top !== 1 && this.props.layout.scroll.end) {
             this.props.setScrollEnd(false);
         }
     }
 
-    handleScrollFrame(values) {
-        const top = values.top;
-        const scrollTop = values.scrollTop;
+    handleScrollFrame() {
+        const supportPageOffset = window.pageXOffset;
+        const isCSS1Compat = ((document.compatMode || '') === 'CSS1Compat');
+        const scroll = {
+            x: supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft,
+            y: supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
+        };
+        const scrollTop = scroll.y;
+        const scrollHeight = window.document.documentElement.scrollHeight;
+        const top = (scrollTop + window.innerHeight) / scrollHeight;
+
+        // this.props.setScrollTop(top);
 
         this.detectScrollEnd(top);
-
-        if (scrollTop > 100) {
-            if (!this.state.simpleHeader) {
-                this.setState({
-                    simpleHeader: true,
-                });
-            }
-        } else {
-            if (this.state.simpleHeader) {
-                this.setState({
-                    simpleHeader: false,
-                });
-            }
-        }
+        // const scrollTop = values.scrollTop;
+        //
+        // if (scrollTop > 100) {
+        //     if (!this.state.simpleHeader) {
+        //         this.setState({
+        //             simpleHeader: true,
+        //         });
+        //     }
+        // } else {
+        //     if (this.state.simpleHeader) {
+        //         this.setState({
+        //             simpleHeader: false,
+        //         });
+        //     }
+        // }
     }
 
     handleClickBody() {

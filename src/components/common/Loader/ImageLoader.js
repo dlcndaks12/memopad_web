@@ -36,17 +36,12 @@ class ImageLoader extends Component {
         const image = this.props.image;
         const imagePending = this.state.imagePending;
         const backgroundType = this.props.background;
-        const backgroundStyle = {
-            backgroundImage: `url(${require('resources/images/common/preloader/ellipsis.svg')})`,
-            backgroundSize: '50px',
-            backgroundPosition: '50% 50%',
-            backgroundRepeat: 'no-repeat'
-        };
+        const backgroundStyle = {backgroundColor: '#aaa'};
 
         return (
-            <div className="image-wrap">
+            <div className="image-wrap" style={backgroundStyle}>
                 {imagePending ?
-                    <div className="image" style={backgroundStyle}/>
+                    <div className="image"/>
                     :
                     backgroundType ?
                         <div className="image done" style={{backgroundImage: `url(${image})`}}/>

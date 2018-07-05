@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast } from 'modules/toast';
+import { setScrollEnd } from 'modules/layout';
 import { getScrapList, addScrapList, clearScrapList } from 'modules/scrap';
 import { NationTab, CardList, Option, CircleLoader } from 'components';
 import qs from 'query-string';
@@ -20,7 +21,7 @@ class Scrap extends Component {
             nationCode: this.props.match.params.nation ? this.props.match.params.nation : 'kr',
             city: city,
             category: category,
-            limit: 15,
+            limit: 20,
             page: 1,
         };
 
@@ -66,7 +67,9 @@ class Scrap extends Component {
                 this.setState({
                     page: nextPage,
                 }, () => {
-                    this.addScrapList();
+                    this.addScrapList().then(() => {
+                        this.props.setScrollEnd(false);
+                    });
                 });
             }
         }
@@ -89,11 +92,11 @@ class Scrap extends Component {
     }
 
     getScrapList() {
-        this.props.getScrapList(this.getScrapCondition());
+        return this.props.getScrapList(this.getScrapCondition());
     }
 
     addScrapList() {
-        this.props.addScrapList(this.getScrapCondition());
+        return this.props.addScrapList(this.getScrapCondition());
     }
 
     handlePagePending(flag) {
@@ -161,6 +164,7 @@ const mapDispatchToProps = (dispatch) => ({
     getScrapList: (scrapsCondition) => dispatch(getScrapList(scrapsCondition)),
     addScrapList: (scrapsCondition) => dispatch(addScrapList(scrapsCondition)),
     clearScrapList: () => dispatch(clearScrapList()),
+    setScrollEnd: (isEnd) => dispatch(setScrollEnd(isEnd)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrap);

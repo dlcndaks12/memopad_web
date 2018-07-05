@@ -48,9 +48,17 @@
     }
 }
 
+$bezier: cubic-bezier(.175, .885, .32, 1.275);
+
 .btn-heart {
     color: #fff;
     cursor: pointer;
+    &.active {
+        color: #ff4f51;
+        i {
+            animation: heartPulse .25s $bezier both;
+        }
+    }
     > * {
         vertical-align: middle;
     }
@@ -62,8 +70,6 @@
         margin-left: 5px;
     }
 }
-
-$bezier: cubic-bezier(.175, .885, .32, 1.275);
 
 .btn-like {
     display: inline-block;

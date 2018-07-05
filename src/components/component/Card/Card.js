@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as path from 'config/path';
 import { ImageLoader } from 'components';
 import { toast } from 'modules/toast';
@@ -85,7 +84,7 @@ class Card extends Component {
         const map = this.state.map;
         const imageUrl = item.imageUrl.replace(/%/gi, '%25');
         const likePending = this.props.pending['scrap/LIKE_SCRAP'];
-        const date = item.regDate.substr(2, 8);
+        // const date = item.regDate.substr(2, 8);
 
         return (
             <div className="card-wrap">
@@ -108,24 +107,28 @@ class Card extends Component {
                     </div>
                 </a>
                 <div className="util-area">
-                    {!likePending ?
-                        <a className={`btn-heart ${item.liked ? 'active' : ''}`} onClick={() => this.handleLike(!item.liked)}>
-                            <i className="fas fa-heart"/>
-                            {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
-                        </a> :
-                        <a className={`btn-heart ${item.liked ? 'active' : ''}`}>
-                            <i className="fas fa-heart"/>
-                            {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
-                        </a>}
-                    {item.owner ?
-                          <a className="btn-delete" onClick={() => this.handleDelete(item.idx)}><i class="fas fa-trash-alt"/></a>
-                        : undefined}
-                    {map ?
-                        <a onClick={() => this.handleMap(map)} className="btn-map" title="지도">
-                            <i className="fas fa-map-marked-alt"/>
-                        </a>
-                        : undefined}
-                    {/*<Link to={`/${item.writer}`} className="author">{item.writer}</Link>*/}
+                    <div className="left">
+                        {!likePending ?
+                            <a className={`btn-heart ${item.liked ? 'active' : ''}`} onClick={() => this.handleLike(!item.liked)}>
+                                <i className="fas fa-heart"/>
+                                {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
+                            </a> :
+                            <a className={`btn-heart ${item.liked ? 'active' : ''}`}>
+                                <i className="fas fa-heart"/>
+                                {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
+                            </a>}
+                    </div>
+                    <div className="right">
+                        {item.owner ?
+                              <a className="btn-delete" onClick={() => this.handleDelete(item.idx)}><i className="fas fa-trash-alt"/></a>
+                            : undefined}
+                        {map ?
+                            <a onClick={() => this.handleMap(map)} className="btn-map" title="지도">
+                                <i className="fas fa-map-marked-alt"/>
+                            </a>
+                            : undefined}
+                        {/*<Link to={`/${item.writer}`} className="author">{item.writer}</Link>*/}
+                    </div>
                 </div>
             </div>
         );

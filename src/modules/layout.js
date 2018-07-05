@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 
 const SCROLL_END = "layout/SCROLL_END";
+const SET_SCROLL_TOP = "layout/SET_SCROLL_TOP";
 const SCROLL_TO = "layout/SCROLL_TO";
 
 /*============================================================================
@@ -19,6 +20,11 @@ export function setScrollEnd (isEnd) {
  * @param isEnd:Boolean
  */
 export const scrollEnd = createAction(SCROLL_END);
+
+/**
+ * @param top:Number
+ */
+export const setScrollTop = createAction(SET_SCROLL_TOP);
 
 /**
  * @param top:Number
@@ -48,7 +54,7 @@ export default handleActions({
             }
         }
     },
-    [SCROLL_TO]: (state, action) => {
+    [SET_SCROLL_TOP]: (state, action) => {
         return {
             ...state,
             scroll: {
@@ -56,5 +62,14 @@ export default handleActions({
                 top: action.payload,
             }
         }
-    }
+    },
+    /*[SCROLL_TO]: (state, action) => {
+        return {
+            ...state,
+            scroll: {
+                ...state.scroll,
+                top: action.payload,
+            }
+        }
+    }*/
 }, initialState);
