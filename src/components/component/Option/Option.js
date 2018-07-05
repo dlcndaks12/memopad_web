@@ -4,16 +4,18 @@ import { Selection } from 'components';
 
 class Option extends Component {
     render() {
+        const selectedNation = this.props.selectedNation;
+
         return (
-            <div className="option-area z-depth-1">
-                {this.props.city ?
+            <div className="option-area">
+                {this.props.city && this.props.city[selectedNation].length > 0 ?
                     <div className="option">
                         {/*<h6>지역</h6>*/}
                         <Selection
-                            key={this.props.selectedNation}
+                            key={selectedNation}
                             type="city"
-                            nationCode={this.props.selectedNation}
-                            item={this.props.city[this.props.selectedNation]}
+                            nationCode={selectedNation}
+                            item={this.props.city[selectedNation]}
                             selectedItem={this.props.selectedCity}
                             onChange={this.props.onChange} />
                     </div> : undefined}
@@ -21,9 +23,9 @@ class Option extends Component {
                     <div className="option">
                         {/*<h6>카테고리</h6>*/}
                         <Selection
-                            key={this.props.selectedNation}
+                            key={selectedNation}
                             type="category"
-                            nationCode={this.props.selectedNation}
+                            nationCode={selectedNation}
                             item={this.props.category}
                             selectedItem={this.props.selectedCategory}
                             onChange={this.props.onChange} />
