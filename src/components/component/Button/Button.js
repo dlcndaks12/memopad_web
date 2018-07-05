@@ -4,11 +4,15 @@ class Button extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            rippleTimer: null,
+        };
+
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(e) {
-        this.ripple(e);
+        // this.ripple(e);
         this.props.onClick(e);
     }
 
@@ -38,14 +42,20 @@ class Button extends Component {
         button.appendChild(rippleEffect);
 
         //start animation
-        setTimeout( function() {
+        setTimeout(() => {
             rippleEffect.style.cssText = baseCSS + `transform:scale(1); opacity: 0;`;
         }, 5);
 
-        setTimeout( function() {
-            button.removeChild(rippleEffect);
-            // rippleEffect.remove();
+        const rippleTimer = setTimeout(() => {
+            if (button) button.removeChild(rippleEffect);
         }, 700);
+
+        this.setState({
+            rippleTimer: rippleTimer,
+        });
+    }
+    componentWillUnmount() {
+        clearTimeout(this.state.rippleTimer);
     }
 
     render() {

@@ -22,6 +22,9 @@
         height: 46px;
         padding: 12px 20px;
     }
+    .circle-loader-wrap {
+        @include alignXY;
+    }
 }
 
 .btn-write {

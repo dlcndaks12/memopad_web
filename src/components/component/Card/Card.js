@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as path from 'config/path';
 import { ImageLoader } from 'components';
 import { toast } from 'modules/toast';
 import { deleteScrap, likeScrap, likeScrapCancel } from 'modules/scrap';
@@ -82,7 +81,7 @@ class Card extends Component {
     render() {
         const item = this.state.item;
         const map = this.state.map;
-        const imageUrl = item.imageUrl.replace(/%/gi, '%25');
+        const imageUrl = item.imageUrl;
         const likePending = this.props.pending['scrap/LIKE_SCRAP'];
         // const date = item.regDate.substr(2, 8);
 
@@ -91,7 +90,7 @@ class Card extends Component {
                 <a href={item.url} target="_blank" className="card">
                     <div className="card-image-wrap">
                         <div className="card-image">
-                            <ImageLoader image={`${path.apiUrl}/api/image?url=${imageUrl}`}
+                            <ImageLoader image={imageUrl}
                                          background/>
                         </div>
                     </div>

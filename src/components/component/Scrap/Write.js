@@ -137,7 +137,7 @@ class Write extends Component {
                         </div>
                     </div>
                 </div>
-                {this.props.pending['scrap/GET_OG_BY_URL'] ? <CircleLoader className="write-loader" color="blue" /> :
+                {this.props.pending['scrap/GET_OG_BY_URL'] ? <CircleLoader className="write-loader" /> :
                     this.props.og.result === 'OK' ?
                         <div className="scrap-view">
                             <Preview
@@ -145,9 +145,9 @@ class Write extends Component {
                                 onChange={this.handleInput}
                                 onSubmit={this.handleSubmit} />
                             <div className="submit-area">
-                                {this.props.pending['scrap/REGISTER_SCRAP'] ?
-                                    <Button name="action">
-                                        <CircleLoader/>
+                                {!this.props.pending['scrap/REGISTER_SCRAP'] ?
+                                    <Button expanded size="lg" name="action">
+                                        <CircleLoader size={30} color="white"/>
                                     </Button>
                                     :
                                     <Button expanded size="lg" name="action" onClick={this.handleSubmit}>
