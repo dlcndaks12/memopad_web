@@ -41,7 +41,7 @@ class SideNavigation extends Component {
                         </li>
                         <li>
                             <NavLink to="/review" activeClassName="active">
-                                <i className="fas fa-marker"/><span>후기</span>
+                                <i className="fas fa-marker"/><span>발자국</span>
                             </NavLink>
                         </li>
                     </ul>

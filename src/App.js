@@ -4,7 +4,7 @@ import 'resources/styles/style.scss';
 import { Route, Switch } from 'react-router-dom';
 import _ from 'lodash';
 import { Header, Toast, Confirm, Modal, Footer } from 'components';
-import { Home, Scrap, Login, Register, Personal, NoMatch } from 'pages';
+import { Home, Scrap, Login, Register, Review, Personal, NoMatch } from 'pages';
 import { getCookie, deleteCookie } from 'util/cookie';
 import { auth, authFailure } from 'modules/auth';
 import { initLocations } from 'modules/location';
@@ -127,6 +127,7 @@ class App extends Component {
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/scrap" component={Scrap}/>
+                        <Route path="/review" component={Review}/>
                         <Route path="/:nickname" component={Personal}/>
                         <Route path="/*" component={NoMatch}/>
                     </Switch>

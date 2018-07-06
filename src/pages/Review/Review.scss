@@ -1,0 +1,91 @@
+.review {
+    .progress-area {
+        margin: 70px 0;
+        height: 36px;
+    }
+}
+.scrap-write {
+    padding-top: 10px;
+    .input-row {
+        display: flex;
+        flex-direction: row;
+        font-size: 0;
+        @media screen and (max-width: 900px) {
+            display: block;
+        }
+        &.no-city {
+            .select-area {
+                &.nation-sel {
+                    width: 180px;
+                    @media screen and (max-width: 900px) {
+                        width: 100%;
+                        padding-right: 0;
+                    }
+                }
+                &.city-sel {
+                    display: none;
+                }
+                &.category-sel {
+                    width: 180px;
+                    @media screen and (max-width: 900px) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        > div {
+            flex: 1;
+            + div {
+                margin-left: 10px;
+                @media screen and (max-width: 900px) {
+                    margin-left: 5px;
+                }
+            }
+        }
+        input {
+            border: 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .select-area {
+            flex: none;
+            width: 120px;
+            @media screen and (max-width: 900px) {
+                display: inline-block;
+                width: 50%;
+            }
+            &.nation-sel {
+                @media screen and (max-width: 900px) {
+                    padding-right: 10px;
+                }
+            }
+            &.city-sel {
+                @media screen and (max-width: 900px) {
+                    padding-left: 10px;
+                }
+            }
+            &.category-sel {
+                @media screen and (max-width: 900px) {
+                    width: 100%;
+                }
+            }
+            .prefix {
+                display: none;
+                ~ .select-wrapper {
+                    margin-left: 0;
+                    width: auto;
+                }
+            }
+        }
+    }
+    .write-loader {
+        padding: 100px 0;
+        text-align: center;
+    }
+    .write-area {
+        margin-top: 30px;
+    }
+}
+.submit-area {
+    margin-top: 40px;
+    text-align: center;
+}

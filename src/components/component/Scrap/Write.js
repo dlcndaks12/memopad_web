@@ -145,7 +145,7 @@ class Write extends Component {
                                 onChange={this.handleInput}
                                 onSubmit={this.handleSubmit} />
                             <div className="submit-area">
-                                {!this.props.pending['scrap/REGISTER_SCRAP'] ?
+                                {this.props.pending['scrap/REGISTER_SCRAP'] ?
                                     <Button expanded size="lg" name="action">
                                         <CircleLoader size={30} color="white"/>
                                     </Button>
