@@ -40,43 +40,25 @@ class App extends Component {
         this.props.initLocations();
         // Category 정보 획득
         this.props.category();
-
-        window.addEventListener('scroll', _.debounce(this.handleScrollFrame, 100));
-
-        // scroll height 나 content 높이 변경시 detect 방법 필요
-    }
-
-
-    componentWillReceiveProps(nextProps) {
-        // if (this.props.layout.scroll.top !== nextProps.layout.scroll.top) {
-        //     const top = nextProps.layout.scroll.top;
-        //     const scrollbars = this.refs.scrollbars;
-        //     scrollbars.scrollTop(top);
-        // }
     }
 
     detectScrollEnd(top) {
         if (top > 0.9 && !this.props.layout.scroll.end) {
             this.props.setScrollEnd(true);
-        } else if (top !== 1 && this.props.layout.scroll.end) {
+        } else if (top <= 0.9 && this.props.layout.scroll.end) {
             this.props.setScrollEnd(false);
         }
     }
 
     handleScrollFrame() {
-        const supportPageOffset = window.pageXOffset;
-        const isCSS1Compat = ((document.compatMode || '') === 'CSS1Compat');
-        const scroll = {
-            x: supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft,
-            y: supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
-        };
-        const scrollTop = scroll.y;
-        const scrollHeight = window.document.documentElement.scrollHeight;
-        const top = (scrollTop + window.innerHeight) / scrollHeight;
-
-        // this.props.setScrollTop(top);
+        const frame = this.refs.container;
+        const frameHeight = frame.clientHeight;
+        const scrollTop = frame.scrollTop;
+        const scrollHeight = frame.scrollHeight;
+        const top = (scrollTop + frameHeight) / scrollHeight;
 
         this.detectScrollEnd(top);
+
         // const scrollTop = values.scrollTop;
         //
         // if (scrollTop > 100) {
@@ -101,15 +83,17 @@ class App extends Component {
     }
 
     render() {
-        let re = /(login|register)/;
-        let isAuth = re.test(window.location.pathname);
+        const re = /(login|register)/;
+        const isAuth = re.test(window.location.pathname);
         let appClassName = [];
         if (this.state.simpleHeader) appClassName.push('simple-header');
         if (this.props.sideNav.isOpen) appClassName.push('side-nav-open');
         appClassName = appClassName.toString().replace(',', ' ');
+
         return (
-            <div id="app" className={appClassName} onClick={this.handleClickBody}>
-                {/* TODO this.handleScrollFrame() */}
+            <div id="app"
+                 className={appClassName}
+                 onClick={this.handleClickBody}>
 
                 {/* 공통영역 S */}
                 <Toast />
@@ -117,11 +101,11 @@ class App extends Component {
                 <Modal />
                 {/* 공통영역 E */}
 
-                {isAuth ? '' :
-                    <Header />
-                }
+                {isAuth ? '' : <Header />}
 
-                <div id="container">
+                <div id="container"
+                     ref="container"
+                     onScroll={_.throttle(this.handleScrollFrame, 1000, {'trailing': true})}>
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
@@ -131,11 +115,9 @@ class App extends Component {
                         <Route path="/:nickname" component={Personal}/>
                         <Route path="/*" component={NoMatch}/>
                     </Switch>
-                </div>
 
-                {isAuth ? '' :
-                    <Footer/>
-                }
+                    {isAuth ? '' : <Footer/>}
+                </div>
             </div>
         );
     }

@@ -26,18 +26,15 @@ button {
 
 /* DEFAULT-STYLE */
 body {
-    height: 100%;
     max-width: 100vw;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    color: #666;
+    color: #8e8e8e;
     font-size: 15px;
     line-height: 1.5;
     font-family: $font-noto;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
 }
+
 a {
     color: inherit;
     text-decoration: none;
@@ -64,22 +61,6 @@ input[type="radio"] + label{
     color: #666;
     font: 15px/1.5 $font-noto;
     vertical-align: middle;
-}
-
-em {
-    font-style: normal;
-}
-
-body {
-    color: #8e8e8e;
-    font-size: 15px;
-    font-family: $font-noto;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    
-    a {
-        color: inherit;
-    }
 }
 
 em {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ImageLoader } from 'components';
+import { ImageLoader, LikeButton } from 'components';
 import { toast } from 'modules/toast';
 import { deleteScrap, likeScrap, likeScrapCancel } from 'modules/scrap';
 import { confirm } from 'modules/confirm';
@@ -11,14 +11,18 @@ class Card extends Component {
         super(props);
 
         this.state = {
-            item: this.props.item,
-            map: this.props.item.map,
+            item: props.item,
+            map: props.item.map,
         };
 
         this.handleMap = this.handleMap.bind(this);
         this.handleLike = this.handleLike.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.setLikeData = this.setLikeData.bind(this);
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return JSON.stringify(this.props) !== JSON.stringify(nextProps) || JSON.stringify(this.state) !== JSON.stringify(nextState);
     }
 
     handleMap(map) {
@@ -82,8 +86,7 @@ class Card extends Component {
         const item = this.state.item;
         const map = this.state.map;
         const imageUrl = item.imageUrl;
-        const likePending = this.props.pending['scrap/LIKE_SCRAP'];
-        // const date = item.regDate.substr(2, 8);
+        const likePending = this.props.pending;
 
         return (
             <div className="card-wrap">
@@ -99,23 +102,17 @@ class Card extends Component {
                         <div className="desc">
                             {item.description}
                         </div>
-                        {/*<div className="card-date">{item.regDate}</div>*/}
-                        {/*<div className="info-area">*/}
-                            {/*<span className="date">{date}</span>*/}
-                        {/*</div>*/}
                     </div>
                 </a>
                 <div className="util-area">
                     <div className="left">
                         {!likePending ?
-                            <a className={`btn-heart ${item.liked ? 'active' : ''}`} onClick={() => this.handleLike(!item.liked)}>
-                                <i className="fas fa-heart"/>
-                                {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
-                            </a> :
-                            <a className={`btn-heart ${item.liked ? 'active' : ''}`}>
-                                <i className="fas fa-heart"/>
-                                {item.likeCount > 0 ? <span className="like-count">{item.likeCount}</span> : undefined}
-                            </a>}
+                            <LikeButton active={item.liked}
+                                        count={item.liked}
+                                        onClick={() => this.handleLike(!item.liked)}/>
+                            :
+                            <LikeButton active={item.liked}
+                                        count={item.liked}/>}
                     </div>
                     <div className="right">
                         {item.owner ?
@@ -136,7 +133,7 @@ class Card extends Component {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    pending: state.pender.pending,
+    pending: state.pender.pending['scrap/LIKE_SCRAP'],
 });
 
 const mapDispatchToProps = (dispatch) => ({

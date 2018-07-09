@@ -1,14 +1,18 @@
 #container {
-	padding: 15px 15px 50px;
+	overflow-y: scroll;
 	width: 100%;
-	max-width: 1080px;
-	min-height: calc(100vh - 107px);
-	margin: 57px auto 0;
-	@media screen and (max-width: 768px) {
-		min-height: calc(100vh - 163px);
-		padding: 15px 13px 40px;
-	}
+	height: calc(100vh - 56px);
+	margin-top: 56px;
+	-webkit-font-smoothing: antialiased;
 	> div {
 		animation: fadeIn .5s;
+	}
+	.contents {
+		max-width: 1080px;
+		margin: 0 auto;
+		padding: 15px 15px 50px;
+		@media screen and (max-width: 768px) {
+			padding: 15px 13px 40px;
+		}
 	}
 }

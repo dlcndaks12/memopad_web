@@ -43,7 +43,7 @@ class Scrap extends Component {
         const currentPage = this.state.page;
         const nextPage = parseInt(currentPage, 10) + 1;
         const totalPage = Math.ceil(nextProps.scrap.total / this.state.limit);
-        const pagePending = this.props.pending['scrap/ADD_SCRAP_LIST'];
+        const pagePending = this.props.scrapAddPending;
 
         if (this.props.match.params.nation !== nextProps.match.params.nation || this.props.location.search !== nextProps.location.search) {
             const params = qs.parse(nextProps.location.search);
@@ -123,6 +123,8 @@ class Scrap extends Component {
         const city = this.state.city;
         const category = this.state.category;
 
+        console.log('render');
+
         return (
             <div className="contents scrap">
                 <NationTab
@@ -136,9 +138,9 @@ class Scrap extends Component {
                 <div className="card-list-wrap">
                     <CardList cards={this.props.scrap.scraps}/>
                     <div className="progress-area">
-                        {this.props.pending['scrap/GET_SCRAP_LIST'] || this.props.pending['scrap/ADD_SCRAP_LIST'] ?
+                        {this.props.scrapGetPending || this.props.scrapAddPending ?
                             <CircleLoader color="blue"/>
-                            : null}
+                            : undefined}
                     </div>
                 </div>
                 <div className="btn-write">
@@ -156,7 +158,8 @@ const mapStateToProps = (state) => ({
     nation: state.location.nation,
     scrap: state.scrap,
     layout: state.layout,
-    pending: state.pender.pending,
+    scrapGetPending: state.pender.pending['scrap/GET_SCRAP_LIST'],
+    scrapAddPending: state.pender.pending['scrap/ADD_SCRAP_LIST'],
 });
 
 const mapDispatchToProps = (dispatch) => ({

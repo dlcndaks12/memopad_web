@@ -51,15 +51,17 @@
             white-space: nowrap;
         }
         .image-wrap {
-            will-change: transform;
+            transform: scale(1);
             transition: transform .7s;
         }
         .image {
             overflow: hidden;
-            padding-top: 66.66666666%;
+            padding-top: 75%;
             background-repeat: no-repeat;
-            background-position: 50% 50%;
+            background-position: center;
             background-size: cover;
+            transform: translateZ(0);
+            
             &.done {
                 animation: fadeIn .4s;
             }
