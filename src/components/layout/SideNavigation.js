@@ -31,6 +31,7 @@ class SideNavigation extends Component {
                         <span className="line3"/>
                     </span>
                 </a>
+                <div className="nav-mask"/>
                 <nav className="nav-cont">
                     <a className="close-trigger">close</a>
                     <ul>

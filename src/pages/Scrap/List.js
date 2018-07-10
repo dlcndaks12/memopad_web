@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast } from 'modules/toast';
@@ -122,25 +122,28 @@ class Scrap extends Component {
         const nationCode = this.props.match.params.nation ? this.props.match.params.nation : 'kr';
         const city = this.state.city;
         const category = this.state.category;
-
-        console.log('render');
+        const page = this.state.page;
+        const totalPage = Math.ceil(this.props.scrap.total / this.state.limit);
 
         return (
-            <div className="contents scrap">
-                <NationTab
-                    selectedNationCode={nationCode}
-                    onChange={this.handleNation} />
-                <Option
-                    selectedNation={nationCode}
-                    selectedCity={city}
-                    selectedCategory={category}
-                    onChange={this.handleCheckbox} />
-                <div className="card-list-wrap">
-                    <CardList cards={this.props.scrap.scraps}/>
-                    <div className="progress-area">
-                        {this.props.scrapGetPending || this.props.scrapAddPending ?
-                            <CircleLoader color="blue"/>
-                            : undefined}
+            <Fragment>
+                <div className="contents scrap">
+                    <NationTab
+                        selectedNationCode={nationCode}
+                        onChange={this.handleNation} />
+                    <Option
+                        selectedNation={nationCode}
+                        selectedCity={city}
+                        selectedCategory={category}
+                        onChange={this.handleCheckbox} />
+                    <div className="card-list-wrap">
+                        <CardList cards={this.props.scrap.scraps}/>
+                        <div className="progress-area">
+                            {this.props.scrapGetPending || this.props.scrapAddPending ?
+                                <CircleLoader color="blue"/>
+                                : page === totalPage ? <div className="end-page"><a onClick={() => window.scrollTo(0, 0)}><i className="fas fa-chevron-up"/></a></div> : undefined}
+
+                        </div>
                     </div>
                 </div>
                 <div className="btn-write">
@@ -148,7 +151,7 @@ class Scrap extends Component {
                         <i className="fas fa-pen"/>
                     </Link>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }

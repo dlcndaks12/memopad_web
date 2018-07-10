@@ -16,7 +16,7 @@ class ImageLoader extends Component {
     componentDidMount() {
         this.ismounted = true;
         const downloadingImage = new Image();
-        const imageUrl = this.props.image.replace(/%/gi, '%25');
+        const imageUrl = this.props.image;
         downloadingImage.onload = () => {
             if (this.ismounted) {
                 this.setState({
@@ -40,16 +40,12 @@ class ImageLoader extends Component {
 
         return (
             <div className="image-wrap" style={backgroundStyle}>
-                {imagePending ?
-                    <div className="image"/>
+                {backgroundType ?
+                    <div className={`image ${!imagePending ? 'done' : ''}`} style={{backgroundImage: `url(${image})`}}/>
                     :
-                    backgroundType ?
-                        <div className="image done" style={{backgroundImage: `url(${image})`}}/>
-                        :
-                        <div className="image done">
-                            <img src={image} alt=""/>
-                        </div>
-                }
+                    <div className={`image ${!imagePending ? 'done' : ''}`}>
+                        <img src={image} alt=""/>
+                    </div>}
             </div>
         );
     }

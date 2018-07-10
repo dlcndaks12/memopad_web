@@ -29,9 +29,10 @@
 
 .btn-write {
     position: fixed;
-    right: 16px;
-    bottom: 65px;
+    right: 28px;
+    bottom: 55px;
     z-index: 10;
+    transform: translateZ(0);
     button,
     a {
         display: block;

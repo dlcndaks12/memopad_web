@@ -2,12 +2,28 @@
     .card-list-inner {
         @include clearfix;
         margin: -3px;
+        font-size: 0;
     }
     .card-wrap {
-        float: left;
+        display: inline-block;
+        visibility: visible;
+        opacity: 1;
+        position: relative;
         width: 33.33333333%;
         padding: 3px;
-        animation: cardIn .4s forwards;
+        transform: translateY(0);
+        transition-property: transform, opacity;
+        transition-duration: 200ms;
+        transition-timing-function: cubic-bezier(0.4,0.0,1,1);
+        &:nth-child(3n+1) {
+            transition-delay: 200ms;
+        }
+        &:nth-child(3n+2) {
+            transition-delay: 300ms;
+        }
+        &:nth-child(3n+3) {
+            transition-delay: 400ms;
+        }
         @media screen and (max-width: 768px) {
             width: 50%;
         }
@@ -23,13 +39,6 @@
 	    @media screen and (max-width: 768px) {
 		    font-size: 11px;
 	    }
-        &:hover {
-            .card-image {
-                .image-wrap {
-                    transform: scale(1.05);
-                }
-            }
-        }
         .card-image-wrap {
             position: relative;
             .btn-map {
@@ -40,7 +49,6 @@
         }
         .card-image {
             display: block;
-            overflow: hidden;
         }
         .card-title {
             margin-bottom: 2px;
@@ -50,11 +58,11 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .image-wrap {
-            transform: scale(1);
-            transition: transform .7s;
-        }
+        
         .image {
+            position: relative;
+            z-index: 1;
+            opacity: 0;
             overflow: hidden;
             padding-top: 75%;
             background-repeat: no-repeat;
@@ -63,7 +71,9 @@
             transform: translateZ(0);
             
             &.done {
-                animation: fadeIn .4s;
+                opacity: 1;
+                transition: opacity 300ms cubic-bezier(0,0,0.25,1);
+                transition-property: opacity, transform;
             }
         }
         .card-content {
@@ -71,6 +81,7 @@
             right: 0;
             bottom: 0;
             left: 0;
+            z-index: 2;
             padding: 12px;
             background-image: linear-gradient(to top,rgba(0,0,0,.4) 0,transparent 100%);
             .desc {
@@ -90,6 +101,7 @@
         left: 3px;
         z-index: 10;
         padding: 9px 12px 12px;
+        font-size: 15px;
         background-image: linear-gradient(to bottom,rgba(0,0,0,.4) 0,transparent 100%);
         .left {
             float: left;

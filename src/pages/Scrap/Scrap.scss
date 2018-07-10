@@ -3,6 +3,22 @@
         margin: 40px 0;
         height: 36px;
     }
+    .end-page {
+        margin: 50px 0 30px;
+        text-align: center;
+        font-size: 0;
+        a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #eee;
+            color: #aaa;
+            font-size: 16px;
+            line-height: 40px;
+            cursor: pointer;
+        }
+    }
 }
 .scrap-write {
     padding-top: 10px;

@@ -40,6 +40,8 @@ class App extends Component {
         this.props.initLocations();
         // Category 정보 획득
         this.props.category();
+
+        window.addEventListener('scroll', _.throttle(this.handleScrollFrame, 500, {'trailing': true}), false);
     }
 
     detectScrollEnd(top) {
@@ -51,10 +53,9 @@ class App extends Component {
     }
 
     handleScrollFrame() {
-        const frame = this.refs.container;
-        const frameHeight = frame.clientHeight;
-        const scrollTop = frame.scrollTop;
-        const scrollHeight = frame.scrollHeight;
+        const frameHeight = window.innerHeight;
+        const scrollTop = window.scrollY;
+        const scrollHeight = document.body.scrollHeight;
         const top = (scrollTop + frameHeight) / scrollHeight;
 
         this.detectScrollEnd(top);
@@ -103,9 +104,7 @@ class App extends Component {
 
                 {isAuth ? '' : <Header />}
 
-                <div id="container"
-                     ref="container"
-                     onScroll={_.throttle(this.handleScrollFrame, 1000, {'trailing': true})}>
+                <div id="container">
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
@@ -115,9 +114,9 @@ class App extends Component {
                         <Route path="/:nickname" component={Personal}/>
                         <Route path="/*" component={NoMatch}/>
                     </Switch>
-
-                    {isAuth ? '' : <Footer/>}
                 </div>
+
+                {isAuth ? '' : <Footer/>}
             </div>
         );
     }

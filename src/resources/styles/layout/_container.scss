@@ -1,16 +1,31 @@
-#container {
+html, body {
+	height: 100%;
+}
+body {
 	overflow-y: scroll;
-	width: 100%;
-	height: calc(100vh - 56px);
-	margin-top: 56px;
-	-webkit-font-smoothing: antialiased;
-	> div {
-		animation: fadeIn .5s;
-	}
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+#app {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+#container {
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+	padding-top: 56px;
 	.contents {
+		display: flex;
+		flex: 1 0 auto;
+		flex-direction: column;
+		width: 100%;
 		max-width: 1080px;
 		margin: 0 auto;
 		padding: 15px 15px 50px;
+		animation: fadeIn .3s;
+		transform: translateZ(0);
 		@media screen and (max-width: 768px) {
 			padding: 15px 13px 40px;
 		}

@@ -7,6 +7,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 ul,
 ol {
@@ -33,6 +34,7 @@ body {
     font-family: $font-noto;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -43,11 +45,11 @@ a {
 /* FUNCTIONAL CLASS */
 .hidden {
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     top: -9999px;
     left: -9999px;
-    width: 10px;
-    height: 25px;
+    width: 0;
+    height: 0;
 }
 
 /* FORM */
