@@ -10,6 +10,7 @@
     background: rgba(0,0,0,0.4);
     transform: translateZ(0);
     transition: visibility .3s, opacity .3s;
+    transition-property: visibilit, opacity, transform;
     &.active {
         visibility: visible;
         opacity: 1;

@@ -28,7 +28,7 @@ class MapModal extends Component {
                     <div className="map">
                         <Map key={key}
                              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                             loadingElement={<div style={{ height: '100%' }} />}
+                             loadingElement={<div style={{ height: '100%' }}>loading...</div>}
                              containerElement={<div style={{ height: '100%' }} />}
                              mapElement={<div style={{ height: '100%' }} />}
                              title={title}
