@@ -1,44 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { logout } from 'modules/auth';
-import { toast } from 'modules/toast';
-import { confirm } from 'modules/confirm';
-import { SideNavigation } from "components";
+import { sideNavOpen, sideNavClose } from 'modules/sideNav';
 
 class Header extends Component {
     constructor(props) {
         super(props);
 
-        this.handleLogout = this.handleLogout.bind(this);
+        this.handleSideNav = this.handleSideNav.bind(this);
     }
 
-    handleLogout() {
-        this.props.confirm({
-            message: '정말 로그아웃 하시게요?',
-            callback: (result) => {
-                if (result) {
-                    this.props.logout();
-                    this.props.toast('로그아웃 되었습니다.');
-                    // this.props.history.push('/login');
-                }
-            }
-        });
+    handleSideNav() {
+        if (!this.props.sideNav.isOpen) {
+            this.props.sideNavOpen();
+        } else {
+            this.props.sideNavClose();
+        }
     }
 
     render() {
-        const loginButton = (
+        const nickname = this.props.auth.nickname;
+
+        const loggedIn = (
             <li>
                 <Link to="/login">
                     <i className="fas fa-sign-in-alt"/>
                 </Link>
             </li>
         );
-        const logoutButton = (
+        const loggedOut = (
             <li>
-                <a onClick={this.handleLogout}>
-                    <i className="fas fa-lock"/>
-                </a>
+                <Link to={`/${nickname}`}>
+                    <i className="fas fa-user"/>
+                </Link>
             </li>
         );
 
@@ -46,11 +40,18 @@ class Header extends Component {
             <header>
                 <div className="nav-wrapper">
                     <div className="side-nav-wrap">
-                        <SideNavigation location={this.props.location.pathname} />
+                        <a className="nav-trigger" onClick={this.handleSideNav}>
+                            <span className="txt">menu</span>
+                            <span className="lines">
+                                <span className="line1"/>
+                                <span className="line2"/>
+                                <span className="line3"/>
+                            </span>
+                        </a>
                     </div>
                     <h1><Link to="/" className="logo center">trip &amp; place</Link></h1>
                     <ul className="util-btn-group">
-                        { this.props.auth.isLoggedIn !== null ? this.props.auth.isLoggedIn ? logoutButton : loginButton : '' }
+                        { this.props.auth.isLoggedIn !== null ? this.props.auth.isLoggedIn ? loggedOut : loggedIn : '' }
                     </ul>
                 </div>
             </header>
@@ -60,12 +61,13 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
+    sideNav: state.sideNav,
     progress: state.progress,
 });
+
 const mapDispatchToProps = (dispatch) => ({
-    toast: (message, time) => dispatch(toast(message, time)),
-    confirm: (message, callback) => dispatch((confirm(message, callback))),
-    logout: () => dispatch(logout()),
+    sideNavOpen: () => dispatch(sideNavOpen()),
+    sideNavClose: () => dispatch(sideNavClose()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

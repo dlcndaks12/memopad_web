@@ -10,20 +10,38 @@ import { auth, authFailure } from 'modules/auth';
 import { initLocations } from 'modules/location';
 import { category } from 'modules/category';
 import { setScrollEnd } from 'modules/layout';
-import {sideNavClose} from "./modules/sideNav";
+import { SideNavigation } from "components";
+import { sideNavClose } from "./modules/sideNav";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            currentScrollTop: 0,
             scrollTop: 0,
             simpleHeader: false,
         };
 
         this.detectScrollEnd = this.detectScrollEnd.bind(this);
         this.handleScrollFrame = this.handleScrollFrame.bind(this);
-        this.handleClickBody = this.handleClickBody.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // if (JSON.stringify(this.props.sideNav.isOpen) !== JSON.stringify(nextProps.sideNav.isOpen)) {
+        //     if (nextProps.sideNav.isOpen) {
+        //         const scrollTop = window.scrollY;
+        //         this.setState({currentScrollTop: scrollTop});
+        //         window.document.body.style.position = 'fixed';
+        //         window.document.body.style.top = -scrollTop + 'px';
+        //         window.document.body.classList.add('side-nav-open');
+        //     } else {
+        //         window.document.body.style.position = '';
+        //         window.document.body.style.top = '';
+        //         window.scrollTo(0, this.state.currentScrollTop);
+        //         window.document.body.classList.remove('side-nav-open');
+        //     }
+        // }
     }
 
     componentDidMount() {
@@ -77,29 +95,18 @@ class App extends Component {
         // }
     }
 
-    handleClickBody() {
-        if (this.props.sideNav.isOpen) {
-            this.props.sideNavClose();
-        }
-    }
-
     render() {
         const re = /(login|register)/;
         const isAuth = re.test(window.location.pathname);
-        let appClassName = [];
-        if (this.state.simpleHeader) appClassName.push('simple-header');
-        if (this.props.sideNav.isOpen) appClassName.push('side-nav-open');
-        appClassName = appClassName.toString().replace(',', ' ');
 
         return (
-            <div id="app"
-                 className={appClassName}
-                 onClick={this.handleClickBody}>
+            <div id="app">
 
                 {/* 공통영역 S */}
                 <Toast />
                 <Confirm />
                 <Modal />
+                <SideNavigation/>
                 {/* 공통영역 E */}
 
                 {isAuth ? '' : <Header />}

@@ -1,13 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
+import { toast } from 'modules/toast';
+import { confirm } from 'modules/confirm';
+import { logout } from 'modules/auth';
 import { sideNavOpen, sideNavClose } from 'modules/sideNav';
 
 class SideNavigation extends Component {
     constructor(props) {
         super(props);
 
+        this.handleLogout = this.handleLogout.bind(this);
         this.handleSideNav = this.handleSideNav.bind(this);
+    }
+
+    handleLogout() {
+        this.props.confirm({
+            message: '정말 로그아웃 하시게요?',
+            callback: (result) => {
+                if (result) {
+                    this.props.logout();
+                    this.props.toast('로그아웃 되었습니다.');
+                    this.props.history.push('/login');
+                }
+            }
+        });
     }
 
     handleSideNav() {
@@ -23,30 +40,31 @@ class SideNavigation extends Component {
 
         return (
             <div className={`side-navigation ${isOpened ? 'active' : ''}`}>
-                <a className="nav-trigger" onClick={this.handleSideNav}>
-                    <span className="txt">menu</span>
-                    <span className="lines">
-                        <span className="line1"/>
-                        <span className="line2"/>
-                        <span className="line3"/>
-                    </span>
-                </a>
-                <div className="nav-mask"/>
-                <nav className="nav-cont">
+                <div className="nav-mask" onClick={this.handleSideNav}/>
+                <div className="nav-cont" onClick={this.handleSideNav}>
                     <a className="close-trigger">close</a>
-                    <ul>
-                        <li>
-                            <NavLink to="/scrap" activeClassName="active">
-                                <i className="fas fa-bookmark"/><span>스크랩</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/review" activeClassName="active">
-                                <i className="fas fa-marker"/><span>발자국</span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                </nav>
+                    <nav>
+                        <ul>
+                            <li>
+                                <NavLink to="/scrap" activeClassName="active" onClick={this.handleSideNav}>
+                                    <i className="fas fa-bookmark"/><span>스크랩</span>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/review" activeClassName="active" onClick={this.handleSideNav}>
+                                    <i className="fas fa-shoe-prints"/><span>발자국</span>
+                                </NavLink>
+                            </li>
+                        </ul>
+                        {this.props.auth.isLoggedIn ?
+                            <div className="logout">
+                                <a onClick={this.handleLogout}>
+                                    <i className="fas fa-lock"/>
+                                    <span>로그아웃</span>
+                                </a>
+                            </div> : undefined}
+                    </nav>
+                </div>
             </div>
         );
     }
@@ -60,6 +78,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     sideNavOpen: () => dispatch(sideNavOpen()),
     sideNavClose: () => dispatch(sideNavClose()),
+    toast: (message, time) => dispatch(toast(message, time)),
+    confirm: (message, callback) => dispatch((confirm(message, callback))),
+    logout: () => dispatch(logout()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideNavigation);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SideNavigation));

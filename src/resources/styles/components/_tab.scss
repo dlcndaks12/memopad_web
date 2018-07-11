@@ -27,6 +27,6 @@
 		height: 2px;
 		background-color: $point-color1;
 		transition: left .3s, width .3s;
-		will-change: left,width;
+		will-change: left, width;
 	}
 }

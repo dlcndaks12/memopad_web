@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast } from 'modules/toast';
 import { setScrollEnd } from 'modules/layout';
 import { getScrapList, addScrapList, clearScrapList } from 'modules/scrap';
 import { CardList, CircleLoader } from 'components';
-import qs from 'query-string';
 
 class Scrap extends Component {
     constructor(props) {
@@ -34,45 +33,45 @@ class Scrap extends Component {
     }
 
     componentDidMount() {
-        // this.props.clearScrapList();
+        this.props.clearScrapList();
         // this.getScrapList();
     }
 
     componentWillReceiveProps(nextProps) {
-        const scrollEnd = nextProps.layout.scroll.end;
-        const currentPage = this.state.page;
-        const nextPage = parseInt(currentPage, 10) + 1;
-        const totalPage = Math.ceil(nextProps.scrap.total / this.state.limit);
-        const pagePending = this.props.pending['scrap/ADD_SCRAP_LIST'];
-
-        if (this.props.match.params.nation !== nextProps.match.params.nation || this.props.location.search !== nextProps.location.search) {
-            const params = qs.parse(nextProps.location.search);
-            let city = params.city ? params.city : 'all';
-            let category = params.category ? params.category : 'all';
-            if (city !== 'all' && city !== 'none') city = city.split(',');
-            if (category !== 'all' && category !== 'none') category = category.split(',');
-
-            this.setState({
-                nationCode: nextProps.match.params.nation ? nextProps.match.params.nation : 'kr',
-                city: city,
-                category: category,
-                page: 1,
-            }, () => {
-                this.getScrapList();
-            });
-        }
-
-        if (this.props.layout.scroll.end !== scrollEnd) {
-            if (!pagePending && scrollEnd && currentPage < totalPage) {
-                this.setState({
-                    page: nextPage,
-                }, () => {
-                    this.addScrapList().then(() => {
-                        this.props.setScrollEnd(false);
-                    });
-                });
-            }
-        }
+        // const scrollEnd = nextProps.layout.scroll.end;
+        // const currentPage = this.state.page;
+        // const nextPage = parseInt(currentPage, 10) + 1;
+        // const totalPage = Math.ceil(nextProps.scrap.total / this.state.limit);
+        // const pagePending = this.props.pending['scrap/ADD_SCRAP_LIST'];
+        //
+        // if (this.props.match.params.nation !== nextProps.match.params.nation || this.props.location.search !== nextProps.location.search) {
+        //     const params = qs.parse(nextProps.location.search);
+        //     let city = params.city ? params.city : 'all';
+        //     let category = params.category ? params.category : 'all';
+        //     if (city !== 'all' && city !== 'none') city = city.split(',');
+        //     if (category !== 'all' && category !== 'none') category = category.split(',');
+        //
+        //     this.setState({
+        //         nationCode: nextProps.match.params.nation ? nextProps.match.params.nation : 'kr',
+        //         city: city,
+        //         category: category,
+        //         page: 1,
+        //     }, () => {
+        //         this.getScrapList();
+        //     });
+        // }
+        //
+        // if (this.props.layout.scroll.end !== scrollEnd) {
+        //     if (!pagePending && scrollEnd && currentPage < totalPage) {
+        //         this.setState({
+        //             page: nextPage,
+        //         }, () => {
+        //             this.addScrapList().then(() => {
+        //                 this.props.setScrollEnd(false);
+        //             });
+        //         });
+        //     }
+        // }
     }
 
     getScrapCondition() {
@@ -120,13 +119,195 @@ class Scrap extends Component {
 
     render() {
         return (
-            <div className="contents review">
-                <div className="card-list-wrap">
-                    <CardList cards={this.props.scrap.scraps}/>
-                    <div className="progress-area">
-                        {this.props.pending['scrap/GET_SCRAP_LIST'] || this.props.pending['scrap/ADD_SCRAP_LIST'] ?
-                            <CircleLoader color="blue"/>
-                            : null}
+            <Fragment>
+                <div className="contents review">
+                    <div className="card-list-wrap">
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <div/><hr/><div/><br/><hr/><div/><hr/><br/>
+                        <CardList cards={this.props.scrap.scraps}/>
+                        <div className="progress-area">
+                            {this.props.pending['scrap/GET_SCRAP_LIST'] || this.props.pending['scrap/ADD_SCRAP_LIST'] ?
+                                <CircleLoader color="blue"/>
+                                : null}
+                        </div>
                     </div>
                 </div>
                 <div className="btn-write">
@@ -134,7 +315,7 @@ class Scrap extends Component {
                         <i className="fas fa-pen"/>
                     </Link>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }

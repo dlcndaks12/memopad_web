@@ -33,17 +33,10 @@ header {
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     text-align: center;
-    
-    .side-navigation {
-        &.active {
-            .nav-mask {
-                display: block;
-            }
-            .nav-cont {
-                transform: translate3d(0%,0,0);
-            }
-        }
-        
+    .side-nav-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
         .nav-trigger {
             display: block;
             position: relative;
@@ -68,114 +61,10 @@ header {
                 }
             }
         }
-        .nav-mask {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 10;
-            width: 100vw;
-            height: 100vh;
-            transform: translateZ(0);
-            will-change: transform;
-        }
-        .nav-cont {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 10;
-            width: 300px;
-            height: 100vh;
-            padding-top: 56px;
-            background-color: #fff;
-            box-shadow: 0 8px 17px rgba(0,0,0,0.2);
-            transform: translate3d(-105%,0,0);
-            transition: transform .3s cubic-bezier(0.24,1,0.32,1);
-            will-change: transform;
-        }
-        .close-trigger {
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 56px;
-            height: 56px;
-            text-indent: -9999px;
-            cursor: pointer;
-            &:before {
-                content: '';
-                display: block;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 2px;
-                height: 22px;
-                margin-top: -11px;
-                margin-left: -1px;
-                background-color: #666;
-                transform: rotate(45deg);
-                transform-origin: 50% 50%;
-            }
-            &:after {
-                content: '';
-                display: block;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 2px;
-                height: 22px;
-                margin-top: -11px;
-                margin-left: -1px;
-                background-color: #666;
-                transform: rotate(-45deg);
-                transform-origin: 50% 50%;
-            }
-        }
-        
-        ul {
-            border-top: 1px solid #ddd;
-            li {
-                text-align: left;
-                a {
-                    display: block;
-                    position: relative;
-                    height: 48px;
-                    padding: 0 24px 0 60px;
-                    line-height: 48px;
-                    &.active {
-                        background-color: #eceff1;
-                    }
-                    i {
-                        @include alignY;
-                        left: 24px;
-                        width: 24px;
-                        height: 24px;
-                        color: #666;
-                        font-size: 20px;
-                        vertical-align: middle;
-                        &:before {
-                            @include alignXY;
-                        }
-                    }
-                    span {
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-                }
-            }
-        }
     }
-    
-    .side-nav-wrap {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    
     h1 {
         @include alignX;
     }
-    
     .logo {
         display: block;
         height: 100%;
@@ -183,13 +72,16 @@ header {
         font-weight: 400;
         font-size: 20px;
     }
-    
     .util-btn-group {
+        overflow: hidden;
         position: absolute;
         top: 0;
         right: 0;
-        width: 56px;
         height: 56px;
+        > li {
+            width: 56px;
+            float: left;
+        }
         a {
             display: block;
             cursor: pointer;

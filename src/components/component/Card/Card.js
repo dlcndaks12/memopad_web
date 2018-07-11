@@ -11,10 +11,12 @@ class Card extends Component {
         super(props);
 
         this.state = {
+            imageDone: false,
             item: props.item,
             map: props.item.map,
         };
 
+        this.handleLoad = this.handleLoad.bind(this);
         this.handleMap = this.handleMap.bind(this);
         this.handleLike = this.handleLike.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -23,6 +25,10 @@ class Card extends Component {
 
     shouldComponentUpdate(nextProps, nextState){
         return JSON.stringify(this.props) !== JSON.stringify(nextProps) || JSON.stringify(this.state) !== JSON.stringify(nextState);
+    }
+
+    handleLoad() {
+        this.setState({imageDone: true});
     }
 
     handleMap(map) {
@@ -83,47 +89,51 @@ class Card extends Component {
     }
 
     render() {
+        const imageDone = this.state.imageDone;
         const item = this.state.item;
         const map = this.state.map;
         const imageUrl = item.imageUrl;
         const likePending = this.props.pending;
 
         return (
-            <div className="card-wrap">
-                <a href={item.url} target="_blank" className="card">
-                    <div className="card-image-wrap">
-                        <div className="card-image">
-                            <ImageLoader image={imageUrl}
-                                         background/>
+            <div className={`card-wrap ${imageDone ? 'done' : ''}`}>
+                <div className="card">
+                    <a href={item.url} target="_blank">
+                        <div className="card-image-wrap">
+                            <div className="card-image">
+                                <ImageLoader image={imageUrl}
+                                             background
+                                             onLoad={this.handleLoad}/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="card-content">
-                        <div className="card-title">{item.title}</div>
-                        <div className="desc">
-                            {item.description}
+                        <div className="card-content">
+                            <div className="card-title">{item.title}</div>
+                            <div className="desc">
+                                {item.description}
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <div className="util-area">
-                    <div className="left">
-                        {!likePending ?
-                            <LikeButton active={item.liked}
-                                        count={item.liked}
-                                        onClick={() => this.handleLike(!item.liked)}/>
-                            :
-                            <LikeButton active={item.liked}
-                                        count={item.liked}/>}
-                    </div>
-                    <div className="right">
-                        {item.owner ?
-                              <a className="btn-delete" onClick={() => this.handleDelete(item.idx)}><i className="fas fa-trash-alt"/></a>
-                            : undefined}
-                        {map ?
-                            <a onClick={() => this.handleMap(map)} className="btn-map" title="지도">
-                                <i className="fas fa-map-marked-alt"/>
-                            </a>
-                            : undefined}
-                        {/*<Link to={`/${item.writer}`} className="author">{item.writer}</Link>*/}
+                    </a>
+                    <div className="util-area">
+                        <div className="left">
+                            {!likePending ?
+                                <LikeButton active={item.liked}
+                                            count={item.likeCount}
+                                            onClick={() => this.handleLike(!item.liked)}/>
+                                :
+                                <LikeButton active={item.liked}
+                                            count={item.likeCount}/>}
+                        </div>
+                        <div className="right">
+                            {item.owner ?
+                                <a className="btn-delete" onClick={() => this.handleDelete(item.idx)}><i className="fas fa-trash-alt"/></a>
+                                : undefined}
+                            {map ?
+                                <a onClick={() => this.handleMap(map)} className="btn-map" title="지도">
+                                    <i className="fas fa-map-marked-alt"/>
+                                </a>
+                                : undefined}
+                            {/*<Link to={`/${item.writer}`} className="author">{item.writer}</Link>*/}
+                        </div>
                     </div>
                 </div>
             </div>
