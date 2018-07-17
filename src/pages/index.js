@@ -7,6 +7,7 @@ export { default as Register } from './Auth/Register';
 export { default as Scrap } from './Scrap/Scrap';
 export { default as ScrapList } from './Scrap/List';
 export { default as ScrapWrite } from './Scrap/Write';
+export { default as ScrapDetail } from './Scrap/Detail';
 
 export { default as Review } from './Review/Review';
 export { default as ReviewList } from './Review/List';

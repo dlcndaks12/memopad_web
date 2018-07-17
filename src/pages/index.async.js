@@ -10,6 +10,7 @@ export const Register = asyncRoute(() => import('./Auth/Register'));
 export const Scrap = asyncRoute(() => import('./Scrap/Scrap'));
 export const ScrapList = asyncRoute(() => import('./Scrap/List'));
 export const ScrapWrite = asyncRoute(() => import('./Scrap/Write'));
+export const ScrapDetail = asyncRoute(() => import('./Scrap/Detail'));
 
 /* 발자국 */
 export const Review = asyncRoute(() => import('./Review/Review'));

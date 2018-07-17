@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ImageLoader, LikeButton } from 'components';
 import { toast } from 'modules/toast';
@@ -98,7 +99,7 @@ class Card extends Component {
         return (
             <div className={`card-wrap ${imageDone ? 'done' : ''}`}>
                 <div className="card">
-                    <a href={item.url} target="_blank">
+                    <Link to={`/scrap/detail/${item.idx}`}>
                         <div className="card-image-wrap">
                             <div className="card-image">
                                 <ImageLoader image={imageUrl}
@@ -112,7 +113,7 @@ class Card extends Component {
                                 {item.description}
                             </div>
                         </div>
-                    </a>
+                    </Link>
                     <div className="util-area">
                         <div className="left">
                             {!likePending ?
