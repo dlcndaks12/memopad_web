@@ -140,7 +140,7 @@ class Scrap extends Component {
                         <CardList cards={this.props.scrap.scraps}/>
                         <div className="progress-area">
                             {this.props.scrapGetPending || this.props.scrapAddPending ?
-                                <CircleLoader color="blue"/>
+                                <CircleLoader/>
                                 : page === totalPage ? <div className="end-page"><a onClick={() => window.scrollTo(0, 0)}><i className="fas fa-chevron-up"/></a></div> : undefined}
 
                         </div>

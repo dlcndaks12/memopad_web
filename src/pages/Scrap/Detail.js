@@ -1,55 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import qs from 'query-string';
+import { getScrap } from 'modules/scrap';
+import { CircleLoader } from 'components';
 
 class Detail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            nationSelected: 'kr',
-            citySelected: 6,
+            data: null,
         };
-
-        this.initSelectedLocations = this.initSelectedLocations.bind(this);
     }
 
     componentDidMount() {
-        this.initSelectedLocations();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (JSON.stringify(prevProps) !== JSON.stringify(this.props)) {
-            this.initSelectedLocations();
-        }
-    }
-
-    initSelectedLocations() {
-        const params = qs.parse(this.props.location.search);
-        const nationCode = params.nation ? params.nation : 'kr';
-        const cityLength = this.props.locations.city ? this.props.locations.city[nationCode].length : null;
-        const defaultCityIdx = cityLength > 0 ? this.props.locations.city[nationCode][0].idx : -1;
-
-        this.setState({
-            nationSelected: nationCode,
-            citySelected: defaultCityIdx,
+        const idx = this.props.match.params.idx;
+        this.props.getScrap(idx).then((res) => {
+            this.setState({
+                data: res.data,
+            });
         });
     }
 
     render() {
-        const nationSelected = this.state.nationSelected;
-        const citySelected = this.state.citySelected;
-
+        const data = this.state.data;
         return (
             <div className="contents scrap-write">
-
+                {data ?
+                    <div className="article">{data.title}</div>
+                    : <CircleLoader/>}
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
-    locations: state.location,
+const mapDispatchToProps = (dispatch) => ({
+    getScrap: (idx) => dispatch(getScrap(idx)),
 });
 
-export default connect(mapStateToProps, null)(Detail);
+export default connect(null, mapDispatchToProps)(Detail);

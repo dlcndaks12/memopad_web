@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /* Scrap List */
-export function getScraps(scrapCondition) {
+export function getScrapList(scrapCondition) {
     const nationCode = scrapCondition.nationCode;
     const limit = scrapCondition.limit;
     const page = scrapCondition.page;
@@ -19,6 +19,11 @@ export function getScraps(scrapCondition) {
             page: page,
         },
     });
+}
+
+/* Scrap Detail */
+export function getScrap(idx) {
+    return axios.get(`api/scrap/${idx}`);
 }
 
 /* Scrap Write */

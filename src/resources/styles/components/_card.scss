@@ -2,15 +2,31 @@
     .card-list-inner {
         @include clearfix;
         margin: -2px;
-        font-size: 0;
     }
     .card-wrap {
-        display: inline-block;
+        float: left;
         position: relative;
-        width: 33.33333333%;
+        width: 25%;
         padding: 2px;
         @media screen and (max-width: 768px) {
             width: 50%;
+        }
+        &:nth-child(18n + 1) {
+            width: 50%;
+            .card {
+                .image {
+                    padding-top: 75.1%;
+                }
+            }
+        }
+        &:nth-child(18n + 10) {
+            float: right;
+            width: 50%;
+            .card {
+                .image {
+                    padding-top: 75.2%;
+                }
+            }
         }
         &:before {
             content: '';
@@ -36,7 +52,7 @@
         overflow: hidden;
         margin: 0;
         position: relative;
-        border-radius: 2px;
+        //border-radius: 2px;
 	    color: #fff;
 	    font-size: 12px;
         transform: translate3d(0,20px,0);

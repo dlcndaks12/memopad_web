@@ -7,9 +7,9 @@ body {
 	-webkit-overflow-scrolling: touch;
 }
 #app {
-	display: flex;
+	position: relative;
 	min-height: 100vh;
-	flex-direction: column;
+	padding-bottom: 50px;
 }
 #container {
 	display: flex;

@@ -6,9 +6,9 @@ class CardList extends Component {
         return (
             <div className="card-list">
                 <div className="card-list-inner">
-                    {this.props.cards.map((item) => {
-                        return <Card key={item.idx} item={item}/>
-                    })}
+                    {this.props.cards.map((item) =>
+                        <Card key={item.idx} item={item}/>
+                    )}
                 </div>
             </div>
         );

@@ -90,6 +90,7 @@ class Card extends Component {
     }
 
     render() {
+        const className = this.props.className;
         const imageDone = this.state.imageDone;
         const item = this.state.item;
         const map = this.state.map;
@@ -97,7 +98,7 @@ class Card extends Component {
         const likePending = this.props.pending;
 
         return (
-            <div className={`card-wrap ${imageDone ? 'done' : ''}`}>
+            <div className={`card-wrap ${imageDone ? 'done' : ''} ${className}`}>
                 <div className="card">
                     <Link to={`/scrap/detail/${item.idx}`}>
                         <div className="card-image-wrap">
@@ -141,6 +142,10 @@ class Card extends Component {
         );
     }
 }
+
+Card.defaultProps = {
+    className: '',
+};
 
 const mapStateToProps = (state) => ({
     auth: state.auth,

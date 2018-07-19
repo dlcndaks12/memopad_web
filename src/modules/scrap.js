@@ -3,6 +3,7 @@ import { pender } from 'redux-pender';
 import * as scrapService from 'service/scrap';
 
 const GET_SCRAP_LIST = 'scrap/GET_SCRAP_LIST';
+const GET_SCRAP = 'scrap/GET_SCRAP';
 const ADD_SCRAP_LIST = 'scrap/ADD_SCRAP_LIST';
 const CLEAR_SCRAP_LIST = 'scrap/CLEAR_SCRAP_LIST';
 const REGISTER_SCRAP = 'scrap/REGISTER_SCRAP';
@@ -13,9 +14,9 @@ const LIKE_SCRAP_CANCEL = 'scrap/LIKE_SCRAP_CANCEL';
 /*============================================================================
  Action
  ===========================================================================*/
-// export function getScraps(scrapsCondition) {
+// export function getScrapList(scrapsCondition) {
 //     return (dispatch) => {
-//         return dispatch(getScrapsByCondition(scrapsCondition.nationCode, scrapsCondition.city, scrapsCondition.category, scrapsCondition.limit, scrapsCondition.page));
+//         return dispatch(getScrapListByCondition(scrapsCondition.nationCode, scrapsCondition.city, scrapsCondition.category, scrapsCondition.limit, scrapsCondition.page));
 //     };
 // }
 //
@@ -26,14 +27,19 @@ const LIKE_SCRAP_CANCEL = 'scrap/LIKE_SCRAP_CANCEL';
 // }
 
 /**
- * @param void
+ * @param scrapCondition:Object
  */
-export const getScrapList = createAction(GET_SCRAP_LIST, scrapService.getScraps);
+export const getScrapList = createAction(GET_SCRAP_LIST, scrapService.getScrapList);
 
 /**
- * @param void
+ * @param idx:Number
  */
-export const addScrapList = createAction(ADD_SCRAP_LIST, scrapService.getScraps);
+export const getScrap = createAction(GET_SCRAP, scrapService.getScrap);
+
+/**
+ * @param scrapCondition:Object
+ */
+export const addScrapList = createAction(ADD_SCRAP_LIST, scrapService.getScrapList);
 
 /**
  * @param void
@@ -97,6 +103,11 @@ export default handleActions({
         },
     }),
     ...pender({
+        type: [GET_SCRAP],
+        onSuccess: (state) => ({...state}),
+        onFailure: (state) => ({...state}),
+    }),
+    ...pender({
         type: [ADD_SCRAP_LIST],
         onSuccess: (state, action) => {
             const res = action.payload;
@@ -116,16 +127,8 @@ export default handleActions({
     }),
     ...pender({
         type: [REGISTER_SCRAP],
-        onSuccess: (state) => {
-            return {
-                ...state,
-            }
-        },
-        onFailure: (state) => {
-            return {
-                ...state,
-            }
-        },
+        onSuccess: (state) => ({...state}),
+        onFailure: (state) => ({...state}),
     }),
     [CLEAR_SCRAP_LIST]: (state) => {
         return {
@@ -154,15 +157,7 @@ export default handleActions({
     }),
     ...pender({
         type: [LIKE_SCRAP],
-        onSuccess: (state) => {
-            return {
-                ...state,
-            }
-        },
-        onFailure: (state) => {
-            return {
-                ...state,
-            }
-        },
+        onSuccess: (state) => ({...state}),
+        onFailure: (state) => ({...state}),
     }),
 }, initialState);
