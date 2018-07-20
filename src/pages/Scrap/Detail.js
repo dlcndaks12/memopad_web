@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getScrap } from 'modules/scrap';
-import { CircleLoader } from 'components';
+import { getScrap, clearScrapList } from 'modules/scrap';
+import { CircleLoader, ScrapDetail } from 'components';
 
 class Detail extends Component {
     constructor(props) {
@@ -24,9 +24,9 @@ class Detail extends Component {
     render() {
         const data = this.state.data;
         return (
-            <div className="contents scrap-write">
+            <div className="contents scrap-detail">
                 {data ?
-                    <div className="article">{data.title}</div>
+                    <ScrapDetail data={data}/>
                     : <CircleLoader/>}
             </div>
         );
@@ -35,6 +35,7 @@ class Detail extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
     getScrap: (idx) => dispatch(getScrap(idx)),
+    clearScrapList: () => dispatch(clearScrapList()),
 });
 
 export default connect(null, mapDispatchToProps)(Detail);

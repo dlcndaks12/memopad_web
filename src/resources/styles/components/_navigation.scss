@@ -83,6 +83,7 @@
         height: 100%;
     }
     .logout {
+        flex: 0 0 auto;
         position: relative;
         border-top: 1px solid #eee;
         a {
@@ -91,6 +92,9 @@
             text-align: left;
             line-height: 48px;
             cursor: pointer;
+            &:hover {
+                background-color: darken(#fff, 5%);
+            }
             i {
                 position: absolute;
                 top: 50%;

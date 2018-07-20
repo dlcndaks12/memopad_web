@@ -16,6 +16,9 @@
             .card {
                 .image {
                     padding-top: 75.1%;
+                    @media screen and (max-width: 768px) {
+                        padding-top: 75%;
+                    }
                 }
             }
         }
@@ -25,6 +28,9 @@
             .card {
                 .image {
                     padding-top: 75.2%;
+                    @media screen and (max-width: 768px) {
+                        padding-top: 75%;
+                    }
                 }
             }
         }

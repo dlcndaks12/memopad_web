@@ -18,7 +18,8 @@ export { default as LikeButton } from './component/Button/LikeButton';
 export { default as Option } from './component/Option/Option';
 export { default as Selection } from './component/Option/Selection';
 export { default as NationTab } from './component/Tab/NationTab';
-export { default as Write } from './component/Scrap/Write';
+export { default as ScrapWrite } from './component/Scrap/Write';
+export { default as ScrapDetail } from './component/Scrap/Detail';
 
 /* COMPONENT/FORM */
 export { default as Input } from './component/Form/Input';

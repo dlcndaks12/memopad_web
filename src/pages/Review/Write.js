@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Write as ScrapWrite } from 'components';
+import { ScrapWrite } from 'components';
 import qs from 'query-string';
 
 class Write extends Component {

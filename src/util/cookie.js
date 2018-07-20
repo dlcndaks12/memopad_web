@@ -1,15 +1,15 @@
 export function setCookie(cName, cValue, cDay) {
     const expire = new Date();
     let domain = window.location.hostname.split('.');
-    if (domain[0] === 'localhost') {
-        domain = domain[0]
-    } else {
+    if (domain[0] !== 'localhost') {
         domain = `.${domain[domain.length - 2]}.${domain[domain.length - 1]}`;
+    } else {
+        domain = '';
     }
     expire.setDate(expire.getDate() + cDay);
     let cookies = `${cName}=${cValue}; domain=${domain}; path=/;`;
     if (typeof cDay !== 'undefined') {
-        cookies += ';expires=' + expire.toGMTString() + ';';
+        cookies += ' expires=' + expire.toGMTString() + ';';
     }
     document.cookie = cookies;
 }
