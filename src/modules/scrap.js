@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import * as scrapService from 'service/scrap';
+import { toast } from 'modules/toast';
 
 const GET_SCRAP_LIST = 'scrap/GET_SCRAP_LIST';
 const GET_SCRAP = 'scrap/GET_SCRAP';
@@ -68,6 +69,26 @@ export const likeScrap = createAction(LIKE_SCRAP, scrapService.likeScrap);
  * @param scrapIdx:Number
  */
 export const likeScrapCancel = createAction(LIKE_SCRAP_CANCEL, scrapService.likeScrapCancel);
+
+/**
+ * @param idx:Number
+ * @param isLiked:Boolean
+ */
+export function handleLike(idx, isLiked) {
+    console.log(idx, isLiked);
+    return (dispatch, getState) => {
+        if (!getState().auth.isLoggedIn) {
+            dispatch(toast('로그인 해주세요.'));
+            return false;
+        }
+
+        if (isLiked) {
+            return dispatch(likeScrap(idx));
+        } else {
+            return dispatch(likeScrapCancel(idx));
+        }
+    };
+}
 
 /*============================================================================
  Default State

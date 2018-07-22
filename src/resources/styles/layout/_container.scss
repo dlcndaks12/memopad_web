@@ -16,18 +16,18 @@ body {
 	flex: 1 0 auto;
 	flex-direction: column;
 	padding-top: 56px;
-	.contents {
-		display: flex;
-		flex: 1 0 auto;
-		flex-direction: column;
-		width: 100%;
-		max-width: 1080px;
-		margin: 0 auto;
-		padding: 15px 15px 50px;
-		animation: fadeIn .3s;
-		transform: translateZ(0);
-		@media screen and (max-width: 768px) {
-			padding: 15px 13px 40px;
-		}
+}
+.contents {
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+	width: 100%;
+	max-width: 1080px;
+	margin: 0 auto;
+	padding: 15px 15px 50px;
+	animation: fadeIn .3s;
+	transform: translateZ(0);
+	@media screen and (max-width: 768px) {
+		padding: 15px 13px 40px;
 	}
 }
