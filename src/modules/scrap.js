@@ -88,7 +88,7 @@ export function handleLike(idx, isLiked) {
     return (dispatch, getState) => {
         if (!getState().auth.isLoggedIn) {
             dispatch(toast('로그인 해주세요.'));
-            return false;
+            return new Promise(() => null);
         }
 
         if (isLiked) {
