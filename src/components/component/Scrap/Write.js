@@ -2,9 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'modules/toast';
-import { initOg, getOgByUrl, setOg } from 'modules/og';
+import { initOg, getOgByUrl, setOg, setOgMap } from 'modules/og';
 import { registerScrap } from 'modules/scrap';
 import { CircleLoader, Preview, Select, Input, Button } from 'components';
+import { searchCoordinateToAddress } from 'util/map';
+
+function toOgData(modifyData) {
+    return {
+        ogTitle: modifyData.title,
+        ogDescription: modifyData.description,
+        ogImageUrl: modifyData.imageUrl,
+        map: modifyData.map,
+    }
+}
 
 class Write extends Component {
     constructor(props) {
@@ -25,15 +35,26 @@ class Write extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
         this.props.initOg();
     }
 
-    handleLink(e) {
-        const value = e.target.value;
-        this.setState({
-            url: value,
-        });
+    componentDidMount() {
+        const isModifyMode = this.props.isModifyMode;
+        if (isModifyMode) {
+            this.setState({url: this.props.data.url});
+            this.props.setOg(toOgData(this.props.data));
+        }
+    }
+
+    handleLink(value) {
+        this.setState({url: value});
+
+        if (this.props.isModifyMode) {
+            this.listenOGTag(value);
+            return false;
+        }
+
         /* n초간 입력이 없을시 request 요청 */
         clearTimeout(this.state.requestOgTimer);
         this.setState({
@@ -46,7 +67,22 @@ class Write extends Component {
     listenOGTag(url) {
         this.props.getOgByUrl(url)
             .then((res) => {
-                if (res.result !== 'OK') {
+                if (res.result === 'OK') {
+                    if (res.data.map) {
+                        const coord = {
+                            lat: parseFloat(res.data.map.latitude),
+                            lng: parseFloat(res.data.map.longitude),
+                        };
+                        searchCoordinateToAddress(coord).then((address) => {
+                            const ogMap = {
+                                ...this.props.og.og.map,
+                                address: address.length > 0 ? address[0] : '',
+                                addressRoad: address.length > 1 ? address[1] : '',
+                            };
+                            this.props.setOgMap(ogMap);
+                        });
+                    }
+                } else {
                     this.props.toast(res.message);
                 }
             });
@@ -108,51 +144,58 @@ class Write extends Component {
     }
 
     render() {
-        const nationSelected = this.state.nationSelected;
-        const citySelected = this.state.citySelected;
+        const isModifyMode = this.props.isModifyMode;
+        const modifyData = this.props.data;
+        const nationSelected = isModifyMode ? modifyData.nationCode : this.state.nationSelected;
+        const citySelected = isModifyMode ? modifyData.cityIdx : this.state.citySelected;
         const nation = this.props.location.nation;
         const city = this.props.location.city !== null ? this.props.location.city[nationSelected] : null;
         const category = this.props.category;
+        const categoryIdx = isModifyMode ? modifyData.categoryIdx : '';
+        const url = this.state.url;
         const cityLength = city !== null ? city.length : null;
 
         return (
             <div className="write-area">
                 <div className={`input-row ${cityLength !== null && cityLength < 1 ? 'no-city' : ''}`}>
                     <div className="select-area nation-sel">
-                        <Select defaultSelected={nationSelected} type="nation" option={nation} onChange={this.handleSelect} />
+                        <Select defaultSelected={nationSelected} type="nation" option={nation} onChange={this.handleSelect}/>
                     </div>
                     <div className="select-area city-sel">
-                        <Select defaultSelected={citySelected} type="city" option={city} onChange={this.handleSelect} />
+                        <Select defaultSelected={citySelected} type="city" option={city} onChange={this.handleSelect}/>
                     </div>
                     <div className="select-area category-sel">
-                        <Select type="category" option={category} onChange={this.handleSelect} />
+                        <Select defaultSelected={categoryIdx} type="category" option={category} onChange={this.handleSelect}/>
                     </div>
                     <div className="input-area">
                         <div className="input-field link">
                             <Input id="link"
                                    name="link"
                                    placeholder="공유하고자 하는 link를 입력해주세요."
-                                   value={this.state.url}
-                                   onChange={this.handleLink}/>
+                                   value={url}
+                                   disabled={isModifyMode}
+                                   onChange={(e) => this.handleLink(e.target.value)}/>
+                            {isModifyMode ? <a onClick={() => this.handleLink(url)} className="reload"><i className="fas fa-sync-alt"/></a> : undefined}
                         </div>
                     </div>
                 </div>
                 {this.props.pending['scrap/GET_OG_BY_URL'] ? <CircleLoader className="write-loader" /> :
-                    this.props.og.result === 'OK' ?
+                    (isModifyMode && this.props.og.og.ogTitle) || this.props.og.result === 'OK' ?
                         <div className="scrap-view">
-                            <Preview
-                                og={this.props.og.og}
-                                onChange={this.handleInput}
-                                onSubmit={this.handleSubmit} />
+                            <Preview nationCode={nationSelected}
+                                     og={this.props.og.og}
+                                     onChange={this.handleInput}
+                                     onSubmit={this.handleSubmit}/>
                             <div className="submit-area">
                                 {this.props.pending['scrap/REGISTER_SCRAP'] ?
                                     <Button expanded size="lg" name="action">
                                         <CircleLoader size={30} color="white"/>
                                     </Button>
                                     :
-                                    <Button expanded size="lg" name="action" onClick={this.handleSubmit}>
-                                        등록
-                                    </Button>}
+                                    !isModifyMode ?
+                                        <Button expanded size="lg" name="action" onClick={this.handleSubmit}>등록</Button>
+                                     : [<Button expanded size="lg" name="action" key="modify" onClick={this.handleSubmit}>수정</Button>,
+                                        <Button expanded size="lg" name="action" key="cancel" color="gray" onClick={this.props.handleCancelModify}>취소</Button>]}
                             </div>
                         </div> : ''}
             </div>
@@ -172,6 +215,7 @@ const mapDispatchToProps = (dispatch) => ({
     initOg: () => dispatch(initOg()),
     getOgByUrl: (url) => dispatch(getOgByUrl(url)),
     setOg: (og) => dispatch(setOg(og)),
+    setOgMap: (ogMap) => dispatch(setOgMap(ogMap)),
     registerScrap: (nationCode, cityIdx, categoryIdx, og) => dispatch(registerScrap(nationCode, cityIdx, categoryIdx, og)),
     toast: (content, time) => dispatch(toast(content, time)),
 });

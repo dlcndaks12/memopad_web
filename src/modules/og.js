@@ -5,6 +5,7 @@ import * as ogService from 'service/og';
 const INIT_OG = "scrap/INIT_OG";
 const GET_OG_BY_URL = "scrap/GET_OG_BY_URL";
 const SET_OG = "scrap/SET_OG";
+const SET_OG_MAP = "scrap/SET_OG_MAP";
 
 /*============================================================================
  Action
@@ -24,6 +25,11 @@ export const getOgByUrl = createAction(GET_OG_BY_URL, ogService.getOgByUrl);
  * @param ogDescription:String
  */
 export const setOg = createAction(SET_OG);
+
+/**
+ * @param ogMap:Object
+ */
+export const setOgMap = createAction(SET_OG_MAP);
 
 /*============================================================================
  Default State
@@ -81,8 +87,18 @@ export default handleActions({
             ...state,
             og: {
                 ...state.og,
-                ogTitle: action.payload.ogTitle,
-                ogDescription: action.payload.ogDescription,
+                ...action.payload,
+                // ogTitle: action.payload.ogTitle,
+                // ogDescription: action.payload.ogDescription,
+            }
+        }
+    },
+    [SET_OG_MAP]: (state, action) => {
+        return {
+            ...state,
+            og: {
+                ...state.og,
+                map: action.payload,
             }
         }
     },

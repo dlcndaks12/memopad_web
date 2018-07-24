@@ -11,10 +11,11 @@ class Input extends Component {
         const handleKeyPress = this.props.onKeyPress;
         const name = this.props.name;
         const value = this.props.value;
+        const disabled = this.props.disabled;
 
         return (
             <div className={`input ${className}`}>
-                <input type={type} id={id} name={name} onChange={handleChange} onKeyPress={handleKeyPress} value={value}/>
+                <input type={type} id={id} name={name} onChange={handleChange} onKeyPress={handleKeyPress} value={value} disabled={disabled}/>
                 {!value && placeholder ?
                     <label htmlFor={id}>{placeholder}</label> : undefined}
             </div>
@@ -30,6 +31,7 @@ Input.defaultProps = {
     type: 'text',
     name: '',
     className: '',
+    disabled: false,
 };
 
 export default Input;

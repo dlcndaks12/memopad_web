@@ -11,7 +11,14 @@
         border-radius: 5px;
         font-size: 0;
         .image {
+            opacity: 0;
             padding-top: 33.33333333%;
+            transform: translate3d(0,20px,0);
+            &.done {
+                opacity: 1;
+                transform: translate3d(0,0,0);
+                transition: transform .3s cubic-bezier(0,0,0.25,1), opacity .3s cubic-bezier(0,0,0.25,1);
+            }
         }
         img {
             @include alignY;
@@ -28,7 +35,7 @@
         overflow: hidden;
         position: relative;
         margin-top: 20px;
-        padding-top: 50%;
+        padding-top: 30%;
         border-radius: 5px;
         > div {
             position: absolute;

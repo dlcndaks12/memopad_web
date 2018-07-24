@@ -93,7 +93,7 @@ class Card extends Component {
         const className = this.props.className;
         const imageDone = this.state.imageDone;
         const item = this.state.item;
-        const map = this.state.map;
+        // const map = this.state.map;
         const imageUrl = item.imageUrl;
         const likePending = this.props.pending;
 

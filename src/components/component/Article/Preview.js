@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import * as path from 'config/path';
 import { GOOGLE_KEY } from 'config/key';
-import { ImageLoader, GoogleMap, Input, Textarea } from 'components';
+import { ImageLoader, GoogleMap, NaverMap, Input, Textarea } from 'components';
 
 class Preview extends Component {
-
     shouldComponentUpdate(nextProps) {
         return JSON.stringify(this.props.og) !== JSON.stringify(nextProps.og);
     }
 
     render() {
+        const nationCode = this.props.nationCode;
         const og = this.props.og;
         const map = og.map;
         const imageUrl = og.ogImageUrl ? og.ogImageUrl.replace(/%/gi, '%25') : null;
@@ -25,7 +25,7 @@ class Preview extends Component {
                     <div className="input-field title">
                         <Input id="og-title"
                                name="og-title"
-                               value={this.props.og.ogTitle}
+                               value={og.ogTitle}
                                placeholder="Title"
                                onChange={this.props.onChange}/>
                     </div>
@@ -41,17 +41,23 @@ class Preview extends Component {
                     </div>
                 </div>
                 {map ?
-                    <div className="map">
-                        <GoogleMap googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                                   loadingElement={<div style={{ height: '100%' }} />}
-                                   containerElement={<div style={{ height: '100%' }} />}
-                                   mapElement={<div style={{ height: '100%' }} />}
-                                   title={map.title}
-                                   defaultZoom={15}
-                                   defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>
+                    <div className="location-area">
+                        <div>{map.address}</div>
+                        <div>{map.addressRoad}</div>
+                        <div className="map">
+                            {nationCode === 'kr' ?
+                                <NaverMap id="scrap-detail-map"
+                                          defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>
+                              : <GoogleMap googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                                       loadingElement={<div style={{ height: '100%' }} />}
+                                       containerElement={<div style={{ height: '100%' }} />}
+                                       mapElement={<div style={{ height: '100%' }} />}
+                                       title={map.title}
+                                       defaultZoom={15}
+                                       defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>}
+                        </div>
                     </div>
-                    : null
-                }
+                    : undefined}
             </div>
         );
     }
