@@ -40,14 +40,23 @@
 	}
 	.btn-area {
 		@include clearfix;
-		overflow: hidden;
 		margin-top: 20px;
 		.btn-heart {
-			font-size: 17px;
+			color: #aaa;
+			i {
+				font-size: 17px;
+			}
 		}
-		.btn-delete {
+		.owner-area {
 			float: right;
-			font-size: 17px;
+			> * {
+				+ * {
+					margin-left: 15px;
+				}
+			}
+			i {
+				font-size: 17px;
+			}
 		}
 	}
 	.map-area {

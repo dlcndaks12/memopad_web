@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getScrap, clearScrapList } from 'modules/scrap';
 import { CircleLoader, ScrapDetail } from 'components';
+import { getScrap, clearScrapList } from 'modules/scrap';
 
 class Detail extends Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class Detail extends Component {
             <div className="contents scrap-detail">
                 {data ?
                     <ScrapDetail data={data}/>
-                    : <CircleLoader/>}
+                  : <CircleLoader/>}
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as path from 'config/path';
 import { GOOGLE_KEY } from 'config/key';
-import { ImageLoader, Map, Input, Textarea } from 'components';
+import { ImageLoader, GoogleMap, Input, Textarea } from 'components';
 
 class Preview extends Component {
 
@@ -42,13 +42,13 @@ class Preview extends Component {
                 </div>
                 {map ?
                     <div className="map">
-                        <Map googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                             loadingElement={<div style={{ height: '100%' }} />}
-                             containerElement={<div style={{ height: '100%' }} />}
-                             mapElement={<div style={{ height: '100%' }} />}
-                             title={map.title}
-                             defaultZoom={15}
-                             defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>
+                        <GoogleMap googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                                   loadingElement={<div style={{ height: '100%' }} />}
+                                   containerElement={<div style={{ height: '100%' }} />}
+                                   mapElement={<div style={{ height: '100%' }} />}
+                                   title={map.title}
+                                   defaultZoom={15}
+                                   defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>
                     </div>
                     : null
                 }

@@ -6,7 +6,8 @@ export { default as Toast } from './common/Toast/Toast';
 export { default as Message } from './common/Toast/Message';
 export { default as Confirm } from './common/Confirm/Confirm';
 export { default as Sakura } from './common/Decoration/Sakura';
-export { GoogleAPIMap as Map } from './common/Map/GoogleAPIMap';
+export { default as GoogleMap } from './common/Map/GoogleAPIMap';
+export { default as NaverMap } from './common/Map/NaverMap';
 
 /* COMPONENT */
 export { default as CardList } from './component/Card/CardList';

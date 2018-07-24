@@ -75,7 +75,6 @@ export const likeScrapCancel = createAction(LIKE_SCRAP_CANCEL, scrapService.like
  * @param isLiked:Boolean
  */
 export function handleLike(idx, isLiked) {
-    console.log(idx, isLiked);
     return (dispatch, getState) => {
         if (!getState().auth.isLoggedIn) {
             dispatch(toast('로그인 해주세요.'));

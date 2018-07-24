@@ -125,17 +125,17 @@ class Card extends Component {
                                 <LikeButton active={item.liked}
                                             count={item.likeCount}/>}
                         </div>
-                        <div className="right">
-                            {item.owner ?
-                                <a className="btn-delete" onClick={() => this.handleDelete(item.idx)}><i className="fas fa-trash-alt"/></a>
-                                : undefined}
-                            {map ?
-                                <a onClick={() => this.handleMap(map)} className="btn-map" title="지도">
-                                    <i className="fas fa-map-marked-alt"/>
-                                </a>
-                                : undefined}
-                            {/*<Link to={`/${item.writer}`} className="author">{item.writer}</Link>*/}
-                        </div>
+                        {/*<div className="right">*/}
+                            {/*{item.owner ?*/}
+                                {/*<a className="btn-delete" onClick={() => this.handleDelete(item.idx)}><i className="fas fa-trash-alt"/></a>*/}
+                                {/*: undefined}*/}
+                            {/*{map ?*/}
+                                {/*<a onClick={() => this.handleMap(map)} className="btn-map" title="지도">*/}
+                                    {/*<i className="fas fa-map-marked-alt"/>*/}
+                                {/*</a>*/}
+                                {/*: undefined}*/}
+                            {/*/!*<Link to={`/${item.writer}`} className="author">{item.writer}</Link>*!/*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </div>
