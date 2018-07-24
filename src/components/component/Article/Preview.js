@@ -42,19 +42,24 @@ class Preview extends Component {
                 </div>
                 {map ?
                     <div className="location-area">
-                        <div>{map.address}</div>
-                        <div>{map.addressRoad}</div>
                         <div className="map">
                             {nationCode === 'kr' ?
                                 <NaverMap id="scrap-detail-map"
+                                          title={map.title}
+                                          address={map.address}
+                                          roadAddress={map.roadAddress}
                                           defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>
                               : <GoogleMap googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-                                       loadingElement={<div style={{ height: '100%' }} />}
-                                       containerElement={<div style={{ height: '100%' }} />}
-                                       mapElement={<div style={{ height: '100%' }} />}
-                                       title={map.title}
-                                       defaultZoom={15}
-                                       defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>}
+                                           loadingElement={<div style={{ height: '100%' }} />}
+                                           containerElement={<div style={{ height: '100%' }} />}
+                                           mapElement={<div style={{ height: '100%' }} />}
+                                           title={map.title}
+                                           defaultZoom={15}
+                                           defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>}
+                        </div>
+                        <div className="address-wrap">
+                            <div className="address">{map.address}</div>
+                            <div className="road-address">{map.roadAddress}</div>
                         </div>
                     </div>
                     : undefined}

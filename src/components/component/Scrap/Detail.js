@@ -15,21 +15,11 @@ class Detail extends Component {
             isModifyMode: false,
         };
 
-        this.handleLike = this.handleLike.bind(this);
+        this.handleScrapLike = this.handleScrapLike.bind(this);
         this.handleModify = this.handleModify.bind(this);
     }
 
-    componentDidMount() {
-        const map = this.props.data.map;
-        if (map) {
-            // console.log(map);
-            // const address = searchCoordinateToAddress({lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)});
-            // console.log(address);
-            // this.setState({address: address});
-        }
-    }
-
-    handleLike(flag) {
+    handleScrapLike(flag) {
         const idx = this.props.data.idx;
         this.props.handleLike(idx, flag).then((res) => {
             if (res.result === 'OK') {
@@ -55,7 +45,6 @@ class Detail extends Component {
         const data = this.state.data;
         const map = data.map;
         const likePending = this.props.likePending;
-        const address = this.state.address;
         const isModifyMode = this.state.isModifyMode;
 
         return (
@@ -75,7 +64,7 @@ class Detail extends Component {
                                 {!likePending ?
                                     <LikeButton active={data.liked}
                                                 count={data.likeCount}
-                                                onClick={() => this.handleLike(!data.liked)}/>
+                                                onClick={() => this.handleScrapLike(!data.liked)}/>
                                     :
                                     <LikeButton active={data.liked}
                                                 count={data.likeCount}/>}
@@ -90,10 +79,16 @@ class Detail extends Component {
                         {data.map ?
                             <div className="map-area">
                                 <div className="section-title">위치</div>
-                                <div className="address">{address}</div>
+                                <div className="address-wrap">
+                                    {map.address ? <div className="address">{map.address}</div> : undefined}
+                                    {map.roadAddress ? <div className="road-address">{map.roadAddress}</div> : undefined}
+                                </div>
                                 <div className="map">
                                     {data.nationCode === 'kr' ?
                                         <NaverMap id="scrap-detail-map"
+                                                  title={map.title}
+                                                  address={map.address}
+                                                  roadAddress={map.roadAddress}
                                                   defaultCenter={{lat: parseFloat(map.latitude), lng: parseFloat(map.longitude)}}/>
                                         :
                                         <GoogleMap googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`}

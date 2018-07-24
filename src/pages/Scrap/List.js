@@ -34,13 +34,16 @@ class Scrap extends Component {
     }
 
     componentDidMount() {
-        this.props.clearScrapList();
-        this.getScrapList();
+        // this.props.clearScrapList();
+        console.log(this.props.match.params.nation, this.props.scrap.nationCode);
+        if (this.props.match.params.nation !== this.props.scrap.nationCode || this.props.scrap.scraps.length === 0) {
+            this.getScrapList();
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         const scrollEnd = nextProps.layout.scroll.end;
-        const currentPage = this.state.page;
+        const currentPage = nextProps.scrap.page;
         const nextPage = parseInt(currentPage, 10) + 1;
         const totalPage = Math.ceil(nextProps.scrap.total / this.state.limit);
         const pagePending = this.props.scrapAddPending;

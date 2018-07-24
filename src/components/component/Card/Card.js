@@ -115,16 +115,23 @@ class Card extends Component {
                             </div>
                         </div>
                     </Link>
-                    <div className="util-area">
-                        <div className="left">
-                            {!likePending ?
-                                <LikeButton active={item.liked}
-                                            count={item.likeCount}
-                                            onClick={() => this.handleLike(!item.liked)}/>
-                                :
-                                <LikeButton active={item.liked}
-                                            count={item.likeCount}/>}
-                        </div>
+                    {!likePending ?
+                        <LikeButton active={item.liked}
+                                    count={item.likeCount}
+                                    onClick={() => this.handleLike(!item.liked)}/>
+                        :
+                        <LikeButton active={item.liked}
+                                    count={item.likeCount}/>}
+                    {/*<div className="util-area">*/}
+                        {/*<div className="left">*/}
+                            {/*{!likePending ?*/}
+                                {/*<LikeButton active={item.liked}*/}
+                                            {/*count={item.likeCount}*/}
+                                            {/*onClick={() => this.handleLike(!item.liked)}/>*/}
+                                {/*:*/}
+                                {/*<LikeButton active={item.liked}*/}
+                                            {/*count={item.likeCount}/>}*/}
+                        {/*</div>*/}
                         {/*<div className="right">*/}
                             {/*{item.owner ?*/}
                                 {/*<a className="btn-delete" onClick={() => this.handleDelete(item.idx)}><i className="fas fa-trash-alt"/></a>*/}
@@ -136,7 +143,7 @@ class Card extends Component {
                                 {/*: undefined}*/}
                             {/*/!*<Link to={`/${item.writer}`} className="author">{item.writer}</Link>*!/*/}
                         {/*</div>*/}
-                    </div>
+                    {/*</div>*/}
                 </div>
             </div>
         );

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class LikeButton extends Component {
+    shouldComponentUpdate(nextProps) {
+        return JSON.stringify(this.props) !== JSON.stringify(nextProps);
+    }
 
     render() {
         const active = this.props.active;
@@ -8,7 +11,10 @@ class LikeButton extends Component {
 
         return (
             <a className={`btn-heart ${active ? 'active' : ''}`} onClick={this.props.onClick}>
-                <i className="fas fa-heart"/>
+                <span className="heart-wrap">
+                    <i className="fas fa-heart"/>
+                    <i className="fas fa-heart effector"/>
+                </span>
                 {count > 0 ? <span className="like-count">{count}</span> : undefined}
             </a>
         );

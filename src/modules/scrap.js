@@ -8,6 +8,7 @@ const GET_SCRAP = 'scrap/GET_SCRAP';
 const ADD_SCRAP_LIST = 'scrap/ADD_SCRAP_LIST';
 const CLEAR_SCRAP_LIST = 'scrap/CLEAR_SCRAP_LIST';
 const REGISTER_SCRAP = 'scrap/REGISTER_SCRAP';
+const UPDATE_SCRAP = 'scrap/UPDATE_SCRAP';
 const DELETE_SCRAP = 'scrap/DELETE_SCRAP';
 const LIKE_SCRAP = 'scrap/LIKE_SCRAP';
 const LIKE_SCRAP_CANCEL = 'scrap/LIKE_SCRAP_CANCEL';
@@ -54,6 +55,15 @@ export const clearScrapList = createAction(CLEAR_SCRAP_LIST);
  * @param og:Object
  */
 export const registerScrap = createAction(REGISTER_SCRAP, scrapService.registerScrap);
+
+/**
+ * @param scrapIdx:Number
+ * @param nationCode:String
+ * @param cityIdx:Number
+ * @param categoryIdx:Number
+ * @param og:Object
+ */
+export const updateScrap = createAction(UPDATE_SCRAP, scrapService.updateScrap);
 
 /**
  * @param scrapIdx:Number
@@ -135,6 +145,7 @@ export default handleActions({
             scraps = scraps.concat(res.data.list);
             return {
                 ...state,
+                page: res.data.page,
                 total: res.data.total,
                 scraps: scraps,
             }

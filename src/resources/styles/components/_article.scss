@@ -68,8 +68,17 @@
 		}
 	}
 	.section-title {
-		margin-bottom: 20px;
+		margin-bottom: 15px;
+		color: #333;
 		font-size: 20px;
 		font-weight: 300;
+	}
+	.address-wrap {
+		margin-bottom: 20px;
+		> div {
+			+ div {
+				margin-top: 5px;
+			}
+		}
 	}
 }

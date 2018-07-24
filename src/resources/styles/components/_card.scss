@@ -113,6 +113,12 @@
             }
         }
     }
+    .btn-heart {
+        position: absolute;
+        top: 8px;
+        left: 12px;
+        font-size: 16px;
+    }
     .util-area {
         @include clearfix();
         position: absolute;

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'modules/toast';
 import { initOg, getOgByUrl, setOg, setOgMap } from 'modules/og';
-import { registerScrap } from 'modules/scrap';
+import { registerScrap, updateScrap } from 'modules/scrap';
 import { CircleLoader, Preview, Select, Input, Button } from 'components';
 import { searchCoordinateToAddress } from 'util/map';
 
@@ -20,11 +20,13 @@ class Write extends Component {
     constructor(props) {
         super(props);
 
+        const isModifyMode = props.isModifyMode;
+        const modifyData = props.data;
         this.state = {
             url: '',
-            nationSelected: props.nationSelected,
-            citySelected: props.citySelected,
-            categorySelected: -1,
+            nationSelected: isModifyMode ? modifyData.nationCode : props.nationSelected,
+            citySelected: isModifyMode ? modifyData.cityIdx : props.citySelected,
+            categorySelected: isModifyMode ? modifyData.categoryIdx : -1,
             requestOgTimer: null,
         };
 
@@ -65,27 +67,26 @@ class Write extends Component {
     }
 
     listenOGTag(url) {
-        this.props.getOgByUrl(url)
-            .then((res) => {
-                if (res.result === 'OK') {
-                    if (res.data.map) {
-                        const coord = {
-                            lat: parseFloat(res.data.map.latitude),
-                            lng: parseFloat(res.data.map.longitude),
+        this.props.getOgByUrl(url).then((res) => {
+            if (res.result === 'OK') {
+                if (res.data.map) {
+                    const coord = {
+                        lat: parseFloat(res.data.map.latitude),
+                        lng: parseFloat(res.data.map.longitude),
+                    };
+                    searchCoordinateToAddress(coord).then((address) => {
+                        const ogMap = {
+                            ...this.props.og.og.map,
+                            address: address.length > 0 ? address[0] : '',
+                            roadAddress: address.length > 1 ? address[1] : '',
                         };
-                        searchCoordinateToAddress(coord).then((address) => {
-                            const ogMap = {
-                                ...this.props.og.og.map,
-                                address: address.length > 0 ? address[0] : '',
-                                addressRoad: address.length > 1 ? address[1] : '',
-                            };
-                            this.props.setOgMap(ogMap);
-                        });
-                    }
-                } else {
-                    this.props.toast(res.message);
+                        this.props.setOgMap(ogMap);
+                    });
                 }
-            });
+            } else {
+                this.props.toast(res.message);
+            }
+        });
     }
 
     handleSelect(e) {
@@ -132,8 +133,15 @@ class Write extends Component {
             return;
         }
 
-        this.props.registerScrap(nationCode, cityIdx, categoryIdx, og)
-            .then((res) => {
+        if (this.props.isModifyMode) {
+            const scrapIdx = this.props.data.idx;
+            this.props.updateScrap(scrapIdx, nationCode, cityIdx, categoryIdx, og).then((res) => {
+                this.props.toast(res.message);
+                this.props.history.push(`/scrap/${nationCode}`);
+                // this.props.handleCancelModify();
+            });
+        } else {
+            this.props.registerScrap(nationCode, cityIdx, categoryIdx, og).then((res) => {
                 if (res.result === 'OK') {
                     this.props.history.push(`/scrap/${nationCode}`);
                 }
@@ -141,17 +149,17 @@ class Write extends Component {
             }).catch((error) => {
                 this.props.toast(error.message);
             });
+        }
     }
 
     render() {
         const isModifyMode = this.props.isModifyMode;
-        const modifyData = this.props.data;
-        const nationSelected = isModifyMode ? modifyData.nationCode : this.state.nationSelected;
-        const citySelected = isModifyMode ? modifyData.cityIdx : this.state.citySelected;
+        const nationSelected = this.state.nationSelected;
+        const citySelected = this.state.citySelected;
         const nation = this.props.location.nation;
         const city = this.props.location.city !== null ? this.props.location.city[nationSelected] : null;
         const category = this.props.category;
-        const categoryIdx = isModifyMode ? modifyData.categoryIdx : '';
+        const categorySelected = this.state.categorySelected;
         const url = this.state.url;
         const cityLength = city !== null ? city.length : null;
 
@@ -165,7 +173,7 @@ class Write extends Component {
                         <Select defaultSelected={citySelected} type="city" option={city} onChange={this.handleSelect}/>
                     </div>
                     <div className="select-area category-sel">
-                        <Select defaultSelected={categoryIdx} type="category" option={category} onChange={this.handleSelect}/>
+                        <Select defaultSelected={categorySelected} type="category" option={category} onChange={this.handleSelect}/>
                     </div>
                     <div className="input-area">
                         <div className="input-field link">
@@ -187,15 +195,27 @@ class Write extends Component {
                                      onChange={this.handleInput}
                                      onSubmit={this.handleSubmit}/>
                             <div className="submit-area">
-                                {this.props.pending['scrap/REGISTER_SCRAP'] ?
-                                    <Button expanded size="lg" name="action">
-                                        <CircleLoader size={30} color="white"/>
-                                    </Button>
-                                    :
-                                    !isModifyMode ?
+                                {!isModifyMode ?
+                                    this.props.pending['scrap/REGISTER_SCRAP'] ?
+                                        <Button expanded size="lg" name="action">
+                                            <CircleLoader size={30} color="white"/>
+                                        </Button>
+                                        :
                                         <Button expanded size="lg" name="action" onClick={this.handleSubmit}>등록</Button>
-                                     : [<Button expanded size="lg" name="action" key="modify" onClick={this.handleSubmit}>수정</Button>,
-                                        <Button expanded size="lg" name="action" key="cancel" color="gray" onClick={this.props.handleCancelModify}>취소</Button>]}
+                                    :
+                                    this.props.pending['scrap/UPDATE_SCRAP'] ?
+                                        <Fragment>
+                                            <Button expanded size="lg" name="action" key="modify">
+                                                <CircleLoader size={30} color="white"/>
+                                            </Button>
+                                            <Button expanded size="lg" name="action" key="cancel" color="gray" onClick={this.props.handleCancelModify}>취소</Button>
+                                        </Fragment>
+                                        :
+                                        <Fragment>
+                                            <Button expanded size="lg" name="action" key="modify" onClick={this.handleSubmit}>수정</Button>
+                                            <Button expanded size="lg" name="action" key="cancel" color="gray" onClick={this.props.handleCancelModify}>취소</Button>
+                                        </Fragment>
+                                    }
                             </div>
                         </div> : ''}
             </div>
@@ -217,6 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
     setOg: (og) => dispatch(setOg(og)),
     setOgMap: (ogMap) => dispatch(setOgMap(ogMap)),
     registerScrap: (nationCode, cityIdx, categoryIdx, og) => dispatch(registerScrap(nationCode, cityIdx, categoryIdx, og)),
+    updateScrap: (scrapIdx, nationCode, cityIdx, categoryIdx, og) => dispatch(updateScrap(scrapIdx, nationCode, cityIdx, categoryIdx, og)),
     toast: (content, time) => dispatch(toast(content, time)),
 });
 

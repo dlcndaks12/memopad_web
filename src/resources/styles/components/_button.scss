@@ -62,14 +62,31 @@ $bezier: cubic-bezier(.175, .885, .32, 1.275);
     &.active {
         color: #ff4f51 !important;
         i {
-            animation: heartPulse .25s $bezier both;
+            //animation: heartPulse .25s $bezier both;
+            &.effector {
+                opacity: 0;
+                transform: scale(2.5);
+                transition: transform 1s $bezier, opacity 1s $bezier;
+            }
         }
     }
     > * {
         vertical-align: middle;
     }
     i {
+        display: block;
+        &.effector {
+            opacity: 0.7;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(1);
+            transition: none;
+        }
+    }
+    .heart-wrap {
         display: inline-block;
+        position: relative;
     }
     .like-count {
         display: inline-block;

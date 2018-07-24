@@ -40,21 +40,33 @@ export function registerScrap(nationCode, cityIdx, categoryIdx, og) {
     });
 }
 
-/* SCRAP DELETE */
+/* Scrap Update */
+export function updateScrap(scrapIdx, nationCode, cityIdx, categoryIdx, og) {
+    return axios.put(`/api/scrap/${scrapIdx}`, {
+        nationCode: nationCode,
+        cityIdx: cityIdx,
+        categoryIdx: categoryIdx,
+        title: og.ogTitle,
+        description: og.ogDescription,
+        map: og.map,
+    });
+}
+
+/* Scrap Delete */
 export function deleteScrap(scrapIdx) {
     return axios.delete(`/api/scrap/${scrapIdx}`, {
         scrapIdx: scrapIdx,
     });
 }
 
-/* SCRAP LIKE */
+/* Scrap Like */
 export function likeScrap(scrapIdx) {
     return axios.post(`/api/scrap/like/${scrapIdx}`, {
         scrapIdx: scrapIdx,
     });
 }
 
-/* SCRAP LIKE CANCEL */
+/* Scrap Like Cancel */
 export function likeScrapCancel(scrapIdx) {
     return axios.delete(`/api/scrap/like/${scrapIdx}`, {
         scrapIdx: scrapIdx,
