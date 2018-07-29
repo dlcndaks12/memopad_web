@@ -21,6 +21,7 @@ export { default as Selection } from './component/Option/Selection';
 export { default as NationTab } from './component/Tab/NationTab';
 export { default as ScrapWrite } from './component/Scrap/Write';
 export { default as ScrapDetail } from './component/Scrap/Detail';
+export { default as ReviewWrite } from './component/Review/Write';
 
 /* COMPONENT/FORM */
 export { default as Input } from './component/Form/Input';

@@ -9,7 +9,7 @@ import { getCookie, deleteCookie } from 'util/cookie';
 import { auth, authFailure } from 'modules/auth';
 import { initLocations } from 'modules/location';
 import { category } from 'modules/category';
-import { setScrollEnd } from 'modules/layout';
+import { setScrollEnd, setPageName } from 'modules/layout';
 import { SideNavigation } from "components";
 import { sideNavClose } from "./modules/sideNav";
 
@@ -28,23 +28,15 @@ class App extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // if (JSON.stringify(this.props.sideNav.isOpen) !== JSON.stringify(nextProps.sideNav.isOpen)) {
-        //     if (nextProps.sideNav.isOpen) {
-        //         const scrollTop = window.scrollY;
-        //         this.setState({currentScrollTop: scrollTop});
-        //         window.document.body.style.position = 'fixed';
-        //         window.document.body.style.top = -scrollTop + 'px';
-        //         window.document.body.classList.add('side-nav-open');
-        //     } else {
-        //         window.document.body.style.position = '';
-        //         window.document.body.style.top = '';
-        //         window.scrollTo(0, this.state.currentScrollTop);
-        //         window.document.body.classList.remove('side-nav-open');
-        //     }
-        // }
+        const pathname = nextProps.location.pathname;
+        if (this.props.location.pathname !== pathname) {
+            nextProps.setPageName(pathname);
+        }
     }
 
     componentDidMount() {
+        this.props.setPageName(this.props.location.pathname);
+
         // Auth 체크
         if (getCookie('Authentication')) {
             this.props.auth().catch(() => {
@@ -144,6 +136,7 @@ const mapDispatchToProps = (dispatch) => ({
     category: () => dispatch(category()),
     setScrollEnd: (isEnd) => dispatch(setScrollEnd(isEnd)),
     sideNavClose: () => dispatch(sideNavClose()),
+    setPageName: (pathname) => dispatch(setPageName(pathname)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

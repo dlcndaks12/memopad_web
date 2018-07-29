@@ -20,6 +20,7 @@ class Header extends Component {
 
     render() {
         const nickname = this.props.auth.nickname;
+        const pageName = this.props.layout.pageName;
 
         const loggedIn = (
             <li>
@@ -48,6 +49,7 @@ class Header extends Component {
                                 <span className="line3"/>
                             </span>
                         </a>
+                        {pageName ? <h2>{pageName}</h2> : undefined}
                     </div>
                     <h1><Link to="/" className="logo center">trip &amp; place</Link></h1>
                     <ul className="util-btn-group">
@@ -63,6 +65,7 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
     sideNav: state.sideNav,
     progress: state.progress,
+    layout: state.layout,
 });
 
 const mapDispatchToProps = (dispatch) => ({

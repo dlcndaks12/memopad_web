@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { PrivateRoute } from 'components';
 import { ReviewWrite, ReviewList } from 'pages';
-// import './Review.scss';
+import './Review.scss';
 
 class Review extends Component {
     render() {

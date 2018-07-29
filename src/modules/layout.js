@@ -1,8 +1,10 @@
 import { createAction, handleActions } from 'redux-actions';
+import { pathnameToPageName } from 'util/layout';
 
 const SCROLL_END = "layout/SCROLL_END";
 const SET_SCROLL_TOP = "layout/SET_SCROLL_TOP";
 const SCROLL_TO = "layout/SCROLL_TO";
+const SET_PAGE_NAME = "layout/SET_PAGE_NAME";
 
 /*============================================================================
  Action
@@ -31,6 +33,11 @@ export const setScrollTop = createAction(SET_SCROLL_TOP);
  */
 export const scrollTo = createAction(SCROLL_TO);
 
+/**
+ * @param pathname:String
+ */
+export const setPageName = createAction(SET_PAGE_NAME);
+
 /*============================================================================
  Default State
  ===========================================================================*/
@@ -39,6 +46,7 @@ const initialState = {
         end: false,
         top: 0,
     },
+    pageName: '',
 };
 
 /*============================================================================
@@ -72,4 +80,10 @@ export default handleActions({
             }
         }
     }*/
+    [SET_PAGE_NAME]: (state, action) => {
+        return {
+            ...state,
+            pageName: pathnameToPageName(action.payload),
+        }
+    },
 }, initialState);

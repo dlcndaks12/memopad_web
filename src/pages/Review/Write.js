@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ScrapWrite } from 'components';
+import { ReviewWrite } from 'components';
 import qs from 'query-string';
 
 class Write extends Component {
@@ -42,9 +42,9 @@ class Write extends Component {
         const citySelected = this.state.citySelected;
 
         return (
-            <div className="scrap-write">
-                <blockquote>공유하고자 하는 link만 입력하시면 간편 스크랩 내용이 채워집니다.</blockquote>
-                <ScrapWrite key = {nationSelected + citySelected}
+            <div className="contents review-write">
+                <blockquote>여러분이 직접 가본 후기와 아름다운 사진을 올려주세요.</blockquote>
+                <ReviewWrite key = {nationSelected + citySelected}
                             nationSelected = {nationSelected}
                             citySelected = {citySelected} />
             </div>

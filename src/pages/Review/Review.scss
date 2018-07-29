@@ -1,11 +1,26 @@
 .review {
     .progress-area {
-        margin: 70px 0;
-        height: 36px;
+        margin: 60px 0;
+    }
+    .end-page {
+        margin: 50px 0 30px;
+        text-align: center;
+        font-size: 0;
+        a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #eee;
+            color: #aaa;
+            font-size: 16px;
+            line-height: 40px;
+            cursor: pointer;
+        }
     }
 }
-.scrap-write {
-    padding-top: 10px;
+.review-write,
+.review-article {
     .input-row {
         display: flex;
         flex-direction: row;
@@ -38,7 +53,7 @@
             + div {
                 margin-left: 10px;
                 @media screen and (max-width: 768px) {
-                    margin-left: 5px;
+                    margin-left: 0;
                 }
             }
         }
@@ -55,12 +70,12 @@
             }
             &.nation-sel {
                 @media screen and (max-width: 768px) {
-                    padding-right: 10px;
+                    padding-right: 5px;
                 }
             }
             &.city-sel {
                 @media screen and (max-width: 768px) {
-                    padding-left: 10px;
+                    padding-left: 5px;
                 }
             }
             &.category-sel {
@@ -84,8 +99,23 @@
     .write-area {
         margin-top: 30px;
     }
-}
-.submit-area {
-    margin-top: 40px;
-    text-align: center;
+    .input-field {
+        &.link {
+            position: relative;
+        }
+    }
+    .reload {
+        position: absolute;
+        top: 4px;
+        right: 5px;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background-color: #fff;
+        cursor: pointer;
+        i {
+            color: #666;
+            font-size: 20px;
+        }
+    }
 }

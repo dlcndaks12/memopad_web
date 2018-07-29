@@ -170,7 +170,6 @@ export default handleActions({
     ...pender({
         type: [DELETE_SCRAP],
         onSuccess: (state, action) => {
-            console.log(state, action);
             const res = action.payload;
             const deletedScraps = state.scraps.filter((item) => {
                 return item.idx !== res.data;

@@ -35,7 +35,7 @@ class Scrap extends Component {
 
     componentDidMount() {
         // this.props.clearScrapList();
-        console.log(this.props.match.params.nation, this.props.scrap.nationCode);
+        // console.log(this.props.match.params.nation, this.props.scrap.nationCode);
         const currentNationCode = this.props.match.params.nation ? this.props.match.params.nation : 'kr';
         if (currentNationCode !== this.props.scrap.nationCode || this.props.scrap.scraps.length === 0) {
             this.getScrapList();
