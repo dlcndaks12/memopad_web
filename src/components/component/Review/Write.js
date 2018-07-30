@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { toast } from 'modules/toast';
 import { initOg, getOgByUrl, setOg, setOgMap } from 'modules/og';
 import { registerScrap, updateScrap } from 'modules/scrap';
-import { Select, Input } from 'components';
+import { Select, Input, ImageLoader } from 'components';
 
 class Write extends Component {
     constructor(props) {
@@ -14,7 +14,36 @@ class Write extends Component {
             nationSelected: props.nationSelected,
             citySelected: props.citySelected,
             categorySelected: -1,
+            images: [],
         };
+
+        this.handleFile = this.handleFile.bind(this);
+    }
+
+    handleFile(e) {
+        const currentImageLength = this.state.images.length;
+        const files = e.target.files;
+
+        for (let i = 0; i < files.length; i++) {
+            if (i > (4 - currentImageLength)) {
+                alert('이미지는 최대 5개 까지 등록 가능합니다.');
+                break;
+            }
+
+            const file = e.target.files[i];
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                file.data = reader.result;
+                this.setState((prevState) => ({
+                    images: [...prevState.images, file]
+                }), () => {
+                    console.log(this.state.images);
+                });
+            };
+
+            reader.readAsDataURL(file);
+        }
     }
 
     render() {
@@ -23,6 +52,7 @@ class Write extends Component {
         const nation = this.props.location.nation;
         const city = this.props.location.city !== null ? this.props.location.city[nationSelected] : null;
         const cityLength = city !== null ? city.length : null;
+        const images = this.state.images;
 
         return (
             <div className="write-area">
@@ -44,9 +74,20 @@ class Write extends Component {
                 </div>
                 <div className="image-area">
                     <div className="add-file">
-                        <input type="file" id="add-review-image" accept="image/*" capture="camera"/>
-                        <label htmlFor="add-review-image"/>
+                        <input type="file" id="add-review-image" multiple accept="image/*" onChange={this.handleFile}/>
+                        <label htmlFor="add-review-image">
+                            <i className="fas fa-plus-circle"/>
+                            <span>이미지</span>
+                        </label>
                     </div>
+                    <ul className="images">
+                        {images.length > 0 && images.map((image, i) =>
+                            <li key={i}>
+                                <ImageLoader image={image.data}
+                                             background/>
+                            </li>
+                        )}
+                    </ul>
                 </div>
             </div>
         );

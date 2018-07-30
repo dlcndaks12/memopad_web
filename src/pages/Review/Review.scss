@@ -75,19 +75,63 @@
                 }
             }
         }
+	    .input-area {
+		    @media screen and (max-width: 768px) {
+			    margin-top: 10px;
+		    }
+	    }
     }
     .write-area {
         margin-top: 30px;
     }
-    .add-file {
-        input {
-            @include hidden;
-        }
-        label {
-            display: block;
-            width: 100px;
-            height: 100px;
-            background-color: #ccc;
+    .image-area {
+        margin-top: 50px;
+	    .images {
+		    @include clearfix;
+		    margin: -4px;
+		    font-size: 0;
+		    text-align: center;
+		    > li {
+			    display: inline-block;
+			    position: relative;
+			    width: 20%;
+			    padding: 4px;
+			    .image {
+				    padding-top: 100%;
+				    background-size: cover;
+				    background-position: 50% 50%;
+			    }
+		    }
+	    }
+        .add-file {
+	        margin-bottom: 20px;
+            input {
+                @include hidden;
+            }
+            label {
+                display: block;
+	            padding: 10px 0;
+                border: 1px dashed #ddd;
+                border-radius: 3px;
+                color: #bbb;
+                text-align: center;
+                font-size: 0;
+	            cursor: pointer;
+	            transition: background-color .3s;
+	            &:hover {
+		            background-color: #f5f5f5;
+	            }
+	            > * {
+		            vertical-align: middle;
+	            }
+	            i {
+		            font-size: 20px;
+	            }
+                span {
+	                margin-left: 8px;
+                    font-size: 16px;
+                }
+            }
         }
     }
 }

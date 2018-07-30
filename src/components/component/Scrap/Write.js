@@ -67,6 +67,7 @@ class Write extends Component {
     }
 
     listenOGTag(url) {
+        if (!url) return;
         this.props.getOgByUrl(url).then((res) => {
             if (res.result === 'OK') {
                 if (res.data.map) {

@@ -81,14 +81,13 @@
             &.category-sel {
                 @media screen and (max-width: 768px) {
                     width: 100%;
+                    margin-top: 10px;
                 }
             }
-            .prefix {
-                display: none;
-                ~ .select-wrapper {
-                    margin-left: 0;
-                    width: auto;
-                }
+        }
+        .input-area {
+            @media screen and (max-width: 768px) {
+                margin-top: 10px;
             }
         }
     }
