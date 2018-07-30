@@ -1,11 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'modules/toast';
 import { initOg, getOgByUrl, setOg, setOgMap } from 'modules/og';
 import { registerScrap, updateScrap } from 'modules/scrap';
-import { CircleLoader, Preview, Select, Input, Button } from 'components';
-import { searchCoordinateToAddress } from 'util/map';
+import { Select, Input } from 'components';
 
 class Write extends Component {
     constructor(props) {
@@ -41,6 +40,12 @@ class Write extends Component {
                                    placeholder="제목을 입력해주세요."
                                    onChange={(e) => this.handleTitle(e.target.value)}/>
                         </div>
+                    </div>
+                </div>
+                <div className="image-area">
+                    <div className="add-file">
+                        <input type="file" id="add-review-image" accept="image/*" capture="camera"/>
+                        <label htmlFor="add-review-image"/>
                     </div>
                 </div>
             </div>

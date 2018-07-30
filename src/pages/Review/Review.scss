@@ -1,3 +1,5 @@
+@import "../../resources/styles/helper/mixins";
+
 .review {
     .progress-area {
         margin: 60px 0;
@@ -40,12 +42,6 @@
                 &.city-sel {
                     display: none;
                 }
-                &.category-sel {
-                    width: 180px;
-                    @media screen and (max-width: 768px) {
-                        width: 100%;
-                    }
-                }
             }
         }
         > div {
@@ -78,44 +74,20 @@
                     padding-left: 5px;
                 }
             }
-            &.category-sel {
-                @media screen and (max-width: 768px) {
-                    width: 100%;
-                }
-            }
-            .prefix {
-                display: none;
-                ~ .select-wrapper {
-                    margin-left: 0;
-                    width: auto;
-                }
-            }
         }
-    }
-    .write-loader {
-        padding: 100px 0;
-        text-align: center;
     }
     .write-area {
         margin-top: 30px;
     }
-    .input-field {
-        &.link {
-            position: relative;
+    .add-file {
+        input {
+            @include hidden;
         }
-    }
-    .reload {
-        position: absolute;
-        top: 4px;
-        right: 5px;
-        padding: 5px;
-        border: 1px solid #ddd;
-        border-radius: 3px;
-        background-color: #fff;
-        cursor: pointer;
-        i {
-            color: #666;
-            font-size: 20px;
+        label {
+            display: block;
+            width: 100px;
+            height: 100px;
+            background-color: #ccc;
         }
     }
 }
