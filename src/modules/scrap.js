@@ -122,6 +122,7 @@ export default handleActions({
             const res = action.payload;
             return {
                 ...state,
+                page: res.data.page,
                 total: res.data.total,
                 scraps: res.data.list,
             }
