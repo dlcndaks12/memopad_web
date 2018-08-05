@@ -4,6 +4,7 @@
 		width: 500px;
 		max-width: 100%;
 		margin:  0 auto;
+		box-shadow: 0 0 3px rgba(0, 0, 0, 0.14), 0 1px 4px rgba(0, 0, 0, 0.28);
 		text-align: center;
 		img {
 			max-width: 100%;
@@ -11,7 +12,7 @@
 	}
 	.link {
 		position: absolute;
-		right: 40px;
+		right: 10px;
 		bottom: -24px;
 		width: 48px;
 		height: 48px;
